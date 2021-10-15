@@ -1,7 +1,6 @@
-# HelloHealth
-Blue Ocean Project
+# Blue Ocean Project
 
-# Overview
+# HelloHealth
 
 HelloHealth is a website that connects consumers to local farms. Through our service, local farms can list their products for sale and consumers can purchase their products. HelloHealth offers a subscription plan and the sale of individual products. Just log in to our site and add the items you need into the cart. You can cancel your subscription at any time. 
 
