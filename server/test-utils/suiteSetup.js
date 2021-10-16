@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /*
  * Note: Sequelize will use <rootDir>/config.json
  */

@@ -1,4 +1,3 @@
-const express = require('express');
 const config = require('./config/config');
 const server = require('./server');
 
@@ -8,7 +7,7 @@ const server = require('./server');
 //   console.log(Server is currently listening on http://localhost:${process.env.DEV_PORT});
 // });
 
-const SERVER_PORT = config.SERVER_PORT || 6000;
+const SERVER_PORT = config.SERVER_PORT || 8001;
 
 if (config.NODE_ENV !== 'test') {
   server.listen(SERVER_PORT, () => {

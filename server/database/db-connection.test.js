@@ -1,5 +1,7 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 const { Pool } = require('pg');
-config = require('../config/config');
+const config = require('../config/config');
 const { sequelize } = require('./index');
 
 describe('Database Connection', () => {

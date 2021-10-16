@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /*
  * Connect Sequelize and
  * the PostgreSQL database

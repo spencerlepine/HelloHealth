@@ -1,10 +1,11 @@
+/* eslint-disable no-undef */
 const {
   sequelize,
   dataTypes,
   checkModelName,
-  checkUniqueIndex,
+  // checkUniqueIndex,
   checkPropertyExists,
-  checkNonUniqueIndex,
+  // checkNonUniqueIndex,
 } = require('sequelize-test-helpers');
 
 const ExampleModel = require('./example.model');
