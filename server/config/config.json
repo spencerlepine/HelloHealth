@@ -1,0 +1,37 @@
+{
+  "development": {
+    "username": "ubuntu",
+    "password": "ubuntu",
+    "host": "54.218.13.73",
+    "port": 5432,
+    "dialect": "postgres",
+    "database": "postgres",
+    "models_path": "./server/database/models",
+    "migrations_path": "./server/database/migrations"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "dialect": "postgres",
+    "database": "test_db",
+    "models_path": "./server/database/models",
+    "migrations_path": "./server/database/migrations"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "postgres",
+    "host": "191.939.103.103",
+    "port": 5432,
+    "database": "postgres",
+    "models_path": "./server/database/models",
+    "migrations_path": "./server/database/migrations",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "rejectUnauthorized": false
+      }
+    }
+  }
+}
