@@ -34,16 +34,18 @@ $ npm install
 - After cloning down the repo create a `.env` file in the root directory and copy contents of `.env.sample` over.
 - Edit the `SERVER_URL` to be your host url
 
-```
-// Express server
+```sh
+# Express server
 
 $ npm run server-start
 
-// Client (Vite) Server for Development
+# Client (Vite) Server for Development
 
-$ npm run dev
+# In seperate terminals
+$ npm run vite:dev
+$ npm run vite:start
 
-// Used to create Bundle ONLY USE for Production
+# Used to create Bundle ONLY USE for Production
 
 $ npm run build
 

@@ -12,9 +12,11 @@
     "pretest": "NODE_ENV=test npm run ORM db:drop && NODE_ENV=test npm run ORM db:create && NODE_ENV=test npm run ORM db:migrate && NODE_ENV=test npm run ORM db:seed:undo:all && NODE_ENV=test npm run ORM db:seed:all",
     "ORM": "sequelize --options-path=server/config/options.js",
     "server-start": "nodemon server/index.js",
-    "dev": "vite",
+    "vite:start": "vite",
+    "vite:dev": "vite build --watch",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -32,6 +34,7 @@
     "@material-ui/core": "^4.12.3",
     "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
+    "@testing-library/jest-dom": "^5.14.1",
     "@vitejs/plugin-react": "^1.0.0",
     "axios": "^0.23.0",
     "chai": "^4.3.4",
@@ -39,7 +42,7 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "firebase": "^9.1.3",
+    "firebase": "^8.10.0",
     "joi": "^17.4.2",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.13",
@@ -58,6 +61,7 @@
     "vite": "^2.6.4"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.15.8",
     "eslint": "^8.0.1",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.25.2",
@@ -121,11 +125,13 @@
       "lcov"
     ],
     "setupFilesAfterEnv": [
-      "./server/test-utils/suiteSetup.js"
+      "<rootDir>/server/test-utils/suiteSetup.js",
+      "<rootDir>/client/test-utils/setupSuite.js"
     ],
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/",
+      "/*.test.js/"
     ]
   }
 }

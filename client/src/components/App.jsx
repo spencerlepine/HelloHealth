@@ -9,7 +9,7 @@ import CartPage from './Pages/CartPage.jsx';
 import AccountPage from './Pages/AccountPage.jsx';
 // import useAuth from '../context/AuthContext.jsx';
 import useMainContext from '../context/MainContext.jsx';
-import * as routeConstants from '../../config/pageRoutes';
+import * as routeConstants from '../config/pageRoutes';
 
 export default function App() {
   const { page } = useMainContext();
