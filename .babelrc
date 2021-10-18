@@ -1,5 +1,16 @@
 {
+  "plugins": [
+    "@babel/plugin-transform-runtime"
+  ],
   "presets": [
-    "@babel/preset-env"
+    "@babel/preset-env",
+    "@babel/react",
+    [
+      "babel-preset-vite",
+      {
+        "env": true, // defaults to true
+        "glob": false // defaults to true
+      }
+    ]
   ]
 }

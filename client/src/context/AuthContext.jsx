@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import config from '../config/config';
 import { auth, db } from '../config/firebase';
 
 export const AuthContext = React.createContext();
@@ -10,13 +11,15 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setCurrentUser(user);
-      } else {
-        setCurrentUser(null);
-      }
-    });
+    if (config.NODE_ENV !== 'test') {
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          setCurrentUser(user);
+        } else {
+          setCurrentUser(null);
+        }
+      });
+    }
   }, []);
 
   // const signInWithGoogle = async () => {

@@ -51,7 +51,7 @@ jobs:
         run: npm run test:db:connection
 
       - name: ✅  Run tests
-        run: npm run test
+        run: npm run test -- --coverage
 
       - name: 🧽 Lint all files
         run: npm run lint:check
