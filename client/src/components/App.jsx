@@ -7,12 +7,15 @@ import BoxPage from './Pages/BoxPage.jsx';
 import FarmsPage from './Pages/FarmsPage.jsx';
 import CartPage from './Pages/CartPage.jsx';
 import AccountPage from './Pages/AccountPage.jsx';
+import LoginPage from './Pages/LoginPage/LoginPage.jsx';
 // import useAuth from '../context/AuthContext.jsx';
 import useMainContext from '../context/MainContext.jsx';
+import useAuth from '../context/AuthContext.jsx';
 import * as routeConstants from '../config/pageRoutes';
 
 export default function App() {
   const { page } = useMainContext();
+  const { currentUser } = useAuth();
   console.log(page);
 
   // test endpoint and server connection
@@ -39,7 +42,11 @@ export default function App() {
         <CartPage />
       </Route>
       <Route path={routeConstants.ACCOUNT}>
-        <AccountPage />
+        {currentUser ? (
+          <AccountPage />
+        ) : (
+          <LoginPage />
+        )}
       </Route>
     </Switch>
   );

@@ -57,27 +57,29 @@ function Navigation() {
               Farms
             </Button>
           </Link>
-          {currentUser ? (
-            <Link to={ACCOUNT}>
-              <Button name="farms" variant="contained">
-                Account
-              </Button>
-            </Link>
-          ) : (
-            <Link to={ACCOUNT}>
-              <Button name="farms" variant="contained">
-                Log In
-              </Button>
-            </Link>
-          )}
+          {
+            currentUser ? (
+              <Link to={ACCOUNT}>
+                <Button name="farms" variant="contained">
+                  Account
+                </Button>
+              </Link>
+            ) : (
+              <Link to={ACCOUNT}>
+                <Button name="farms" variant="contained">
+                  Log In
+                </Button>
+              </Link>
+            )
+          }
           <Link to={CART}>
             <Button onClick={handlePageChange} name="cart">
               <ShoppingCartIcon />
             </Button>
           </Link>
-        </Toolbar>
-      </AppBar>
-    </Box>
+        </Toolbar >
+      </AppBar >
+    </Box >
   );
 }
 

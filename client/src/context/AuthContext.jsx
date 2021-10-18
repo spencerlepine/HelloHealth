@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { auth, googleProvider, facebookProvider } from '../config/firebase';
 import config from '../config/config';
-import { auth, db } from '../config/firebase';
 
 export const AuthContext = React.createContext();
 
@@ -22,46 +22,39 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // const signInWithGoogle = async () => {
-  //   try {
-  //     const res = await auth.signInWithPopup(googleProvider);
-  //     const user = res.user;
-  //     const query = await db
-  //       .collection("users")
-  //       .where("uid", "==", user.uid)
-  //       .get();
-  //     if (query.docs.length === 0) {
-  //       await db.collection("users").add({
-  //         uid: user.uid,
-  //         name: user.displayName,
-  //         authProvider: "google",
-  //         email: user.email,
-  //       });
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //     alert(err.message);
-  //   }
-  // };
+  const signInWithGoogle = (callback = () => { }) => {
+    auth.signInWithPopup(googleProvider).then((res) => {
+      console.log(res.user);
+      callback();
+    }).catch((error) => {
+      console.log(error.message);
+    });
+  };
 
-  const loginUser = async (email, password) => {
+  const signInWithFacebook = (callback = () => { }) => {
+    auth.signInWithPopup(facebookProvider).then((res) => {
+      console.log(res.user);
+      callback();
+    }).catch((error) => {
+      console.log(error.message);
+    });
+  };
+
+  const loginUser = async (email, password, callback = () => { }) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
+      callback();
     } catch (err) {
       console.error(err);
       alert(err.message);
     }
   };
-  const signupUser = async (name, email, password) => {
+
+  const signupUser = async (name, email, password, callback = () => { }) => {
     try {
       const res = await auth.createUserWithEmailAndPassword(email, password);
       const { user } = res;
-      await db.collection('users').add({
-        uid: user.uid,
-        name,
-        authProvider: 'local',
-        email,
-      });
+      callback();
     } catch (err) {
       console.error(err);
       alert(err.message);
@@ -78,8 +71,11 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logoutUser = () => {
+  const logoutUser = (callback = () => { }) => {
     auth.signOut();
+    if (typeof callback === 'function') {
+      callback();
+    }
   };
 
   const value = {
@@ -89,6 +85,7 @@ export const AuthProvider = ({ children }) => {
     loginUser,
     logoutUser,
     signupUser,
+    signInWithGoogle,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

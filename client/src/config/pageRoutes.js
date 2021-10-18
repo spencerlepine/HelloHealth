@@ -5,3 +5,4 @@ export const BOX = '/box';
 export const FARMS = '/farms';
 export const CART = '/cart';
 export const ACCOUNT = '/account';
+export const TRANSACTION = '/transaction/:id';
