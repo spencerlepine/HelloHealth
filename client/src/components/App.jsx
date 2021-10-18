@@ -26,7 +26,7 @@ export default function App() {
 
   const renderPage = () => (
     <Switch>
-      <Route path={routeConstants.HOME}>
+      <Route path={routeConstants.HOME} exact>
         <ProductsPage />
       </Route>
       <Route path={routeConstants.BOX}>

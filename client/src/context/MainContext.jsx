@@ -6,6 +6,7 @@ export const MainProvider = ({ children }) => {
   // add state here
   const [page, setPage] = useState('home');
   const [userType, setUserType] = useState('consumer');
+  const [currentProduct, setCurrentProduct] = useState({});
 
   return (
     <MainContext.Provider
@@ -15,6 +16,8 @@ export const MainProvider = ({ children }) => {
         setPage,
         userType,
         setUserType,
+        currentProduct,
+        setCurrentProduct,
       }}
     >
       {children}
