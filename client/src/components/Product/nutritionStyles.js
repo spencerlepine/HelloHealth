@@ -55,4 +55,9 @@ export default makeStyles(() => ({
   label: {
     fontFamily: 'Helvetica Neue,Helvetica,Arial,sans-serif',
   },
+  addToCart: {
+    width: '50%',
+    backgroundColor: '#3d8bd9 !important',
+    color: 'white !important',
+  },
 }));
