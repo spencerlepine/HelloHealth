@@ -12,7 +12,7 @@ describe('<App />', () => {
     render(<App />);
   });
 
-  it('then shows the light theme by default', () => {
+  it('renders the company name', () => {
     expect(screen.getByText(/HelloHealth/i)).toBeTruthy();
   });
 });

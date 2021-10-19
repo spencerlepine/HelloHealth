@@ -7,7 +7,10 @@
     "test": "jest --detectOpenHandles --runInBand --forceExit",
     "test:watch": "jest --onlyChanged --watch",
     "test:db:connection": "jest --detectOpenHandles --runInBand --forceExit **/**/db-connection.test.js",
-    "lint:check": "eslint . --ext .js",
+    "test:branch": "jest --coverage --changedSince=main --watch --coverageThreshold='{\"global\":{\"statements\":\"60\",\"branches\":\"60\",\"functions\":\"60\",\"lines\":\"60\"}}'",
+    "format": "npm run pretty -- --write",
+    "lint:check": "eslint --ignore-path .gitignore --ext .js --ext .jsx .",
+    "pretty": "prettier --ignore-path .gitignore \"**/*.+(js|json|md)\"",
     "pretest": "NODE_ENV=test npm run ORM db:drop && NODE_ENV=test npm run ORM db:create && NODE_ENV=test npm run ORM db:migrate && NODE_ENV=test npm run ORM db:seed:undo:all && NODE_ENV=test npm run ORM db:seed:all",
     "ORM": "sequelize --options-path=server/config/options.js",
     "server-start": "nodemon server/index.js",
@@ -15,7 +18,9 @@
     "vite:dev": "vite build --watch",
     "build": "vite build",
     "serve": "vite preview",
-    "prepare": "husky install"
+    "pre-commit": "lint-staged",
+    "create-hook": "husky add .husky/pre-commit 'npm run pre-commit && git add .'",
+    "postinstall": "husky install && npm run create-hook"
   },
   "repository": {
     "type": "git",
@@ -72,10 +77,9 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.25.2",
     "husky": "^7.0.2",
-    "i": "^0.3.7",
     "jest": "^27.2.5",
     "lint-staged": "^11.2.3",
-    "npm": "^8.1.0",
+    "prettier": "^2.4.1",
     "sequelize-test-helpers": "^1.4.2"
   },
   "eslintConfig": {
@@ -102,18 +106,16 @@
       "sourceType": "module"
     }
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "hooks": {
+    "pre-commit": "lint-staged && npm run test",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   },
   "lint-staged": {
     "*.{js,css,json,md}": [
       "prettier --write"
     ],
-    "*.js": [
-      "eslint --fix"
-    ]
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   },
   "prettier": {
     "useTabs": false,

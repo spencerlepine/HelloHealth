@@ -1,8 +1,8 @@
 import React from 'react';
-import useMainContext from '../../context/MainContext';
-import UserAccountPage from './UserAccountPage';
-import FarmAccountPage from './FarmAccountPage';
-import ProductsPage from './ProductsPage';
+import useMainContext from '../../context/MainContext.jsx';
+import UserAccountPage from './UserAccountPage/UserAccountPage.jsx';
+import FarmAccountPage from './FarmAccountPage.jsx';
+import ProductsPage from './ProductsPage.jsx';
 
 export default function AccountPage() {
   const { userType } = useMainContext();
