@@ -107,3 +107,5 @@ coveralls.yml
 dist
 
 .husky
+
+package-lock.json
