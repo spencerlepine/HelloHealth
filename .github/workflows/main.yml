@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ['14'] # ['12', '14', '16']
+        node: ['16'] # ['12', '14', '16']
         os: [ubuntu-latest]
 
     services:
@@ -59,11 +59,12 @@ jobs:
       # - name: ⛏️ Build
       #   run: npm run build
 
-      - name: 🔮 Report test coverage
-        uses: artiomtr/jest-coverage-report-action@v2.0-rc.5
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          threshold: 60 # optional parameter
+#       - name: 🔮 Report test coverage
+#         uses: artiomtr/jest-coverage-report-action@v2.0-rc.5
+#         with:
+#           github-token: ${{ secrets.GITHUB_TOKEN }}
+#           threshold: 60 # optional parameter
+#           test-script: npm run test -- --coverage --detectOpenHandles --runInBand --forceExit
 
       - name: 🌪️ Publish to coveralls.io
         uses: coverallsapp/github-action@v1.1.2

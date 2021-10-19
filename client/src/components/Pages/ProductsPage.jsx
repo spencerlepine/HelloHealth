@@ -1,9 +1,14 @@
 import React from 'react';
+import Nutrition from '../Product/Nutrition.jsx';
+import MealList from '../Product/MealList.jsx';
 
 export default function ProductsPage() {
   return (
     <>
-      <h1>ProductsPage</h1>
+      <MealList/>
+      <Nutrition/>
+      <h1>Products Page</h1>
+
     </>
   );
 }
