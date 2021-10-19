@@ -30,7 +30,7 @@ if (error) {
 
 const config = {
   NODE_ENV: envVars.NODE_ENV,
-  SERVER_URL: envVars.SERVER_URL,
+  SERVER_URL: envVars.VITE_SERVER_URL,
   firebaseConfig: {
     apiKey: envVars.VITE_APP_FIREBASE_apiKey,
     authDomain: envVars.VITE_APP_FIREBASE_authDomain,

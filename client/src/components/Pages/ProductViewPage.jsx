@@ -26,14 +26,16 @@ export default function ProductViewPage() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  const renderDropdown = () => (
-    [...Array(productInventory + 1).keys()].map((i) => <MenuItem value={i}>{i}</MenuItem>)
-  );
+  const renderDropdown = () => [...Array(productInventory + 1).keys()].map((i) => (
+      <MenuItem value={i}>{i}</MenuItem>
+  ));
 
   return (
     <Container size="md" sx={{ my: 3 }}>
       <Grid container spacing={2} sx={{ my: 3 }}>
-        <Grid item sm={6}><img width="100%" src={productImage} /></Grid>
+        <Grid item sm={6}>
+          <img width="100%" src={productImage} />
+        </Grid>
         <Grid container item md={6}>
           <StarRatings
             rating={productRating}
@@ -41,11 +43,17 @@ export default function ProductViewPage() {
             numberOfStars={5}
             starDimension="15px"
             starSpacing="2px"
-            name='rating'
+            name="rating"
           />
-          <Grid item xs={12}><h1>{productName}</h1></Grid>
-          <Grid item xs={12}><h2>{productCost}</h2></Grid>
-          <Grid item xs={12}><p>{productDescription}</p></Grid>
+          <Grid item xs={12}>
+            <h1>{productName}</h1>
+          </Grid>
+          <Grid item xs={12}>
+            <h2>{productCost}</h2>
+          </Grid>
+          <Grid item xs={12}>
+            <p>{productDescription}</p>
+          </Grid>
           <Grid container item spacing={2}>
             <Grid item sm={6}>
               <FormControl fullWidth>
@@ -64,17 +72,18 @@ export default function ProductViewPage() {
             <Grid item sm={6} sx={{ display: 'flex' }}>
               <Button
                 fullWidth
-                variant="outlined" color="success"
+                variant="outlined"
+                color="success"
                 sx={{ mb: isSmallScreen ? '0px' : '11px' }}
               >
-                  Add to Cart
+                Add to Cart
               </Button>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-      <MealList/>
-      <Nutrition/>
+      <MealList />
+      <Nutrition />
     </Container>
   );
 }

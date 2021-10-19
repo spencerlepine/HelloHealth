@@ -1,11 +1,7 @@
 import React from 'react';
 import ProductsPage from './ProductsPage.jsx';
 
-import {
-  render,
-  screen,
-  fireEvent,
-} from '../../../test-utils';
+import { render, screen, fireEvent } from '../../../test-utils';
 
 describe('<ProductsPage />', () => {
   beforeEach(() => {

@@ -20,6 +20,7 @@ import useAuth from '../../../context/AuthContext.jsx';
 import { HOME } from '../../../config/pageRoutes';
 import useStyles from '../../styles';
 import AccountForm from './AccountForm.jsx';
+import { user as userAPI } from '../../../api';
 
 const LoginFormFields = [
   {
@@ -107,6 +108,7 @@ const LoginPage = () => {
     } else {
       signupUser(name, email, password, () => {
         history.push(HOME);
+        userAPI.uploadUserAccountType(typeSelection);
       });
     }
   };

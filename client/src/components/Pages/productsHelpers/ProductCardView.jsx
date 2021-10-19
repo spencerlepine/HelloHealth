@@ -37,7 +37,9 @@ export default function ProductCardView({ product }) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            <Link onClick={handleClick} to={`${PRODUCT}${id}`}>{productName}</Link>
+            <Link onClick={handleClick} to={`${PRODUCT}${id}`}>
+              {productName}
+            </Link>
           </Typography>
           <Typography variant="body2" color="text.secondary">
             <p>{productDescription}</p>
@@ -45,7 +47,9 @@ export default function ProductCardView({ product }) {
           </Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button size="small" variant="outlined" color="success">Add to Cart</Button>
+          <Button size="small" variant="outlined" color="success">
+            Add to Cart
+          </Button>
         </CardActions>
       </Card>
     </Grid>

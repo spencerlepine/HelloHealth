@@ -18,11 +18,7 @@ import useAuth from '../context/AuthContext.jsx';
 import logo from './HelloHealth.svg';
 
 import {
-  ACCOUNT,
-  HOME,
-  BOX,
-  FARMS,
-  CART,
+  ACCOUNT, HOME, BOX, FARMS, CART,
 } from '../config/pageRoutes';
 
 function Navigation() {
@@ -69,7 +65,7 @@ function Navigation() {
             onClick={handleClick}
             sx={{ display: isSmallScreen ? 'block' : 'none' }}
           >
-            <MenuIcon color="white"/>
+            <MenuIcon color="white" />
           </IconButton>
           <Menu
             id="basic-menu"
@@ -81,17 +77,28 @@ function Navigation() {
             }}
             sx={{ a: { textDecoration: 'none', color: 'black' } }}
           >
-            <MenuItem><Link to={BOX}>Box</Link></MenuItem>
-            <MenuItem onClick={handleClose}><Link to={FARMS}>Farms</Link></MenuItem>
-            <MenuItem onClick={handleClose}><Link to={ACCOUNT}>Account</Link></MenuItem>
+            <MenuItem>
+              <Link to={BOX}>Box</Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Link to={FARMS}>Farms</Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Link to={ACCOUNT}>Account</Link>
+            </MenuItem>
           </Menu>
 
-          <Box sx={{ flexGrow: isSmallScreen ? 0 : 1, img: { filter: 'invert(1)' } }}>
+          <Box
+            sx={{
+              flexGrow: isSmallScreen ? 0 : 1,
+              img: { filter: 'invert(1)' },
+            }}
+          >
             <Link to={HOME}>
-              <img alt='HelloHealth' src={logo} width={250} />
+              <img alt="HelloHealth" src={logo} width={250} />
             </Link>
           </Box>
-          <Box sx={btnStyle} >
+          <Box sx={btnStyle}>
             <Link to={BOX}>
               <Button name="box" variant="contained">
                 Box
@@ -102,21 +109,19 @@ function Navigation() {
                 Farms
               </Button>
             </Link>
-            {
-              currentUser ? (
-                <Link to={ACCOUNT}>
-                  <Button name="farms" variant="contained">
-                    Account
-                  </Button>
-                </Link>
-              ) : (
-                <Link to={ACCOUNT}>
-                  <Button name="farms" variant="contained">
-                    Log In
-                  </Button>
-                </Link>
-              )
-            }
+            {currentUser ? (
+              <Link to={ACCOUNT}>
+                <Button name="farms" variant="contained">
+                  Account
+                </Button>
+              </Link>
+            ) : (
+              <Link to={ACCOUNT}>
+                <Button name="farms" variant="contained">
+                  Log In
+                </Button>
+              </Link>
+            )}
             <Link to={CART}>
               <Button onClick={handlePageChange} name="cart">
                 <ShoppingCartIcon />

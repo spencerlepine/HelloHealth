@@ -10,7 +10,10 @@ import producsListDummyData from './productsHelpers/productsSampleData.json';
 import ProductCardView from './productsHelpers/ProductCardView.jsx';
 
 export default function ProductsPage() {
-  const style = { ul: { justifyContent: 'center' }, svg: { pointerEvents: 'none' } };
+  const style = {
+    ul: { justifyContent: 'center' },
+    svg: { pointerEvents: 'none' },
+  };
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -21,7 +24,8 @@ export default function ProductsPage() {
   );
   const [page, setPage] = useState(1);
 
-  let productStart = 0; let productEnd = numProds;
+  let productStart = 0;
+  let productEnd = numProds;
   const handlePageChange = (e) => {
     e.preventDefault();
     const pageSelected = Number(e.target.innerText);
@@ -29,9 +33,13 @@ export default function ProductsPage() {
       setPage(pageSelected);
       productStart = (pageSelected - 1) * numProds;
       productEnd = productStart + numProds;
-      setCurrentProductsList(producsListDummyData.slice(productStart, productEnd));
+      setCurrentProductsList(
+        producsListDummyData.slice(productStart, productEnd),
+      );
     } else {
-      const arrowNav = e.target.querySelector('svg').getAttribute('data-testid');
+      const arrowNav = e.target
+        .querySelector('svg')
+        .getAttribute('data-testid');
       if (arrowNav === 'LastPageIcon') {
         setCurrentProductsList(producsListDummyData.slice(-numProds));
         setPage(pageCount);
@@ -45,22 +53,25 @@ export default function ProductsPage() {
         setPage(nextPage);
         productStart = nextPage > pageCount ? pageCount : (nextPage - 1) * numProds;
         productEnd = productStart + numProds;
-        setCurrentProductsList(producsListDummyData.slice(productStart, productEnd));
+        setCurrentProductsList(
+          producsListDummyData.slice(productStart, productEnd),
+        );
       }
       if (arrowNav === 'NavigateBeforeIcon') {
         const prevPage = page - 1;
         setPage(prevPage);
         productStart = prevPage > 0 ? (prevPage - 1) * numProds : 0;
         productEnd = productStart + numProds;
-        setCurrentProductsList(producsListDummyData.slice(productStart, productEnd));
+        setCurrentProductsList(
+          producsListDummyData.slice(productStart, productEnd),
+        );
       }
     }
   };
 
-  const renderProductList = (productList) => (
-    productList.map((product) => (
+  const renderProductList = (productList) => productList.map((product) => (
       <ProductCardView key={product.id} product={product} />
-    )));
+  ));
   return (
     <Container maxWidth="xl">
       <h1>{`Products Page > ${page}`}</h1>
@@ -70,8 +81,11 @@ export default function ProductsPage() {
       <Box my={5} sx={style}>
         <Pagination
           count={pageCount}
-          variant="outlined" color="primary" size={isSmallScreen ? 'small' : 'large'}
-          showFirstButton showLastButton
+          variant="outlined"
+          color="primary"
+          size={isSmallScreen ? 'small' : 'large'}
+          showFirstButton
+          showLastButton
           onChange={(e) => handlePageChange(e)}
         />
       </Box>
