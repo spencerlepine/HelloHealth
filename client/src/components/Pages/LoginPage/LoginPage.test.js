@@ -95,31 +95,33 @@ describe('Login Form', () => {
   });
 
   it('renders name, and email input', () => {
-    const [
-      emailInput,
-      passwordInput,
-    ] = container.querySelectorAll('input');
+    const [emailInput, passwordInput] = container.querySelectorAll('input');
 
     expect(emailInput.getAttribute('name')).toBe('email');
     expect(passwordInput.getAttribute('name')).toBe('password');
   });
 
   it('should accept form input to each field', () => {
-    const [
-      emailInput,
-      passwordInput,
-    ] = container.querySelectorAll('input');
+    const [emailInput, passwordInput] = container.querySelectorAll('input');
 
     const mockEmail = 'johndoe@gmail.com';
-    fireEvent.change(emailInput, { target: { name: 'NOT_AN_EMAIL', value: mockEmail } });
+    fireEvent.change(emailInput, {
+      target: { name: 'NOT_AN_EMAIL', value: mockEmail },
+    });
     expect(emailInput.getAttribute('value')).not.toBe(mockEmail);
-    fireEvent.change(emailInput, { target: { name: 'email', value: mockEmail } });
+    fireEvent.change(emailInput, {
+      target: { name: 'email', value: mockEmail },
+    });
     expect(emailInput.getAttribute('value')).toBe(mockEmail);
 
     const mockPass = 'password123';
-    fireEvent.change(passwordInput, { target: { name: 'NOT_A_PASSWORD', value: mockPass } });
+    fireEvent.change(passwordInput, {
+      target: { name: 'NOT_A_PASSWORD', value: mockPass },
+    });
     expect(passwordInput.getAttribute('value')).not.toBe(mockPass);
-    fireEvent.change(passwordInput, { target: { name: 'password', value: mockPass } });
+    fireEvent.change(passwordInput, {
+      target: { name: 'password', value: mockPass },
+    });
     expect(passwordInput.getAttribute('value')).toBe(mockPass);
   });
 });
@@ -144,11 +146,7 @@ describe('Sign up Form', () => {
   });
 
   it('renders name, email, and password form', () => {
-    const [
-      nameInput,
-      emailInput,
-      passwordInput,
-    ] = container.querySelectorAll('input');
+    const [nameInput, emailInput, passwordInput] = container.querySelectorAll('input');
 
     expect(nameInput.getAttribute('name')).toBe('name');
     expect(emailInput.getAttribute('name')).toBe('email');

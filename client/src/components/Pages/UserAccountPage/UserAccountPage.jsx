@@ -34,33 +34,27 @@ const UserAccountPage = () => {
         <h3>Subscription</h3>
         {/* HERE */}
         <select>
-          <option value={'active'}>
-            Active
-          </option>
-          <option value={'deactived'}>
-            Deactived
-          </option>
+          <option value={'active'}>Active</option>
+          <option value={'deactived'}>Deactived</option>
         </select>
       </figure>
 
       <figure>
         <h3>Transactions</h3>
-        {
-          transactions.length === 0 ? (
-            <p>No transactions found..</p>
-          ) : (
-            <>
-              {transactions.map(({ id }) => (
-                <div key={id}>
-                  <p>Transaction ID: {id}</p>
-                  <p>Total: {'$14.99'}</p>
-                  <Link to={`${TRANSACTION}?=${id}`}>View</Link>
-                </div>
-              ))}
-            </>
-          )
-        }
-      </figure >
+        {transactions.length === 0 ? (
+          <p>No transactions found..</p>
+        ) : (
+          <>
+            {transactions.map(({ id }) => (
+              <div key={id}>
+                <p>Transaction ID: {id}</p>
+                <p>Total: {'$14.99'}</p>
+                <Link to={`${TRANSACTION}?=${id}`}>View</Link>
+              </div>
+            ))}
+          </>
+        )}
+      </figure>
 
       <Button onClick={() => logoutUser()}>Log Out</Button>
     </>

@@ -28,7 +28,11 @@ const MealList = () => {
       <Grid container spacing={0}>
         {sizes.map((size, index) => (
           <Grid item xs={4} key={index}>
-            <MealCard size={size.size} pepRec={size.pepRec} price={size.price} />
+            <MealCard
+              size={size.size}
+              pepRec={size.pepRec}
+              price={size.price}
+            />
           </Grid>
         ))}
       </Grid>

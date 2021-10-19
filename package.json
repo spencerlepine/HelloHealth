@@ -111,11 +111,11 @@
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   },
   "lint-staged": {
-    "*.{js,css,json,md}": [
+    "*.{js,css,json,md,jsx}": [
       "prettier --write"
     ],
-    "*.js": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.{js,jsx}": "eslint --cache --fix",
+    "*.{js,css,md,jsx}": "prettier --write"
   },
   "prettier": {
     "useTabs": false,

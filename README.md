@@ -19,36 +19,17 @@
 The project was completed in a week based on specifications provided by an external client.
 
 > Through the service, local farms can list their products for sale and consumers can easily navigate and purchase their products. HelloHealth offers a subscription based plan and the sale of individual products. The service was made to provide farms an outlet to directly be the vendors of their products. Consumers are more connected to the food they eat and in return are more connected to the farms that provide for them.
-
-## Setup
-
-```
-$ npm install
-
-```
-
-### App Setup
-
-**Server Setup**
-
-- After cloning down the repo create a `.env` file in the root directory and copy contents of `.env.sample` over.
-- Edit the `SERVER_URL` to be your host url
+### Setup
 
 ```sh
-# Express server
-
+$ cp .env.sample .env # update VITE_SERVER_URL
+$ npm install
 $ npm run server-start
-
-# Client (Vite) Server for Development
-
-# In seperate terminals
 $ npm run vite:dev
-$ npm run vite:start
+$ npm run vite:start # visit localhost
 
 # Used to create Bundle ONLY USE for Production
-
 $ npm run build
-
 ```
 
 ## Tech Stack

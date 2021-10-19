@@ -5,10 +5,9 @@ import MealList from '../Product/MealList.jsx';
 export default function ProductsPage() {
   return (
     <>
-      <MealList/>
-      <Nutrition/>
+      <MealList />
+      <Nutrition />
       <h1>Products Page</h1>
-
     </>
   );
 }

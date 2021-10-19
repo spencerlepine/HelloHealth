@@ -83,26 +83,44 @@ const AccountForm = (props) => {
             formEntries={formEntries}
           />
 
-          <Grid container justifyContent="center" >
-            <Button sx={{ mt: 4, mb: 3 }} variant="contained" onClick={handleEmailPassSubmit}>Continue</Button>
+          <Grid container justifyContent="center">
+            <Button
+              sx={{ mt: 4, mb: 3 }}
+              variant="contained"
+              onClick={handleEmailPassSubmit}
+            >
+              Continue
+            </Button>
           </Grid>
 
           <Grid container justifyContent="center" style={{ marginTop: '10px' }}>
-            <Typography onClick={toggleLoginSignup} variant="button">{typeMessage} <a href="#">{redirectName}</a></Typography>
+            <Typography onClick={toggleLoginSignup} variant="button">
+              {typeMessage} <a href="#">{redirectName}</a>
+            </Typography>
           </Grid>
 
           <Grid container justifyContent="center" style={{ marginTop: '10px' }}>
-            {props.children && (<>{props.children}</>)}
+            {props.children && <>{props.children}</>}
           </Grid>
 
-          <Grid >
+          <Grid>
             <FormContainer>
               <Typography variant="body2">or</Typography>
               <Stack spacing={2}>
-                <Button variant="outlined" size="small" style={{ maxWidth: '200px' }} onClick={() => handleAccountSubmit(signInWithGoogle)}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  style={{ maxWidth: '200px' }}
+                  onClick={() => handleAccountSubmit(signInWithGoogle)}
+                >
                   Sign In With Google
                 </Button>
-                <Button variant="outlined" size="small" style={{ maxWidth: '200px' }} onClick={() => handleAccountSubmit(signInWithFacebook)}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  style={{ maxWidth: '200px' }}
+                  onClick={() => handleAccountSubmit(signInWithFacebook)}
+                >
                   Sign In With Facebook
                 </Button>
                 {/* <button onClick={signInWithTwitter}> Sign In With Twitter</button> */}

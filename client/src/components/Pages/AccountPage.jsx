@@ -10,14 +10,11 @@ export default function AccountPage() {
   const renderAccountPage = () => {
     if (userType === 'consumer') {
       return <UserAccountPage />;
-    } if (userType === 'farm') {
+    }
+    if (userType === 'farm') {
       return <FarmAccountPage />;
     }
     return <ProductsPage />;
   };
-  return (
-    <>
-      {renderAccountPage()}
-    </>
-  );
+  return <>{renderAccountPage()}</>;
 }
