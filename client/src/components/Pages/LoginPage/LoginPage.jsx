@@ -84,6 +84,7 @@ const LoginPage = () => {
 
   const handleTypeChange = (e) => {
     setTypeSelection(e.target.value);
+    setUserType(e.target.value);
   };
 
   const toggleLoginSignup = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import useMainContext from '../../context/MainContext.jsx';
 import UserAccountPage from './UserAccountPage/UserAccountPage.jsx';
-import FarmAccountPage from './FarmAccountPage.jsx';
+import FarmAccountPage from './FarmView/FarmAccountPage.jsx';
 import ProductsPage from './ProductsPage.jsx';
 
 export default function AccountPage() {
