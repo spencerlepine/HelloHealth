@@ -38,9 +38,10 @@ const MealList = () => {
         spacing={3}
         direction="row"
         justifyContent="space-evenly"
-        alignItems="center">
+        alignItems="center"
+      >
         {sizes.map((size, index) => (
-          <Grid item xs={12} sm={4} md={4} key={index} align='center'>
+          <Grid item xs={12} sm={4} md={4} key={index} align="center">
             <MealCard
               size={size.size}
               pepRec={size.pepRec}

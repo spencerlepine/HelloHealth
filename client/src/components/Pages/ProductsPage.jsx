@@ -20,7 +20,7 @@ export default function ProductsPage() {
   const numProds = 18;
   const pageCount = Math.floor(producsListDummyData.length / numProds);
   const [currentProductsList, setCurrentProductsList] = useState(
-    producsListDummyData.slice(0, numProds),
+    producsListDummyData.slice(0, numProds)
   );
   const [page, setPage] = useState(1);
 
@@ -34,7 +34,7 @@ export default function ProductsPage() {
       productStart = (pageSelected - 1) * numProds;
       productEnd = productStart + numProds;
       setCurrentProductsList(
-        producsListDummyData.slice(productStart, productEnd),
+        producsListDummyData.slice(productStart, productEnd)
       );
     } else {
       const arrowNav = e.target
@@ -51,10 +51,11 @@ export default function ProductsPage() {
       if (arrowNav === 'NavigateNextIcon') {
         const nextPage = page + 1;
         setPage(nextPage);
-        productStart = nextPage > pageCount ? pageCount : (nextPage - 1) * numProds;
+        productStart =
+          nextPage > pageCount ? pageCount : (nextPage - 1) * numProds;
         productEnd = productStart + numProds;
         setCurrentProductsList(
-          producsListDummyData.slice(productStart, productEnd),
+          producsListDummyData.slice(productStart, productEnd)
         );
       }
       if (arrowNav === 'NavigateBeforeIcon') {
@@ -63,15 +64,16 @@ export default function ProductsPage() {
         productStart = prevPage > 0 ? (prevPage - 1) * numProds : 0;
         productEnd = productStart + numProds;
         setCurrentProductsList(
-          producsListDummyData.slice(productStart, productEnd),
+          producsListDummyData.slice(productStart, productEnd)
         );
       }
     }
   };
 
-  const renderProductList = (productList) => productList.map((product) => (
+  const renderProductList = (productList) =>
+    productList.map((product) => (
       <ProductCardView key={product.id} product={product} />
-  ));
+    ));
   return (
     <Container maxWidth="xl">
       <h1>{`Products Page > ${page}`}</h1>

@@ -43,7 +43,9 @@ export default function ProductEdit({ info }) {
 
   return (
     <div>
-      <Button onClick={handleOpen} startIcon={<EditRoundedIcon />}>Edit</Button>
+      <Button onClick={handleOpen} startIcon={<EditRoundedIcon />}>
+        Edit
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -51,41 +53,62 @@ export default function ProductEdit({ info }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        <FormLabel>Banner:
-          <TextField
-            id="banner-image"
-            label="Banner Link"
-            value={name}
-            multiline
-            maxRows={1}
-            fullWidth
-            onChange={(e) => onType(e, setName)}
-          />
-         </FormLabel>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-          <Button>Update</Button>
-        </div>
-        <FormLabel>Description:
-          <TextField
-            id="outlined-multiline-flexible"
-            label="About"
-            multiline
-            maxRows={8}
-            fullWidth
-            value={description}
-            onChange={(e) => onType(e, setDescription)}
-          />
-        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-          <Button>Update</Button>
-        </div>
-        </FormLabel>
-        <FormLabel>
-          Product Image: {' '}
-          <input type="file" onChange={handleImagePreview} accept=".jpg,.png" />
-          <div>
-          <img style={{ objectFit: 'cover', width: '100px', height: '100px' }}src={image} />
+          <FormLabel>
+            Banner:
+            <TextField
+              id="banner-image"
+              label="Banner Link"
+              value={name}
+              multiline
+              maxRows={1}
+              fullWidth
+              onChange={(e) => onType(e, setName)}
+            />
+          </FormLabel>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}
+          >
+            <Button>Update</Button>
           </div>
-        </FormLabel>
+          <FormLabel>
+            Description:
+            <TextField
+              id="outlined-multiline-flexible"
+              label="About"
+              multiline
+              maxRows={8}
+              fullWidth
+              value={description}
+              onChange={(e) => onType(e, setDescription)}
+            />
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+              }}
+            >
+              <Button>Update</Button>
+            </div>
+          </FormLabel>
+          <FormLabel>
+            Product Image:{' '}
+            <input
+              type="file"
+              onChange={handleImagePreview}
+              accept=".jpg,.png"
+            />
+            <div>
+              <img
+                style={{ objectFit: 'cover', width: '100px', height: '100px' }}
+                src={image}
+              />
+            </div>
+          </FormLabel>
         </Box>
       </Modal>
     </div>

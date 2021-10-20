@@ -28,6 +28,9 @@ export default function App() {
         console.log(result);
       })
       .catch((err) => console.error(err));
+    if (window.sessionStorage.getItem('cart') === null) {
+      window.sessionStorage.setItem('cart', JSON.stringify({}));
+    }
   }, []);
 
   const renderPage = () => (

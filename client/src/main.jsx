@@ -14,5 +14,5 @@ ReactDOM.render(
       </AuthProvider>
     </MainProvider>
   </Router>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );

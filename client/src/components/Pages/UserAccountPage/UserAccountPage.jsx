@@ -1,17 +1,14 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import {
-  Grid, Paper, Box, Typography,
-} from '@material-ui/core';
+import { Grid, Paper, Box, Typography } from '@material-ui/core';
 import useAuth from '../../../context/AuthContext.jsx';
 import { TRANSACTION } from '../../../config/pageRoutes';
 import { user as userAPI } from '../../../api';
 
 const UserAccountPage = () => {
-  const {
-    logoutUser, currentUser, accountDetails, setSubscriptionState,
-  } = useAuth();
+  const { logoutUser, currentUser, accountDetails, setSubscriptionState } =
+    useAuth();
   const {
     referral_code: referralCode,
     credit_available: availableCredit,

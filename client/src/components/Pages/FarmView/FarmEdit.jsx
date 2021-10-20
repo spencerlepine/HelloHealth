@@ -38,7 +38,9 @@ export default function FarmEdit({ info }) {
 
   return (
     <div>
-      <Button onClick={handleOpen} startIcon={<EditRoundedIcon />}>Edit</Button>
+      <Button onClick={handleOpen} startIcon={<EditRoundedIcon />}>
+        Edit
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -46,48 +48,69 @@ export default function FarmEdit({ info }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        <FormLabel>Banner:
-          <TextField
-            id="banner-image"
-            label="Banner Link"
-            value={banner}
-            multiline
-            maxRows={1}
-            fullWidth
-            onChange={(e) => onType(e, setBanner)}
-          />
-         </FormLabel>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-          <Button>Update</Button>
-        </div>
-        <FormLabel>About:
-          <TextField
-            id="outlined-multiline-flexible"
-            label="About"
-            value={about}
-            multiline
-            maxRows={8}
-            fullWidth
-            onChange={(e) => onType(e, setAbout)}
-          />
-        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-          <Button>Update</Button>
-        </div>
-        </FormLabel>
-        <FormLabel>Video:
-          <TextField
-            id="livestream-link"
-            label="YouTube Live Link"
-            multiline
-            value={video}
-            maxRows={1}
-            fullWidth
-            onChange={(e) => onType(e, setVideo)}
-          />
-         </FormLabel>
-         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-          <Button>Update</Button>
-        </div>
+          <FormLabel>
+            Banner:
+            <TextField
+              id="banner-image"
+              label="Banner Link"
+              value={banner}
+              multiline
+              maxRows={1}
+              fullWidth
+              onChange={(e) => onType(e, setBanner)}
+            />
+          </FormLabel>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}
+          >
+            <Button>Update</Button>
+          </div>
+          <FormLabel>
+            About:
+            <TextField
+              id="outlined-multiline-flexible"
+              label="About"
+              value={about}
+              multiline
+              maxRows={8}
+              fullWidth
+              onChange={(e) => onType(e, setAbout)}
+            />
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+              }}
+            >
+              <Button>Update</Button>
+            </div>
+          </FormLabel>
+          <FormLabel>
+            Video:
+            <TextField
+              id="livestream-link"
+              label="YouTube Live Link"
+              multiline
+              value={video}
+              maxRows={1}
+              fullWidth
+              onChange={(e) => onType(e, setVideo)}
+            />
+          </FormLabel>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}
+          >
+            <Button>Update</Button>
+          </div>
         </Box>
       </Modal>
     </div>

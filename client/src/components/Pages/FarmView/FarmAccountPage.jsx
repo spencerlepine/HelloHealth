@@ -21,29 +21,39 @@ const farmInfo = {
   user_id: 'mdegnen0',
   email: 'mdegnen0@admin.ch',
   name: 'Marcus Degnen',
-  description: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-  profile_image: 'https://images.unsplash.com/photo-1507103011901-e954d6ec0988?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  description:
+    "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  profile_image:
+    'https://images.unsplash.com/photo-1507103011901-e954d6ec0988?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
   farm_rating: 4,
-  video_link: 'https://www.youtube.com/watch?v=0q0TXV8PyNY&ab_channel=ExploreFarmLife',
-  products: [{
-    id: 1,
-    product_name: 'Shrimp - 16/20, Iqf, Shell On',
-    product_description: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable.',
-    product_cost: 24,
-    product_inventory: 9,
-    product_image: 'https://images.unsplash.com/photo-1601314002592-b8734bca6604?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1636&q=80',
-    product_rating: 2,
-    farm_id: 11,
-  }, {
-    id: 4,
-    product_name: 'Lid - Translucent, 3.5 And 6 Oz',
-    product_description: 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.',
-    product_cost: 23.81,
-    product_inventory: 4,
-    product_image: 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80',
-    product_rating: 4,
-    farm_id: 11,
-  }],
+  video_link:
+    'https://www.youtube.com/watch?v=0q0TXV8PyNY&ab_channel=ExploreFarmLife',
+  products: [
+    {
+      id: 1,
+      product_name: 'Shrimp - 16/20, Iqf, Shell On',
+      product_description:
+        "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
+      product_cost: 24,
+      product_inventory: 9,
+      product_image:
+        'https://images.unsplash.com/photo-1601314002592-b8734bca6604?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1636&q=80',
+      product_rating: 2,
+      farm_id: 11,
+    },
+    {
+      id: 4,
+      product_name: 'Lid - Translucent, 3.5 And 6 Oz',
+      product_description:
+        'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.',
+      product_cost: 23.81,
+      product_inventory: 4,
+      product_image:
+        'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80',
+      product_rating: 4,
+      farm_id: 11,
+    },
+  ],
 };
 
 const container = {
@@ -81,9 +91,7 @@ export default function FarmAccountPage() {
   const classes = useStyles();
   // const [products, setProducts] = useState(farmInfo.products);
   const [info, setInfo] = useState(initialState);
-  const {
-    banner, products, about, rating, name, video,
-  } = info;
+  const { banner, products, about, rating, name, video } = info;
 
   const handleEdit = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
@@ -93,39 +101,54 @@ export default function FarmAccountPage() {
     <>
       <Grid>
         <Grid item xs={12} style={container}>
-          <img className={classes.banner} style={{
-            width: '1200px', height: '200px', objectFit: 'cover', maxWidth: '70vw', filter: 'grayscale(100%)', opacity: '30%',
-          }} src={banner} />
-          <div style={centered}><Typography variant="h2">{farmInfo.name}</Typography></div>
+          <img
+            className={classes.banner}
+            style={{
+              width: '1200px',
+              height: '200px',
+              objectFit: 'cover',
+              maxWidth: '70vw',
+              filter: 'grayscale(100%)',
+              opacity: '30%',
+            }}
+            src={banner}
+          />
+          <div style={centered}>
+            <Typography variant="h2">{farmInfo.name}</Typography>
+          </div>
         </Grid>
         <Grid style={text}>
           <div style={container}>
-          <StarRatings
-            rating={rating}
-            starRatedColor={'#5065A8'}
-            numberOfStars={5}
-            starDimension={'30px'}
+            <StarRatings
+              rating={rating}
+              starRatedColor={'#5065A8'}
+              numberOfStars={5}
+              starDimension={'30px'}
             />
           </div>
         </Grid>
         <Grid style={text}>
           <div>
             <Typography>
-                <b>About</b> {name}
+              <b>About</b> {name}
             </Typography>
           </div>
           <div style={text}>
-            <Typography>
-                {about}
-            </Typography>
-            {userType === 'farmer' ? <FarmEdit info={farmInfo.description} /> : <></>}
+            <Typography>{about}</Typography>
+            {userType === 'farmer' ? (
+              <FarmEdit info={farmInfo.description} />
+            ) : (
+              <></>
+            )}
           </div>
         </Grid>
       </Grid>
       <Grid display="flex" justifyContent="center">
-        <ReactPlayer style={{ objectFit: 'cover' }} url={video}/>
+        <ReactPlayer style={{ objectFit: 'cover' }} url={video} />
       </Grid>
-        <Typography style={text} variant="h4">Browse Products</Typography>
+      <Typography style={text} variant="h4">
+        Browse Products
+      </Typography>
       {products.map((product, index) => (
         <FarmProductCard product={product} key={index} />
       ))}

@@ -49,17 +49,21 @@ function FarmProductCard({ product }) {
           <Select
             value={quantity}
             label="Qty"
-            defaultValue = {quantity}
+            defaultValue={quantity}
             onChange={handleQuantityChange}
           >
-            <MenuItem name={'1'} value={'1'}>1</MenuItem>
-            <MenuItem name={'2'} value={'2'}>2</MenuItem>
-            <MenuItem name={'3'} value={'3'}>3</MenuItem>
+            <MenuItem name={'1'} value={'1'}>
+              1
+            </MenuItem>
+            <MenuItem name={'2'} value={'2'}>
+              2
+            </MenuItem>
+            <MenuItem name={'3'} value={'3'}>
+              3
+            </MenuItem>
           </Select>
         </FormControl>
-        <Button startIcon={<AddShoppingCartIcon />}>
-          Add to Cart
-        </Button>
+        <Button startIcon={<AddShoppingCartIcon />}>Add to Cart</Button>
       </div>
     );
   };
@@ -67,23 +71,29 @@ function FarmProductCard({ product }) {
   return (
     <Grid container spacing={0} className={productClass.productItem}>
       <Grid item xs={4}>
-        <img style={{ objectFit: 'cover', width: '20vw', height: '20vh' }} src={product.product_image}></img>
+        <img
+          style={{ objectFit: 'cover', width: '20vw', height: '20vh' }}
+          src={product.product_image}
+        ></img>
       </Grid>
-      <Grid container item xs={8} display="flex" direction="column" justifyContent="space-between">
-        <Typography variant="h6">
-        {name}
-        </Typography>
+      <Grid
+        container
+        item
+        xs={8}
+        display="flex"
+        direction="column"
+        justifyContent="space-between"
+      >
+        <Typography variant="h6">{name}</Typography>
         <Typography style={text}>
           <b>What makes this item fresh?</b>
         </Typography>
-        <Typography>
-        {description}
-        </Typography>
-      <Grid alignSelf="center" style={text}>
-        {renderButton()}
+        <Typography>{description}</Typography>
+        <Grid alignSelf="center" style={text}>
+          {renderButton()}
+        </Grid>
       </Grid>
     </Grid>
-  </Grid>
   );
 }
 
