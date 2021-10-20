@@ -47,8 +47,8 @@ jobs:
       - name: ⬇️  Install npm dependencies
         run: npm install
 
-      - name: 🧽 Lint all files
-        run: npm run lint:check
+      # - name: 🧽 Lint all files
+      #   run: npm run lint:check
 
       - name: 🔥 Test database connection
         run: npm run test:db:connection
