@@ -24,9 +24,14 @@ const validDataObject = (object, expectedObj) => {
     const expectedKey = keys[i];
 
     const expectedDataType = expectedObj[expectedKey];
-    if (expectedDataType instanceof Array) {
-      const bodyVal = object[expectedKey];
+    const bodyVal = object[expectedKey];
 
+    if (bodyVal === undefined) {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    if (expectedDataType instanceof Array) {
       const oneValidType = expectedDataType.some((type) => {
         if (isConstructor(type)) {
           return bodyVal.constructor === type;
@@ -117,10 +122,24 @@ const endpointMiddleware = (endpointKeys, data, method) => {
   }
 
   const options = {
-    method: method.toLowerCase(),
+    method: method.toUpperCase(),
     url: endpointUrl,
-    data: requestBody,
+    body: {
+      ...requestBody,
+    },
   };
+
+  if (options.method === 'GET') {
+    return axios
+      .get(options.url, { params: requestBody.params })
+      .then((res) => res)
+      .catch((err) => {
+        console.log(err);
+        // error(err);
+        return 'bad response';
+      })
+      .then((response) => (response !== 'bad response' ? response : undefined));
+  }
 
   return axios(options)
     .then((res) => res)

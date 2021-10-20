@@ -22,9 +22,9 @@ describe('<UserAccountPage />', () => {
     expect(screen.getByText('Subscription')).toBeTruthy();
   });
 
-  it('renders the last button as logout button', () => {
+  it('renders the first button as logout button', () => {
     const buttons = screen.getAllByRole('button');
     expect(buttons.length).toBeGreaterThanOrEqual(1);
-    expect(buttons[buttons.length - 1].textContent).toBe('Log Out');
+    expect(buttons[0].textContent).toBe('Log Out');
   });
 });

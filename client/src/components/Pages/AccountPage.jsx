@@ -8,10 +8,10 @@ export default function AccountPage() {
   const { userType } = useMainContext();
 
   const renderAccountPage = () => {
-    if (userType === 'consumer') {
+    if (userType === 'customer') {
       return <UserAccountPage />;
     }
-    if (userType === 'farm') {
+    if (userType === 'farmer') {
       return <FarmAccountPage />;
     }
     return <ProductsPage />;

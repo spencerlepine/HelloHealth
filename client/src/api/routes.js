@@ -1,11 +1,22 @@
 const routes = {
   USER: {
     ENDPOINT: '/user',
-    ACCOUNT_TYPE: {
-      ENDPOINT: '/account-type',
+    SUBSCRIPTION_STATUS: {
+      ENDPOINT: '/subscription-status',
       METHOD: 'POST',
       BODY: {
-        accountType: ['customer', 'farmer', 'nutritionist'],
+        userId: String,
+        newStatus: Boolean,
+      },
+    },
+    ACCOUNT_TYPE: {
+      ENDPOINT: '/account-type',
+      METHOD: ['GET', 'POST'],
+      BODY: {
+        accountType: ['customer', 'farmer', 'nutritionist', undefined],
+      },
+      PARAMS: {
+        userId: String,
       },
     },
     ACCOUNT_DETAILS: {
@@ -23,17 +34,27 @@ const routes = {
         first_purchase_complete: [Boolean, undefined],
         credit_available: [Number, undefined],
       },
-    },
-    TRANSACTION_HISTORY: {
-      ENDPOINT: '/transactions',
       PARAMS: {
-        transactionId: String,
+        userId: String,
       },
-      METHOD: ['GET', 'POST'],
+    },
+    TRANSACTION: {
+      ENDPOINT: '/transaction',
+      PARAMS: {
+        transactionId: [String, Number],
+      },
+      METHOD: ['POST', 'GET'],
       BODY: {
         customer_id: Number,
         cost: Number,
         order_date: String,
+      },
+      ALL_TRANSACTIONS: {
+        ENDPOINT: '/all',
+        PARAMS: {
+          userId: [String, Number],
+        },
+        METHOD: 'GET',
       },
     },
   },

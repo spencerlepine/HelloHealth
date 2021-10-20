@@ -4,14 +4,15 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from './components/App.jsx';
 import { MainProvider } from './context/MainContext.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
+import './index.css';
 
 ReactDOM.render(
   <Router>
-    <AuthProvider>
-      <MainProvider>
+    <MainProvider>
+      <AuthProvider>
         <App />
-      </MainProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </MainProvider>
   </Router>,
   document.getElementById('root'),
 );

@@ -58,8 +58,10 @@ export default function App() {
       <nav>
         <Navigation />
       </nav>
-      <section>{renderPage()}</section>
-      <footer><Footer /></footer>
+      <section className="content">{renderPage()}</section>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }

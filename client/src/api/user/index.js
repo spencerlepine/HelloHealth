@@ -15,6 +15,57 @@ export const uploadUserAccountType = (typeString, callback = () => {}) => {
   });
 };
 
-export const fetchAccountDetails = (typeString, callback = () => {}) => {
-  // TODO
+export const fetchUserAccountType = (userId, callback = () => {}) => {
+  endpointMiddleware(
+    ['USER', 'ACCOUNT_TYPE'],
+    {
+      params: {
+        userId,
+      },
+    },
+    'GET',
+  ).then((res = {}) => {
+    callback(res.data);
+  });
+};
+
+export const fetchAccountDetails = (userId, callback = () => {}) => {
+  endpointMiddleware(
+    ['USER', 'ACCOUNT_DETAILS'],
+    {
+      params: {
+        userId,
+      },
+    },
+    'GET',
+  ).then((res = {}) => {
+    callback(res.data);
+  });
+};
+
+export const updateSubscription = (userId, newStatus, callback = () => {}) => {
+  endpointMiddleware(
+    ['USER', 'SUBSCRIPTION_STATUS'],
+    {
+      userId,
+      newStatus,
+    },
+    'POST',
+  ).then((res = {}) => {
+    callback(res.data);
+  });
+};
+
+export const fetchAccountTransactions = (userId, callback = () => {}) => {
+  endpointMiddleware(
+    ['USER', 'TRANSACTION', 'ALL_TRANSACTIONS'],
+    {
+      params: {
+        userId,
+      },
+    },
+    'GET',
+  ).then((res = {}) => {
+    callback(res.data);
+  });
 };

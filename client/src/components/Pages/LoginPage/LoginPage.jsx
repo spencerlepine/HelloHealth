@@ -62,7 +62,7 @@ const LoginPage = () => {
 
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [formEntries, setFormEntries] = useState({});
-  const [customerType, setCustomerType] = useState('');
+  // const [customerType, setCustomerType] = useState('');
   const [typeSelection, setTypeSelection] = useState('');
   // const [isFarmerUser, setIsFarmerUser] = useState(false);
   const history = useHistory();
@@ -79,12 +79,11 @@ const LoginPage = () => {
   const { userType, setUserType } = useMainContext();
 
   const handleTypeChoose = () => {
-    setCustomerType(typeSelection);
+    setUserType(typeSelection);
   };
 
   const handleTypeChange = (e) => {
     setTypeSelection(e.target.value);
-    setUserType(e.target.value);
   };
 
   const toggleLoginSignup = () => {
@@ -129,7 +128,7 @@ const LoginPage = () => {
     handleChange,
     formEntries,
     handleTypeChange,
-    customerType,
+    customerType: userType,
     handleAccountSubmit,
     signInWithGoogle,
     signInWithFacebook,
@@ -137,19 +136,29 @@ const LoginPage = () => {
   };
 
   return (
-    <>
-      {!customerType ? (
+    <Paper elevation={1}>
+      {!userType ? (
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid style={{ margin: '2em' }}>
             <label>
               <Grid container direction={'column'} spacing={2}>
                 <Grid spacing={3} container>
-                  <Typography variant="body1">
-                    To log in or sign up, please select account type below:{' '}
+                  <Typography
+                    variant="h5"
+                    style={{
+                      padding: '1em',
+                      textAlign: 'center',
+                      color: 'gray',
+                    }}
+                  >
+                    To log in or sign up, <br />
+                    please select account type below:{' '}
                   </Typography>
                 </Grid>
+
                 <Select
                   sx={{ mt: 2 }}
+                  labelId="demo-simple-select-label"
                   label="Customer Type"
                   value={typeSelection}
                   onChange={handleTypeChange}
@@ -164,7 +173,7 @@ const LoginPage = () => {
               </Grid>
             </label>
             <Button
-              sx={{ mt: 3 }}
+              sx={{ mt: 3, float: 'right' }}
               onClick={handleTypeChoose}
               variant="contained"
             >
@@ -177,7 +186,7 @@ const LoginPage = () => {
           <Grid style={{ margin: '2em' }}>
             <Button
               size="small"
-              onClick={() => setCustomerType('')}
+              onClick={() => setUserType('')}
               variant="contained"
             >
               Back
@@ -211,7 +220,7 @@ const LoginPage = () => {
           )}
         </>
       )}
-    </>
+    </Paper>
   );
 };
 
