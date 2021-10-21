@@ -7,12 +7,10 @@ module.exports = {
       testMatch: ['<rootDir>/client/**/*.test.js?(x)'],
       transformIgnorePatterns: ['node_modules/(?!.*?/es/.*\\.js)'],
       moduleNameMapper: {
-        '\\.(png|gif|ttf|eot|svg)$':
+        '\\.(css|less)$': '<rootDir>/client/src/__mocks__/styleMock.js',
+        '\\.(png|gif|ttf|eot|svg|mp3)$':
           '<rootDir>/client/src/__mocks__/fileMock.js',
       },
-      // transform: {
-      //   '^.+\\.svg$': '<rootDir>/svgTransform.js',
-      // },
       // collectCoverage: true,
       // coverageReporters: [
       //   'json',

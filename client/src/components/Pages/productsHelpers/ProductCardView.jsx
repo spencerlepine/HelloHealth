@@ -42,7 +42,7 @@ export default function ProductCardView({ product }) {
             </Link>
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            <p>{productDescription}</p>
+            <span>{productDescription}</span>
             <span>{productCost}</span>
           </Typography>
         </CardContent>

@@ -6,6 +6,8 @@ const {
   getAllTransactions,
   getTransaction,
   updateTransaction,
+  getChat,
+  postChat,
 } = require('../../controllers/user');
 
 const router = express.Router();
@@ -18,5 +20,7 @@ router.post('/subscription-status', updateSubscription);
 router.get('/transaction/all', getAllTransactions);
 router.get('/transaction', getTransaction);
 router.put('/transaction', updateTransaction);
+router.get('/chat', getChat);
+router.post('/chat', postChat);
 
 module.exports = router;

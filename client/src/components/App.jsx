@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Switch, Route } from 'react-router-dom';
+
 import Navigation from './Navigation.jsx';
 import ProductsPage from './Pages/ProductsPage.jsx';
 import BoxPage from './Pages/BoxPage.jsx';
@@ -9,7 +10,7 @@ import CartPage from './Pages/CartPage.jsx';
 import AccountPage from './Pages/AccountPage.jsx';
 import LoginPage from './Pages/LoginPage/LoginPage.jsx';
 import ProductViewPage from './Pages/ProductViewPage.jsx';
-// import useAuth from '../context/AuthContext.jsx';
+import Chat from './Chat/Chat.jsx';
 import useMainContext from '../context/MainContext.jsx';
 import useAuth from '../context/AuthContext.jsx';
 import * as routeConstants from '../config/pageRoutes';
@@ -18,7 +19,6 @@ import Footer from './Footer.jsx';
 export default function App() {
   const { page } = useMainContext();
   const { currentUser } = useAuth();
-  console.log(page);
 
   // test endpoint and server connection
   useEffect(() => {
@@ -62,9 +62,14 @@ export default function App() {
         <Navigation />
       </nav>
       <section className="content">{renderPage()}</section>
-      <footer>
-        <Footer />
-      </footer>
+      {currentUser ? (
+        <section>
+          <Chat />
+        </section>
+      ) : (
+        ''
+      )}
+      <Footer />
     </>
   );
 }
