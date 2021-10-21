@@ -34,6 +34,10 @@ $ npm run vite:start # visit localhost
 $ npm run build
 ```
 
+## API Schema
+
+See [Endpoint Schema](./BLUE_OCEAN_API.md).
+
 ## Tech Stack
 
 #### Languages

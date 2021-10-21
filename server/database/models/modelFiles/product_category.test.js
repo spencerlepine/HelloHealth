@@ -13,7 +13,7 @@ describe('Product_Category Model', () => {
   const Example = ExampleModel(sequelize, dataTypes);
   const example = new Example();
 
-  checkModelName(Example)('Product_Category');
+  checkModelName(Example)('product_category');
 
   // it('should contain expected properties', () => {
   expectedFields.forEach(checkPropertyExists(example));

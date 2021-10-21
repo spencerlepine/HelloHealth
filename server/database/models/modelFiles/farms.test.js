@@ -23,7 +23,7 @@ describe('Farms Model', () => {
   const Example = ExampleModel(sequelize, dataTypes);
   const example = new Example();
 
-  checkModelName(Example)('Farms');
+  checkModelName(Example)('farms');
 
   describe('should contain expected properties', () => {
     expectedFields.forEach(checkPropertyExists(example));

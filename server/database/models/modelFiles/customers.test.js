@@ -11,24 +11,24 @@ const expectedFields = [
   'id',
   'user_id',
   'email',
-  'first_name',
-  'last_name',
-  'address',
-  'city',
-  'state',
-  'zip_code',
-  'referral_code',
+  'first name',
+  'customer_type',
+  'last name',
+  'Address',
+  'City',
+  'State',
+  'Zip Code',
+  'referral code',
   'referral_code_used',
   'first_purchase_complete',
   'credit_available',
-  'nutritionist_status',
 ];
 
 describe('Customers Model', () => {
   const Example = ExampleModel(sequelize, dataTypes);
   const example = new Example();
 
-  checkModelName(Example)('Customers');
+  checkModelName(Example)('customers');
 
   describe('should contain expected properties', () => {
     expectedFields.forEach(checkPropertyExists(example));

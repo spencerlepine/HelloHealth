@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   TextField,
@@ -76,6 +76,10 @@ const LoginPage = () => {
     currentUser,
   } = useAuth();
 
+  useEffect(() => {
+    setTypeSelection('');
+  }, []);
+
   const { userType, setUserType } = useMainContext();
 
   const handleTypeChoose = () => {
@@ -133,6 +137,7 @@ const LoginPage = () => {
     signInWithGoogle,
     signInWithFacebook,
     toggleLoginSignup,
+    handleEmailPassSubmit,
   };
 
   return (

@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => sequelize.define(
-  'Customers',
+  'customers',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       primaryKey: true,
     },
@@ -16,32 +16,36 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    first_name: {
+    'first name': {
       type: DataTypes.STRING(20),
       allowNull: false,
     },
-    last_name: {
+    'last name': {
       type: DataTypes.STRING(20),
       allowNull: false,
     },
-    address: {
+    Address: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    city: {
+    City: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    state: {
+    customer_type: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    zip_code: {
+    State: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    'Zip Code': {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    referral_code: {
-      type: DataTypes.INTEGER,
+    'referral code': {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     referral_code_used: {
@@ -56,19 +60,11 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    nutritionist_status: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    'default?': {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: true,
-    },
   },
   {
     sequelize,
-    tableName: 'Customers',
+    tableName: 'customers',
+    freezeTableName: true,
     schema: 'public',
     timestamps: false,
     indexes: [

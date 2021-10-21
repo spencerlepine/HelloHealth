@@ -29,10 +29,29 @@ export const AuthProvider = ({ children }) => {
             setCurrentUser(user);
           });
           userAPI.fetchAccountDetails(user.uid, (newDetails) => {
-            setAccountDetails((prev) => ({ ...prev, ...newDetails }));
+            setAccountDetails((prev) => {
+              const newObj = {
+                customer_type: 'customer',
+                ...newDetails,
+                user_id: user.uid,
+                id: user.uid,
+                email: user.email,
+                'first name': user.displayName,
+                'last name': user.displayName,
+                Address: 'Sample Address',
+                City: 'Seattle',
+                State: 'WA',
+                'Zip Code': '98109',
+                'referral code': '12098214',
+                referral_code_used: false,
+                first_purchase_complete: false,
+                credit_available: '$50',
+              };
+
+              userAPI.updateAccountDetails(user.uid, newObj);
+            });
           });
           userAPI.fetchAccountTransactions(user.uid, (newTransactions) => {
-            console.log('API:', newTransactions);
             setAccountDetails((prev) => ({
               ...prev,
               transactions: newTransactions || [],

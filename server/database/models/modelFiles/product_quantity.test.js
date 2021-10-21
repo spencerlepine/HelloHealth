@@ -19,7 +19,7 @@ describe('Product_Quantity Model', () => {
   const Example = ExampleModel(sequelize, dataTypes);
   const example = new Example();
 
-  checkModelName(Example)('Product_Quantity');
+  checkModelName(Example)('product_quantity');
 
   // it('should contain expected properties', () => {
   expectedFields.forEach(checkPropertyExists(example));

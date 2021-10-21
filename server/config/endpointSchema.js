@@ -1,3 +1,5 @@
+// should mirror <rootDir>/client/src/api/routes.js
+
 const routes = {
   PRODUCTS: {
     ENDPOINT: '/products',
@@ -98,4 +100,4 @@ const routes = {
   },
 };
 
-export default routes;
+module.exports = routes;

@@ -13,7 +13,7 @@ describe('Transactions Model', () => {
   const Example = ExampleModel(sequelize, dataTypes);
   const example = new Example();
 
-  checkModelName(Example)('Transactions');
+  checkModelName(Example)('transactions');
 
   // it('should contain expected properties', () => {
   expectedFields.forEach(checkPropertyExists(example));

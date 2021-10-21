@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => sequelize.define(
-  'Transactions',
+  'transactions',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -16,19 +16,15 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+
     order_date: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    'default?': {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: true,
-    },
   },
   {
     sequelize,
-    tableName: 'Transactions',
+    tableName: 'transactions',
     schema: 'public',
     timestamps: false,
     indexes: [

@@ -94,9 +94,7 @@ export default function FarmAccountPage({ setSelected, id }) {
   const { userType, setUserType } = useMainContext();
   const classes = useStyles();
   const [info, setInfo] = useState({ products: [] });
-  const {
-    banner, products, about, rating, name, video,
-  } = info;
+  const { banner, products, about, rating, name, video } = info;
 
   const { logoutUser } = useAuth();
 
@@ -185,6 +183,13 @@ export default function FarmAccountPage({ setSelected, id }) {
       {info.products.map((product, index) => (
         <FarmProductCard product={product} key={index} />
       ))}
+      {userType === 'farmer' && (
+        <Box sx={{ m: 3, float: 'right' }}>
+          <Button variant="contained" onClick={() => logoutUser()}>
+            Log Out
+          </Button>
+        </Box>
+      )}
       {userType === 'farmer' ? <AddProduct /> : <></>}
     </>
   );

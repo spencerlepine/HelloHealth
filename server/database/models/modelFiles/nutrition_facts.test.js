@@ -13,7 +13,7 @@ describe('Nutrition_Facts Model', () => {
   const Example = ExampleModel(sequelize, dataTypes);
   const example = new Example();
 
-  checkModelName(Example)('Nutrition_Facts');
+  checkModelName(Example)('nutrition_facts');
 
   // it('should contain expected properties', () => {
   expectedFields.forEach(checkPropertyExists(example));

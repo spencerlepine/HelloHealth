@@ -124,7 +124,7 @@ const endpointMiddleware = (endpointKeys, data, method) => {
   const options = {
     method: method.toUpperCase(),
     url: endpointUrl,
-    body: {
+    data: {
       ...requestBody,
     },
   };
