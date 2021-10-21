@@ -10,38 +10,38 @@ import {
 } from '@mui/material';
 import useStyles from './nutritionStyles';
 
-const data = {
-  id: 1,
-  productId: 392,
-  productType: 'Produce',
-  nutritionFacts: {
-    serving_size: 5,
-    calories: 334,
-    caloriesFat: 166,
-    fat: 321,
-    fatPerc: 2,
-    satFat: 69,
-    satFatPerc: 17,
-    transFat: 92,
-    transFatPerc: 21,
-    protein: 291,
-    dietaryFiber: 172,
-    dietaryFiberPerc: 4,
-    carbohydrates: 161,
-    carbohydratesPerc: 10,
-    cholesterol: 36,
-    cholesterolPerc: 14,
-    sodium: 49,
-    sodiumPerc: 13,
-    sugars: 7,
-    sugarsPerc: 7,
-  },
-};
-
-export default function Nutrition() {
+export default function Nutrition({ nutrition }) {
   const classes = useStyles();
   const [facts, setFacts] = useState(false);
+  const data = {
+    id: 1,
+    productId: 392,
+    productType: 'Produce',
+    nutritionFacts: {
+      serving_size: 5,
+      calories: 334,
+      caloriesFat: 166,
+      fat: 321,
+      fatPerc: 2,
+      satFat: 69,
+      satFatPerc: 17,
+      transFat: 92,
+      transFatPerc: 21,
+      protein: 291,
+      dietaryFiber: 172,
+      dietaryFiberPerc: 4,
+      carbohydrates: 161,
+      carbohydratesPerc: 10,
+      cholesterol: 36,
+      cholesterolPerc: 14,
+      sodium: 49,
+      sodiumPerc: 13,
+      sugars: 7,
+      sugarsPerc: 7,
+    },
+  };
 
+  const [nut, setNut] = useState(nutrition || data.nutritionFacts);
   const renderFacts = () => {
     if (!facts) {
       return (
@@ -67,10 +67,10 @@ export default function Nutrition() {
             <tbody>
               <tr>
                 <td className="names" colSpan="2">
-                  <b>Calories</b> {data.nutritionFacts.calories}g
+                  <b>Calories</b> {nut.calories}g
                 </td>
                 <td>
-                  <b>Calories from Fat</b> {data.nutritionFacts.caloriesFat}g
+                  <b>Calories from Fat</b> {nut.caloriesFat}g
                 </td>
               </tr>
               <tr className={classes.thickRow}>
@@ -80,71 +80,71 @@ export default function Nutrition() {
               </tr>
               <tr>
                 <td className="names" colSpan="3">
-                  <b>Total Fat</b> {data.nutritionFacts.fat}g
+                  <b>Total Fat</b> {nut.fat}g
                 </td>
                 <td>
-                  <b>{data.nutritionFacts.fatPerc}%</b>
+                  <b>{nut.fatPerc}%</b>
                 </td>
               </tr>
               <tr>
                 <td className="names" colSpan="3">
-                  <b>Saturated Fat</b> {data.nutritionFacts.satFat}g
+                  <b>Saturated Fat</b> {nut.satFat}g
                 </td>
                 <td>
-                  <b>{data.nutritionFacts.satFatPerc}%</b>
+                  <b>{nut.satFatPerc}%</b>
                 </td>
               </tr>
               <tr>
                 <td className="names" colSpan="3">
-                  <b>Trans Fat</b> {data.nutritionFacts.transFat}g
+                  <b>Trans Fat</b> {nut.transFat}g
                 </td>
                 <td>
-                  <b>{data.nutritionFacts.transFatPerc}%</b>
+                  <b>{nut.transFatPerc}%</b>
                 </td>
               </tr>
               <tr>
                 <td className="names" colSpan="3">
-                  <b>Cholesterol</b> {data.nutritionFacts.cholesterol}g
+                  <b>Cholesterol</b> {nut.cholesterol}g
                 </td>
                 <td>
-                  <b>{data.nutritionFacts.cholesterolPerc}%</b>
+                  <b>{nut.cholesterolPerc}%</b>
                 </td>
               </tr>
               <tr>
                 <td className="names" colSpan="3">
-                  <b>Sodium</b> {data.nutritionFacts.sodium}g
+                  <b>Sodium</b> {nut.sodium}g
                 </td>
                 <td>
-                  <b>{data.nutritionFacts.sodiumPerc}%</b>
+                  <b>{nut.sodiumPerc}%</b>
                 </td>
               </tr>
               <tr>
                 <td className="names" colSpan="3">
-                  <b>Carbohydrate</b> {data.nutritionFacts.carbohydrates}g
+                  <b>Carbohydrate</b> {nut.carbohydrates}g
                 </td>
                 <td>
-                  <b>{data.nutritionFacts.carbohydratesPerc}%</b>
+                  <b>{nut.carbohydratesPerc}%</b>
                 </td>
               </tr>
               <tr>
                 <td className="names" colSpan="3">
-                  <b>Dietary Fiber</b> {data.nutritionFacts.dietaryFiber}g
+                  <b>Dietary Fiber</b> {nut.dietaryFiber}g
                 </td>
                 <td>
-                  <b>{data.nutritionFacts.dietaryFiberPerc}%</b>
+                  <b>{nut.dietaryFiberPerc}%</b>
                 </td>
               </tr>
               <tr>
                 <td className="names" colSpan="3">
-                  <b>Sugars</b> {data.nutritionFacts.sugars}g
+                  <b>Sugars</b> {nut.sugars}g
                 </td>
                 <td>
-                  <b>{data.nutritionFacts.sugarsPerc}%</b>
+                  <b>{nut.sugarsPerc}%</b>
                 </td>
               </tr>
               <tr>
                 <td className="names" colSpan="3">
-                  <b>Protein</b> {data.nutritionFacts.protein}g
+                  <b>Protein</b> {nut.protein}g
                 </td>
                 <td>
                   <b>5%</b>
@@ -191,12 +191,12 @@ export default function Nutrition() {
             className={`${classes.nutritionBottom} ${classes.nutritionRight}`}
           >
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              Calories: {data.nutritionFacts.calories}g
+              Calories: {nut.calories}g
             </Typography>
           </Grid>
           <Grid item xs={6} className={classes.nutritionBottom}>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              Carbs: {data.nutritionFacts.carbohydrates}g
+              Carbs: {nut.carbohydrates}g
             </Typography>
           </Grid>
           <Grid
@@ -205,12 +205,12 @@ export default function Nutrition() {
             className={`${classes.nutritionBottom} ${classes.nutritionRight}`}
           >
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              Total fat: {data.nutritionFacts.fat}g
+              Total fat: {nut.fat}g
             </Typography>
           </Grid>
           <Grid item xs={6} className={classes.nutritionBottom}>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              Protein: {data.nutritionFacts.protein}g
+              Protein: {nut.protein}g
             </Typography>
           </Grid>
         </Grid>

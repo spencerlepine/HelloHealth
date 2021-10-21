@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const server = express();
 server.use(cors());
 server.use(morgan('dev'));
-server.use(bodyParser());
+server.use(express.json());
 
 // check server connection
 server.use('/hello', (req, res) => {

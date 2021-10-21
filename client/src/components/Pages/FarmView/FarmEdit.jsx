@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
@@ -25,9 +25,9 @@ const style = {
 export default function FarmEdit({ info }) {
   const [open, setOpen] = useState(false);
   const [submit, setSubmit] = useState(false);
-  const [banner, setBanner] = useState('');
-  const [about, setAbout] = useState(info);
-  const [video, setVideo] = useState('');
+  const [banner, setBanner] = useState(info.profile_image);
+  const [about, setAbout] = useState(info.description);
+  const [video, setVideo] = useState(info.video_link);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -35,6 +35,13 @@ export default function FarmEdit({ info }) {
   const onType = (e, set) => {
     set(e.target.value);
   };
+  const handleImagePreview = (e) => {
+    setImage(URL.createObjectURL(e.target.files[0]));
+  };
+
+  useEffect(() => {
+    setBanner(info.profile_image);
+  }, [info.profile_image]);
 
   return (
     <div>
@@ -49,32 +56,11 @@ export default function FarmEdit({ info }) {
       >
         <Box sx={style}>
           <FormLabel>
-            Banner:
-            <TextField
-              id="banner-image"
-              label="Banner Link"
-              value={banner}
-              multiline
-              maxRows={1}
-              fullWidth
-              onChange={(e) => onType(e, setBanner)}
-            />
-          </FormLabel>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              alignItems: 'flex-end',
-            }}
-          >
-            <Button>Update</Button>
-          </div>
-          <FormLabel>
             About:
             <TextField
               id="outlined-multiline-flexible"
-              label="About"
               value={about}
+              placeholder={info.description}
               multiline
               maxRows={8}
               fullWidth
@@ -91,11 +77,11 @@ export default function FarmEdit({ info }) {
             </div>
           </FormLabel>
           <FormLabel>
-            Video:
+            Youtube Live Link:
             <TextField
               id="livestream-link"
-              label="YouTube Live Link"
               multiline
+              placeholder={info.video_link}
               value={video}
               maxRows={1}
               fullWidth
@@ -111,6 +97,59 @@ export default function FarmEdit({ info }) {
           >
             <Button>Update</Button>
           </div>
+          <FormLabel>
+            Banner Image Link:
+            <TextField
+              id="banner-image"
+              value={banner}
+              placeholder={info.profile_image}
+              multiline
+              maxRows={1}
+              fullWidth
+              onChange={(e) => onType(e, setBanner)}
+            />
+          </FormLabel>
+          <FormLabel>
+            Image Preview:
+            <div>
+              <img
+                style={{ objectFit: 'cover', width: '100px', height: '100px' }}
+                src={banner}
+              />
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+              }}
+            >
+              <Button>Update</Button>
+            </div>
+          </FormLabel>
+          {/* <FormLabel>
+            Banner Image:{' '}
+            <input
+              type="file"
+              onChange={handleImagePreview}
+              accept=".jpg,.png"
+            />
+            <div>
+              <img
+                style={{ objectFit: 'cover', width: '100px', height: '100px' }}
+                src={banner}
+              />
+            </div>
+            <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}
+          >
+            <Button>Update</Button>
+          </div>
+          </FormLabel> */}
         </Box>
       </Modal>
     </div>

@@ -3,7 +3,9 @@ import { Button, Grid, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import useMainContext from '../../context/MainContext.jsx';
-import { ACCOUNT, HOME, BOX, FARMS, CART } from '../../config/pageRoutes';
+import {
+  ACCOUNT, HOME, BOX, FARMS, CART,
+} from '../../config/pageRoutes';
 
 export default function CartPage() {
   const [click, setClick] = useState(true);
@@ -94,8 +96,7 @@ export default function CartPage() {
     );
   };
 
-  const renderItems = () =>
-    dummyDatas.map((data, index) => (
+  const renderItems = () => dummyDatas.map((data, index) => (
       <Grid
         container
         spacing={3}
@@ -130,7 +131,7 @@ export default function CartPage() {
           </Stack>
         </Grid>
       </Grid>
-    ));
+  ));
 
   return (
     <>

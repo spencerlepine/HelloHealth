@@ -17,13 +17,15 @@ import useMainContext from '../../context/MainContext.jsx';
 import ProductEdit from '../Pages/FarmView/ProductEdit.jsx';
 
 const text = {
-  padding: '10px',
+  paddingTop: '10px',
+  paddingBottom: '10px',
 };
 
 function FarmProductCard({ product }) {
   const [quantity, setQuantity] = useState(1);
   const [name, setName] = useState(product.product_name);
   const [description, setDescription] = useState(product.product_description);
+  const [nutrition, setNutrition] = useState(product.nutritionFacts);
   const productClass = useStyles();
   const { userType, setUserType } = useMainContext();
   const handleQuantityChange = (e) => {
@@ -34,15 +36,15 @@ function FarmProductCard({ product }) {
     if (userType === 'farmer') {
       return (
         <div style={{ display: 'flex' }}>
-          <NutritionModal />
-          <ProductEdit />
+          <NutritionModal nutrition={nutrition} />
+          <ProductEdit product={product} />
         </div>
       );
     }
     return (
       <div>
         <div className={productClass.text}>
-          <NutritionModal />
+          <NutritionModal nutrition={nutrition} />
         </div>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Qty: </InputLabel>
@@ -82,13 +84,18 @@ function FarmProductCard({ product }) {
         xs={8}
         display="flex"
         direction="column"
-        justifyContent="space-between"
+        justifyContent="space-around"
       >
         <Typography variant="h6">{name}</Typography>
         <Typography style={text}>
           <b>What makes this item fresh?</b>
         </Typography>
         <Typography>{description}</Typography>
+        <Grid alignSelf="flex-end">
+          <Typography variant="h5">
+            <b>${product.product_cost}</b>
+          </Typography>
+        </Grid>
         <Grid alignSelf="center" style={text}>
           {renderButton()}
         </Grid>

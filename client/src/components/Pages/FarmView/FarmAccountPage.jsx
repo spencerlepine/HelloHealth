@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
+import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -8,6 +9,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import StarRatings from 'react-star-ratings';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ReactPlayer from 'react-player';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import IconButton from '@mui/material/IconButton';
@@ -15,6 +17,8 @@ import useStyles from './FarmAccountStyles';
 import FarmProductCard from '../../Product/FarmProductCard.jsx';
 import useMainContext from '../../../context/MainContext.jsx';
 import FarmEdit from './FarmEdit.jsx';
+import AddProduct from './AddProduct.jsx';
+import useAuth from '../../../context/AuthContext.jsx';
 
 const farmInfo = {
   id: 11,
@@ -72,7 +76,8 @@ const centered = {
 };
 
 const text = {
-  padding: '10px',
+  paddingTop: '20px',
+  paddingBottom: '20px',
 };
 
 const initialState = {
@@ -84,22 +89,54 @@ const initialState = {
   video: farmInfo.video_link,
 };
 
-export default function FarmAccountPage() {
+export default function FarmAccountPage({ setSelected, id }) {
   const [edit, setEdit] = useState(false);
   const { userType, setUserType } = useMainContext();
-  // const [farmer, setFarmer] = useState(true);
   const classes = useStyles();
-  // const [products, setProducts] = useState(farmInfo.products);
-  const [info, setInfo] = useState(initialState);
-  const { banner, products, about, rating, name, video } = info;
+  const [info, setInfo] = useState({ products: [] });
+  const {
+    banner, products, about, rating, name, video,
+  } = info;
+
+  const { logoutUser } = useAuth();
+
+  const getFarmDetail = () => {
+    axios
+      .get(`http://localhost:8001/farmers/one-farm/${id}`)
+      .then(({ data }) => setInfo(data))
+      .catch((err) => console.log(err));
+  };
 
   const handleEdit = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
 
+  // eslint-disable-next-line consistent-return
+  const handleLogout = () => {
+    if (userType === 'farmer') {
+      return (
+        <Grid item xs={4} style={container}>
+          <Button onClick={() => logoutUser()}>Log Out</Button>
+        </Grid>
+      );
+    }
+  };
+
+  useEffect(() => {
+    getFarmDetail();
+  }, []);
+
   return (
     <>
-      <Grid>
+      <Box sx={{ x: 2, float: 'right' }}></Box>
+      <Grid container>
+        <Grid item xs={4} style={container}>
+          <Button startIcon={<ArrowBackIcon />} onClick={() => setSelected()}>
+            Go Back
+          </Button>
+        </Grid>
+        <Grid item xs={4} style={container}></Grid>
+        {handleLogout()}
         <Grid item xs={12} style={container}>
           <img
             className={classes.banner}
@@ -111,47 +148,44 @@ export default function FarmAccountPage() {
               filter: 'grayscale(100%)',
               opacity: '30%',
             }}
-            src={banner}
+            src={info.profile_image}
           />
-          <div style={centered}>
-            <Typography variant="h2">{farmInfo.name}</Typography>
-          </div>
-        </Grid>
-        <Grid style={text}>
           <div style={container}>
             <StarRatings
-              rating={rating}
+              rating={info.farm_rating}
               starRatedColor={'#5065A8'}
               numberOfStars={5}
               starDimension={'30px'}
             />
           </div>
+          <div style={centered}>
+            <Typography variant="h2">{info.name}</Typography>
+          </div>
         </Grid>
+        <Grid item xs={2} style={container}></Grid>
+        <Grid item style={text}></Grid>
         <Grid style={text}>
           <div>
             <Typography>
-              <b>About</b> {name}
+              <b>About</b> {info.name}
             </Typography>
           </div>
           <div style={text}>
-            <Typography>{about}</Typography>
-            {userType === 'farmer' ? (
-              <FarmEdit info={farmInfo.description} />
-            ) : (
-              <></>
-            )}
+            <Typography>{info.description}</Typography>
+            {userType === 'farmer' ? <FarmEdit info={info} /> : <></>}
           </div>
         </Grid>
       </Grid>
       <Grid display="flex" justifyContent="center">
-        <ReactPlayer style={{ objectFit: 'cover' }} url={video} />
+        <ReactPlayer style={{ objectFit: 'cover' }} url={info.video_link} />
       </Grid>
       <Typography style={text} variant="h4">
         Browse Products
       </Typography>
-      {products.map((product, index) => (
+      {info.products.map((product, index) => (
         <FarmProductCard product={product} key={index} />
       ))}
+      {userType === 'farmer' ? <AddProduct /> : <></>}
     </>
   );
 }
