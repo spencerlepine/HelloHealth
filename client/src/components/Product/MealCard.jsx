@@ -61,7 +61,7 @@ export default function MealCard({
                 </Grid> */}
               <Grid
                 container
-                xs={12}
+                // xs={12}
                 justifyContent="center"
                 alignItems="center"
               >

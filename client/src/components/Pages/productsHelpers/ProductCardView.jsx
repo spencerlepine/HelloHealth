@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import useMainContext from '../../../context/MainContext.jsx';
+import AddToCart from '../AddToCart.jsx';
 
 import { PRODUCT } from '../../../config/pageRoutes';
 
@@ -47,14 +48,7 @@ export default function ProductCardView({ product }) {
           </Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button
-            onClick={() => addProductToCart(product)}
-            size="small"
-            variant="outlined"
-            color="success"
-          >
-            Add to Cart
-          </Button>
+          <AddToCart id={id} quantity={1} />
         </CardActions>
       </Card>
     </Grid>

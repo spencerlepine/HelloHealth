@@ -29,7 +29,12 @@ export default function AddToCart({ id, quantity }) {
   };
 
   return (
-    <Button variant="outlined" onClick={(e) => addItem()}>
+    <Button
+      size="small"
+      variant="outlined"
+      color="success"
+      onClick={(e) => addItem()}
+    >
       Add to Cart
     </Button>
   );
