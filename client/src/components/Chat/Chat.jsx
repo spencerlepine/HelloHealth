@@ -34,20 +34,22 @@ export default function Chat() {
       },
     };
     const dbMessages = [];
-    axios
-      .get(`http://localhost:8001/user/chat?id=${currentUser.uid}`)
-      .then((results) => {
-        results.data.forEach((entry) => {
-          const message = JSON.parse(entry.message);
-          const response = JSON.parse(entry.response);
-          dbMessages.push(message);
-          if (response) dbMessages.push(response);
+    if (Object.keys(currentUser).length > 0) {
+      axios
+        .get(`http://localhost:8001/user/chat?id=${currentUser.uid}`)
+        .then((results) => {
+          results.data.forEach((entry) => {
+            const message = JSON.parse(entry.message);
+            const response = JSON.parse(entry.response);
+            dbMessages.push(message);
+            if (response) dbMessages.push(response);
+          });
+          setMessageList([introMessage, ...dbMessages]);
+        })
+        .catch((err) => {
+          console.error(err);
         });
-        setMessageList([introMessage, ...dbMessages]);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    }
   }, [currentUser]);
 
   return (

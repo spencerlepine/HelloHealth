@@ -1,5 +1,7 @@
 const axios = require('axios');
+const { QueryTypes } = require('sequelize');
 const config = require('../../config/config');
+const { sequelize } = require('../../database');
 
 module.exports = {
   getProductInfo: (req, res) => {
@@ -17,5 +19,28 @@ module.exports = {
     };
     res.status(200).json([data]);
 
+  },
+  getProductCount: async (req, res) => {
+    try {
+      const queryString = 'SELECT count(*) FROM products';
+      const result = await sequelize.query(queryString, {
+        type: QueryTypes.SELECT,
+      });
+      res.status(201).send(result);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+  getProductList: async (req, res) => {
+    const { start, end } = req.query;
+    try {
+      const queryString = `SELECT * FROM products WHERE id BETWEEN ${start} AND ${end}`;
+      const result = await sequelize.query(queryString, {
+        type: QueryTypes.SELECT,
+      });
+      res.status(201).send(result);
+    } catch (err) {
+      res.status(400).send(err);
+    }
   },
 };
