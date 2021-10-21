@@ -17,7 +17,7 @@ export default function AddToCart({ id, quantity }) {
     const cart = JSON.parse(window.sessionStorage.getItem('cart'));
 
     const itemsKey = Object.keys(cart);
-    if (itemsKey.includes(id)) {
+    if (itemsKey.includes(String(id))) {
       cart[id].productQuantity += quantity;
     } else {
       cart[id] = { id, productQuantity: quantity };
