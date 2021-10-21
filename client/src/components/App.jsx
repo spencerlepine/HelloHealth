@@ -14,11 +14,13 @@ import Chat from './Chat/Chat.jsx';
 import useMainContext from '../context/MainContext.jsx';
 import useAuth from '../context/AuthContext.jsx';
 import * as routeConstants from '../config/pageRoutes';
+import LandingModal from './Pages/LandingModal.jsx';
 import Footer from './Footer.jsx';
 
 export default function App() {
   const { page } = useMainContext();
   const { currentUser } = useAuth();
+  const [showModal, setShowModal] = useState(true);
 
   // test endpoint and server connection
   useEffect(() => {
@@ -61,7 +63,10 @@ export default function App() {
       <nav>
         <Navigation />
       </nav>
-      <section className="content">{renderPage()}</section>
+      <section className="content">
+        <LandingModal showModal={showModal} setShowModal={setShowModal} />
+        {renderPage()}
+      </section>
       {currentUser ? (
         <section>
           <Chat />

@@ -8,7 +8,7 @@ module.exports = {
       transformIgnorePatterns: ['node_modules/(?!.*?/es/.*\\.js)'],
       moduleNameMapper: {
         '\\.(css|less)$': '<rootDir>/client/src/__mocks__/styleMock.js',
-        '\\.(png|gif|ttf|eot|svg|mp3)$':
+        '\\.(png|gif|ttf|eot|svg|mp3|jpg)$':
           '<rootDir>/client/src/__mocks__/fileMock.js',
       },
       // collectCoverage: true,
