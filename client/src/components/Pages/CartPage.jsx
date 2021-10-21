@@ -8,18 +8,45 @@ import { ACCOUNT, HOME, BOX, FARMS, CART } from '../../config/pageRoutes';
 export default function CartPage() {
   const [click, setClick] = useState(true);
   const { setPage } = useMainContext();
+  const [dummyDatas, setDummyDatas] = useState([
+    {
+      productId: 0,
+      productImage: '',
+      productName: '',
+      productQuantity: 0,
+      productPrice: '',
+    },
+  ]);
 
-  function getProduct(cart) {
+  const dataParsing = (data, cart) => {
+    const temp = [];
+    for (let i = 0; i < data.length; i += 1) {
+      const item = {};
+      item.productId = data[i].id;
+      item.productImage = data[i].product_image;
+      item.productName = data[i].product_name;
+      item.productPrice = data[i].product_cost;
+      // item.productQuantity = cart[data[i].id].productQuantity;
+      item.productQuantity = 3;
+      temp.push(item);
+    }
+    console.log(temp);
+    setDummyDatas(temp);
+  };
+
+  const getProduct = (cart) => {
     const data = Object.keys(cart);
-    // axios
-    //   .get('/', data)
-    //   .then((res) => {
-    //     console.log('data pull from database');
-    //   })
-    //   .catch((err) => {
-    //     console.error(`error when try to pull data ${err}`);
-    //   });
-  }
+    axios
+      .get('http://localhost:8001/product/CartInfo')
+      .then((res) => {
+        console.log('data pull from database');
+        dataParsing(res.data, cart);
+      })
+      .catch((err) => {
+        console.error(`error when try to pull data ${err}`);
+      });
+  };
+
 
   const handlePageChange = (e) => {
     setPage(e.target.name);
@@ -27,29 +54,9 @@ export default function CartPage() {
 
   useEffect(() => {
     const cart = JSON.parse(window.sessionStorage.getItem('cart'));
-    // const itemsID = Object.keys(cart);
-    getProduct(cart);
-    console.log(cart);
-  }, [click]);
 
-  const dummyDatas = [
-    {
-      productId: 123,
-      productImage:
-        'https://i.kym-cdn.com/photos/images/newsfeed/001/879/958/fb1.gif',
-      productName: 'JamCat',
-      productQuantity: 1,
-      productPrice: 14.99,
-    },
-    {
-      productId: 124,
-      productImage:
-        'https://www.cnet.com/a/img/S8WsucQh6wWeUG1yrQi66jKNtto=/940x0/2020/09/22/ad4bd31b-cf8c-46f5-aa70-231df9acc041/longcat.jpg',
-      productName: 'LongCat',
-      productQuantity: 2,
-      productPrice: 24.99,
-    },
-  ];
+    getProduct(cart);
+  }, [click]);
 
   const removeItem = (id) => {
     const cart = JSON.parse(window.sessionStorage.getItem('cart'));
@@ -58,16 +65,14 @@ export default function CartPage() {
     setClick(!click);
   };
 
-  const changePage = (page) => {
-    // change the state to the page want to go
-    // need input props
-  };
-
   const renderSummary = () => {
     let totalPrice = 0;
     let itemCount = 0;
     for (let i = 0; i < dummyDatas.length; i += 1) {
-      totalPrice += dummyDatas[i].productQuantity * dummyDatas[i].productPrice;
+      totalPrice +=
+        dummyDatas[i].productQuantity *
+        Number(dummyDatas[i].productPrice.substring(1));
+
       itemCount += dummyDatas[i].productQuantity;
     }
     return (
@@ -113,7 +118,8 @@ export default function CartPage() {
         </Grid>
         <Grid item xs>
           <Stack>
-            <p>{`$${data.productPrice}`}</p>
+            <p>{data.productPrice}</p>
+
             <Button
               variant="outlined"
               value={data.id}
@@ -180,24 +186,19 @@ export default function CartPage() {
 }
 
 /*
-sample grid for new item
-        <Grid container spacing={3} direction="row" justifyContent="center" alignItems="center">
-          <Grid item xs>
-          <img
-            style={{ maxWidth: 150, maxHeight: 150 }}
-            src='https://www.cnet.com/a/img/S8WsucQh6wWeUG1yrQi66jKNtto=/940x0/2020/09/22/ad4bd31b-cf8c-46f5-aa70-231df9acc041/longcat.jpg'></img>
-          </Grid>
-          <Grid item xs>
-            <Stack>
-              <p>LongCat</p>
-              <p>Quantity x2</p>
-            </Stack>
-          </Grid>
-          <Grid item xs>
-            <Stack>
-              <p>$24.99</p>
-              <Button variant="outlined">Remove</Button>
-            </Stack>
-          </Grid>
-        </Grid>
+
+real dummy data
+{
+  id: 123,
+  product_image:
+    'https://i.kym-cdn.com/photos/images/newsfeed/001/879/958/fb1.gif',
+  product_name: 'JamCat',
+  product_cost: '$14.99',
+  product_inventory: 345,
+  product_rating: 4,
+  product_desription: 'this is a description',
+  farm_id: 1,
+  reviews_count: 20,
+},
+
 */

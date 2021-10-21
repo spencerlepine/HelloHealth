@@ -15,6 +15,7 @@ module.exports = {
       farm_id: 1,
       reviews_count: 20,
     };
-    res.send(200).json(data);
+    res.status(200).json([data]);
+
   },
 };
