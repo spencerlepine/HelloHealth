@@ -8,6 +8,11 @@ export const MainProvider = ({ children }) => {
   const [page, setPage] = useState('home');
   const [userType, setUserType] = useState('customer');
   const [currentProduct, setCurrentProduct] = useState({});
+  const [productsInCart, setProductsInCart] = useState([]);
+
+  const addProductToCart = (value) => {
+    setProductsInCart([...productsInCart, value]);
+  };
 
   return (
     <MainContext.Provider
@@ -16,6 +21,9 @@ export const MainProvider = ({ children }) => {
         page,
         setPage,
         userType,
+        addProductToCart,
+        productsInCart,
+        setProductsInCart,
         setUserType,
         currentProduct,
         setCurrentProduct,
