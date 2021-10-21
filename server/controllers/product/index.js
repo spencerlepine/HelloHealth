@@ -4,20 +4,22 @@ const config = require('../../config/config');
 const { sequelize } = require('../../database');
 
 module.exports = {
-  getProductInfo: (req, res) => {
-    const data = {
-      id: 123,
-      product_image:
-        'https://i.kym-cdn.com/photos/images/newsfeed/001/879/958/fb1.gif',
-      product_name: 'JamCat',
-      product_cost: '$14.99',
-      product_inventory: 345,
-      product_rating: 4,
-      product_desription: 'this is a description',
-      farm_id: 1,
-      reviews_count: 20,
-    };
-    res.status(200).json([data]);
+  getProductInfo: async (req, res) => {
+    const cartArray = JSON.parse(req.query.cartArray);
+    let queryString =
+      'SELECT id, product_name, product_cost, product_image FROM products where';
+    for (let i = 0; i < cartArray.length; i += 1) {
+      queryString += ` id=${cartArray[i]} or`;
+    }
+    queryString = queryString.substring(0, queryString.length - 2);
+    try {
+      const result = await sequelize.query(queryString, {
+        type: QueryTypes.SELECT,
+      });
+      res.status(201).send(result);
+    } catch (err) {
+      res.status(400).send(err);
+    }
   },
   getProductCount: async (req, res) => {
     try {

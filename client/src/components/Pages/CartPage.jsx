@@ -38,17 +38,29 @@ export default function CartPage() {
 
   const getProduct = (cart) => {
     const data = Object.keys(cart);
-    axios
-      .get('http://localhost:8001/product/CartInfo')
-      .then((res) => {
-        console.log('data pull from database');
-        dataParsing(res.data, cart);
-      })
-      .catch((err) => {
-        console.error(`error when try to pull data ${err}`);
-      });
+    if (data.length !== 0) {
+      axios
+        .get(`http://localhost:8001/product/CartInfo?cartArray=${JSON.stringify(data)}`)
+        .then((res) => {
+          console.log('data pull from database');
+          console.log(res.data);
+          dataParsing(res.data, cart);
+        })
+        .catch((err) => {
+          console.error(`error when try to pull data ${err}`);
+        });
+    } else {
+      setDummyDatas([
+        {
+          productId: 0,
+          productImage: '',
+          productName: '',
+          productQuantity: 0,
+          productPrice: '',
+        },
+      ]);
+    }
   };
-
 
   const handlePageChange = (e) => {
     setPage(e.target.name);
@@ -61,9 +73,10 @@ export default function CartPage() {
   }, [click]);
 
   const removeItem = (id) => {
+    console.log(id);
     const cart = JSON.parse(window.sessionStorage.getItem('cart'));
     delete cart[id];
-    window.sessionStorage.setItem('cart', temp);
+    window.sessionStorage.setItem('cart', JSON.stringify(cart));
     setClick(!click);
   };
 
@@ -71,9 +84,9 @@ export default function CartPage() {
     let totalPrice = 0;
     let itemCount = 0;
     for (let i = 0; i < dummyDatas.length; i += 1) {
-      totalPrice +=
-        dummyDatas[i].productQuantity *
-        Number(dummyDatas[i].productPrice.substring(1));
+      totalPrice
+        += dummyDatas[i].productQuantity
+        * Number(dummyDatas[i].productPrice.substring(1));
 
       itemCount += dummyDatas[i].productQuantity;
     }
@@ -90,7 +103,7 @@ export default function CartPage() {
         </Grid>
         <Grid item xs={6}></Grid>
         <Grid item xs>
-          <p>{`Total: $${totalPrice}`}</p>
+          <p>{`Total: $${totalPrice.toFixed(2)}`}</p>
         </Grid>
       </Grid>
     );
@@ -123,7 +136,7 @@ export default function CartPage() {
 
             <Button
               variant="outlined"
-              value={data.id}
+              value={data.productId}
               onClick={(e) => removeItem(Number(e.target.value))}
             >
               Remove
