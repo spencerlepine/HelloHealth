@@ -23,14 +23,7 @@ export default function App() {
   const { currentUser } = useAuth();
   const [showModal, setShowModal] = useState(true);
 
-  // test endpoint and server connection
   useEffect(() => {
-    axios
-      .get('http://localhost:8001/hello')
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => console.error(err));
     if (window.sessionStorage.getItem('cart') === null) {
       window.sessionStorage.setItem('cart', JSON.stringify({}));
     }

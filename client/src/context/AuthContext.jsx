@@ -27,12 +27,15 @@ export const AuthProvider = ({ children }) => {
           userAPI.fetchUserAccountType(user.uid, (userTypeString) => {
             setUserType(userTypeString);
             setCurrentUser(user);
+            setAccountDetails((prev) => ({
+              ...prev,
+              customer_type: userTypeString,
+            }));
           });
           userAPI.fetchAccountDetails(user.uid, (newDetails) => {
             setAccountDetails((prev) => {
               const newObj = {
                 customer_type: 'customer',
-                ...newDetails,
                 user_id: user.uid,
                 id: user.uid,
                 email: user.email,
@@ -46,9 +49,11 @@ export const AuthProvider = ({ children }) => {
                 referral_code_used: false,
                 first_purchase_complete: false,
                 credit_available: '$50',
+                ...newDetails,
               };
 
               userAPI.updateAccountDetails(user.uid, newObj);
+              return newObj;
             });
           });
           userAPI.fetchAccountTransactions(user.uid, (newTransactions) => {

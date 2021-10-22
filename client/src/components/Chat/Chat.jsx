@@ -3,6 +3,8 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import { Launcher } from 'react-chat-window';
 import useAuth from '../../context/AuthContext.jsx';
+import config from '../../config/config';
+// config.SERVER_URL
 
 export default function Chat() {
   const [messageList, setMessageList] = useState([]);
@@ -16,7 +18,7 @@ export default function Chat() {
       user_id: currentUser.uid,
     };
     axios
-      .post('http://localhost:8001/user/chat', params)
+      .post(`${config.SERVER_URL}/user/chat`, params)
       .then((results) => {
         console.log(results);
       })
@@ -36,7 +38,7 @@ export default function Chat() {
     const dbMessages = [];
     if (Object.keys(currentUser).length > 0) {
       axios
-        .get(`http://localhost:8001/user/chat?id=${currentUser.uid}`)
+        .get(`${config.SERVER_URL}/user/chat?id=${currentUser.uid}`)
         .then((results) => {
           results.data.forEach((entry) => {
             const message = JSON.parse(entry.message);

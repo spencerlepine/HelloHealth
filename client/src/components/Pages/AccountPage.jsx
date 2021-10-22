@@ -8,14 +8,18 @@ import ProductsPage from './ProductsPage.jsx';
 
 export default function AccountPage() {
   const { userType, showFarms } = useMainContext();
-  const { logoutUser, currentUser } = useAuth();
+  const { logoutUser, currentUser, accountDetails } = useAuth();
 
   const renderAccountPage = () => {
-    if (userType === 'customer') {
-      return <UserAccountPage />;
-    }
-    if (userType === 'farmer') {
-      return <FarmAdminPage id={currentUser.uid} setSelected={showFarms} />;
+    const type = userType;
+
+    if (accountDetails) {
+      if (type === 'customer') {
+        return <UserAccountPage />;
+      }
+      if (type === 'farmer') {
+        return <FarmAdminPage id={currentUser.uid} setSelected={showFarms} />;
+      }
     }
     return <ProductsPage />;
   };

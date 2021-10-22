@@ -59,7 +59,7 @@ const routes = {
       BODY: {
         id: String,
         customer_type: ['farmer', 'customer', 'nutritionist'],
-        user_id: String,
+        user_id: [String, undefined],
         email: String,
         'first name': String,
         'last name': String,
@@ -76,24 +76,24 @@ const routes = {
         userId: [String, undefined],
       },
     },
-  },
-  TRANSACTION: {
-    ENDPOINT: '/transaction',
-    PARAMS: {
-      transactionId: [String, Number],
-    },
-    METHOD: ['POST', 'GET'],
-    BODY: {
-      customer_id: Number,
-      cost: Number,
-      order_date: String,
-    },
-    ALL_TRANSACTIONS: {
-      ENDPOINT: '/all',
+    TRANSACTION: {
+      ENDPOINT: '/transaction',
       PARAMS: {
-        userId: [String, Number],
+        transactionId: [String, Number],
       },
-      METHOD: 'GET',
+      METHOD: ['POST', 'GET'],
+      BODY: {
+        customer_id: Number,
+        cost: Number,
+        order_date: String,
+      },
+      ALL_TRANSACTIONS: {
+        ENDPOINT: '/all',
+        PARAMS: {
+          userId: [String, Number],
+        },
+        METHOD: 'GET',
+      },
     },
   },
 };

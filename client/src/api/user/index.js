@@ -1,13 +1,13 @@
 import axios from 'axios';
 import endpointMiddleware from '../endpointMiddleware';
 
-export const uploadUserAccountType = (typeString, callback = () => { }) => {
+export const uploadUserAccountType = (typeString, callback = () => {}) => {
   endpointMiddleware(
     ['USER', 'ACCOUNT_TYPE'],
     {
       accountType: typeString,
     },
-    'POST',
+    'POST'
   ).then((res) => {
     // HERE, decide how to handle account type result
     console.log(res);
@@ -15,7 +15,7 @@ export const uploadUserAccountType = (typeString, callback = () => { }) => {
   });
 };
 
-export const fetchUserAccountType = (userId, callback = () => { }) => {
+export const fetchUserAccountType = (userId, callback = () => {}) => {
   endpointMiddleware(
     ['USER', 'ACCOUNT_TYPE'],
     {
@@ -23,13 +23,13 @@ export const fetchUserAccountType = (userId, callback = () => { }) => {
         userId,
       },
     },
-    'GET',
+    'GET'
   ).then((res = {}) => {
     callback(res.data);
   });
 };
 
-export const fetchAccountDetails = (userId, callback = () => { }) => {
+export const fetchAccountDetails = (userId, callback = () => {}) => {
   endpointMiddleware(
     ['USER', 'ACCOUNT_DETAILS'],
     {
@@ -37,7 +37,7 @@ export const fetchAccountDetails = (userId, callback = () => { }) => {
         userId,
       },
     },
-    'GET',
+    'GET'
   ).then((res = {}) => {
     callback(res.data);
   });
@@ -46,7 +46,7 @@ export const fetchAccountDetails = (userId, callback = () => { }) => {
 export const updateAccountDetails = (
   userId,
   accountObj,
-  callback = () => { },
+  callback = () => {}
 ) => {
   // console.log(accountObj);
   endpointMiddleware(
@@ -58,34 +58,34 @@ export const updateAccountDetails = (
         userId,
       },
     },
-    'POST',
+    'POST'
   ).then((res = {}) => {
     callback(res.data);
   });
 };
 
-export const updateSubscription = (userId, newStatus, callback = () => { }) => {
+export const updateSubscription = (userId, newStatus, callback = () => {}) => {
   endpointMiddleware(
     ['USER', 'SUBSCRIPTION_STATUS'],
     {
       userId,
       newStatus,
     },
-    'POST',
+    'POST'
   ).then((res = {}) => {
     callback(res.data);
   });
 };
 
-export const fetchAccountTransactions = (userId, callback = () => { }) => {
+export const fetchAccountTransactions = (userId, callback = () => {}) => {
   endpointMiddleware(
-    ['TRANSACTION', 'ALL_TRANSACTIONS'],
+    ['USER', 'TRANSACTION', 'ALL_TRANSACTIONS'],
     {
       params: {
         userId,
       },
     },
-    'GET',
+    'GET'
   ).then((res = {}) => {
     callback(res.data);
   });

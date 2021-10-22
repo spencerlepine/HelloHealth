@@ -85,28 +85,30 @@ const UserAccountPage = () => {
           <h3>Transactions</h3>
         </Grid>
 
-        {transactions.length === 0 ? (
+        {transactions instanceof Array && transactions.length === 0 ? (
           <Grid item>
             <p>No transactions found..</p>
           </Grid>
         ) : (
           <>
-            {transactions.map(({ id, price }) => (
-              <Box component={Grid} container item key={id}>
-                <Box component={Typography} sx={{ p: '0.2em' }}>
-                  Transaction ID: {id}
+            {(transactions instanceof Array ? transactions : []).map(
+              ({ id, price }) => (
+                <Box component={Grid} container item key={id}>
+                  <Box component={Typography} sx={{ p: '0.2em' }}>
+                    Transaction ID: {id}
+                  </Box>
+                  <Box component={Typography} sx={{ p: '0.2em' }}>
+                    Total: {price}
+                  </Box>
+                  <Button
+                    variant="outlined"
+                    sx={{ p: '0.2em', background: '#b4caff' }}
+                  >
+                    <Link to={`${TRANSACTION}?=${id}`}>View</Link>
+                  </Button>
                 </Box>
-                <Box component={Typography} sx={{ p: '0.2em' }}>
-                  Total: {price}
-                </Box>
-                <Button
-                  variant="outlined"
-                  sx={{ p: '0.2em', background: '#b4caff' }}
-                >
-                  <Link to={`${TRANSACTION}?=${id}`}>View</Link>
-                </Button>
-              </Box>
-            ))}
+              ),
+            )}
           </>
         )}
       </Box>

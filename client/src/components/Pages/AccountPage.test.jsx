@@ -1,9 +1,7 @@
 import React from 'react';
 import AccountPage from './AccountPage.jsx';
 import UserAccountPage from './UserAccountPage/UserAccountPage.jsx';
-import {
-  render, screen, fireEvent, getByLabelText,
-} from '../../../test-utils';
+import { render, screen, fireEvent, getByLabelText } from '../../../test-utils';
 
 describe('<AccountPage />', () => {
   let container;
@@ -13,6 +11,6 @@ describe('<AccountPage />', () => {
   });
 
   it('renders UserAccountPage by default', () => {
-    expect(screen.getByText('Account Details')).toBeTruthy();
+    expect(screen.getByText(/Products Page/)).toBeTruthy();
   });
 });

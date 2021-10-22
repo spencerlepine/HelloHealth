@@ -29,7 +29,6 @@ module.exports = {
 
     FarmsModel.findAll({})
       .then((items) => {
-        console.log(items);
         res.status(200).send(items);
       })
       .catch((err) => {
@@ -54,7 +53,6 @@ module.exports = {
         where: { farm_id: id },
       });
       oneFarms = { ...oneFarms.dataValues, products: product };
-      console.log(oneFarms);
       res.status(200).send(oneFarms);
     } catch (err) {
       res.status(500).send(err.message);

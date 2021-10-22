@@ -19,7 +19,7 @@ export default function Nutrition({ nutrition, productId }) {
   const getFact = () => {
     axios
       .get(`http://localhost:8001/farmers/facts/${productId}`)
-      .then(({ data }) => setNut(JSON.parse(data.fact_info)))
+      .then(({ data }) => setNut(JSON.parse(data.fact_info || '')))
       .then(() => setNut((prev) => prev[0]))
       .catch((err) => console.log(err));
   };
