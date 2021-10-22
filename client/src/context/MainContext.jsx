@@ -20,7 +20,12 @@ export const MainProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log('userType:', userType);
+    if (!userType) {
+      const type = localStorage.getItem('userType', userType);
+      setUserType(type);
+    } else {
+      localStorage.setItem('userType', userType);
+    }
   }, [userType]);
 
   return (

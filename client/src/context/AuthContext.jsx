@@ -145,6 +145,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // useEffect(() => {
+  //   if (!userType) {
+  //     logoutUser();
+  //   }
+  // }, [userType]);
+
   const value = {
     loading,
     sendPasswordResetEmail,
