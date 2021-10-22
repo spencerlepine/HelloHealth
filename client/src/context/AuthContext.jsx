@@ -23,15 +23,21 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (config.NODE_ENV !== 'test') {
       auth.onAuthStateChanged((user) => {
+        setCurrentUser(user);
+
         if (user) {
-          userAPI.fetchUserAccountType(user.uid, (userTypeString) => {
-            setUserType(userTypeString);
-            setCurrentUser(user);
-            setAccountDetails((prev) => ({
-              ...prev,
-              customer_type: userTypeString,
-            }));
-          });
+          if (!userType) {
+            userAPI.fetchUserAccountType(user.uid, (userTypeString) => {
+              console.log(`API found ${userTypeString} for userType`);
+
+              setUserType(userTypeString);
+              setCurrentUser(user);
+              setAccountDetails((prev) => ({
+                ...prev,
+                customer_type: userTypeString,
+              }));
+            });
+          }
           userAPI.fetchAccountDetails(user.uid, (newDetails) => {
             setAccountDetails((prev) => {
               const newObj = {
@@ -39,8 +45,8 @@ export const AuthProvider = ({ children }) => {
                 user_id: user.uid,
                 id: user.uid,
                 email: user.email,
-                'first name': user.displayName,
-                'last name': user.displayName,
+                'first name': user.displayName || 'John',
+                'last name': user.displayName || 'Doe',
                 Address: 'Sample Address',
                 City: 'Seattle',
                 State: 'WA',
@@ -114,7 +120,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await auth.createUserWithEmailAndPassword(email, password);
       const { user } = res;
-      callback();
+      callback(user);
     } catch (err) {
       console.error(err);
       alert(err.message);
@@ -133,6 +139,7 @@ export const AuthProvider = ({ children }) => {
 
   const logoutUser = (callback = () => {}) => {
     auth.signOut();
+    setUserType('');
     if (typeof callback === 'function') {
       callback();
     }

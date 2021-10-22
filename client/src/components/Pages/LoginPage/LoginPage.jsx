@@ -65,7 +65,6 @@ const LoginPage = () => {
   const [formEntries, setFormEntries] = useState({});
   // const [customerType, setCustomerType] = useState('');
   const [typeSelection, setTypeSelection] = useState('');
-  // const [isFarmerUser, setIsFarmerUser] = useState(false);
   const history = useHistory();
 
   const {
@@ -111,9 +110,18 @@ const LoginPage = () => {
         history.push(HOME);
       });
     } else {
-      signupUser(name, email, password, () => {
+      signupUser(name, email, password, (user) => {
         history.push(HOME);
-        userAPI.uploadUserAccountType(typeSelection);
+        console.log(`SIGNING UP, saving ${typeSelection} for account`);
+        userAPI.uploadUserAccountType(
+          user.uid,
+          typeSelection,
+          (userTypeRes) => {
+            if (userTypeRes) {
+              setUserType(userTypeRes);
+            }
+          },
+        );
       });
     }
   };

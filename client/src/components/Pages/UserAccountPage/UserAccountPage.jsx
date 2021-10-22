@@ -42,6 +42,7 @@ const UserAccountPage = () => {
     });
   };
 
+  const validTransactions = transactions instanceof Array ? transactions : [];
   return (
     <Box style={{ padding: '0.1em', margin: '-1em' }}>
       <Box sx={{ x: 2, float: 'right' }}>
@@ -85,30 +86,28 @@ const UserAccountPage = () => {
           <h3>Transactions</h3>
         </Grid>
 
-        {transactions instanceof Array && transactions.length === 0 ? (
+        {validTransactions.length === 0 ? (
           <Grid item>
             <p>No transactions found..</p>
           </Grid>
         ) : (
           <>
-            {(transactions instanceof Array ? transactions : []).map(
-              ({ id, price }) => (
-                <Box component={Grid} container item key={id}>
-                  <Box component={Typography} sx={{ p: '0.2em' }}>
-                    Transaction ID: {id}
-                  </Box>
-                  <Box component={Typography} sx={{ p: '0.2em' }}>
-                    Total: {price}
-                  </Box>
-                  <Button
-                    variant="outlined"
-                    sx={{ p: '0.2em', background: '#b4caff' }}
-                  >
-                    <Link to={`${TRANSACTION}?=${id}`}>View</Link>
-                  </Button>
+            {validTransactions.map(({ id, price }) => (
+              <Box component={Grid} container item key={id}>
+                <Box component={Typography} sx={{ p: '0.2em' }}>
+                  Transaction ID: {id}
                 </Box>
-              ),
-            )}
+                <Box component={Typography} sx={{ p: '0.2em' }}>
+                  Total: {price}
+                </Box>
+                <Button
+                  variant="outlined"
+                  sx={{ p: '0.2em', background: '#b4caff' }}
+                >
+                  <Link to={`${TRANSACTION}?=${id}`}>View</Link>
+                </Button>
+              </Box>
+            ))}
           </>
         )}
       </Box>

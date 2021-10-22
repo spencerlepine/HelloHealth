@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import config from '../config/config';
 
 export const MainContext = React.createContext();
@@ -18,6 +18,10 @@ export const MainProvider = ({ children }) => {
   const showFarms = () => {
     setSelected(null);
   };
+
+  useEffect(() => {
+    console.log('userType:', userType);
+  }, [userType]);
 
   return (
     <MainContext.Provider

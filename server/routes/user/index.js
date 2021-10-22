@@ -10,13 +10,14 @@ const {
   updateAccountDetails,
   getChat,
   postChat,
+  updateUserAccountType,
 } = require('../../controllers/user');
 
 const router = express.Router();
 
 router.get('/all', getAllUsers);
 router.get('/account-type', getUserAccountType);
-router.post('/account-type', getUserAccountType);
+router.post('/account-type', updateUserAccountType);
 router.get('/account-details', getAccountDetails);
 router.post('/account-details', updateAccountDetails);
 router.post('/subscription-status', updateSubscription);
