@@ -25,7 +25,7 @@ const ShippingPage = () => {
     useState('');
   const [userId, setUserId] = useState('');
   const [userInfo, setUserInfo] = useState({});
-  const [firstName, setFirstName] = useState(currentUser.displayName);
+  const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
@@ -233,7 +233,9 @@ const ShippingPage = () => {
     getSelectDates();
     getShippingCost();
     const cartItems = JSON.parse(window.sessionStorage.getItem('cart'));
-    getProducts(cartItems);
+    if (cartInfo.length < 1) {
+      getProducts(cartItems);
+    }
     renderSummary();
   }, [
     cartInfo,
@@ -245,7 +247,10 @@ const ShippingPage = () => {
 
   useEffect(() => {
     renderSummary();
-    getUserInfo();
+
+    if (currentUser) {
+      getUserInfo();
+    }
     console.log('current', currentUser);
   }, []);
 
@@ -514,13 +519,13 @@ const ShippingPage = () => {
           <span>Reccuring Cost:</span>
         </Grid>
         <Grid item align="center" xs={6}>
-          <span>${reccuringCost}</span>
+          <span>${reccuringCost.toFixed(2)}</span>
         </Grid>
         <Grid item align="start" xs={6}>
           <span>Produce Cost:</span>
         </Grid>
         <Grid item align="center" xs={6}>
-          <span>${productsCost}</span>
+          <span>${productsCost.toFixed(2)}</span>
         </Grid>
         <Grid item align="start" xs={6}>
           <span>Shipping:</span>
