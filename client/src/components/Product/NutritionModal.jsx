@@ -17,7 +17,7 @@ const style = {
   p: 4,
 };
 
-export default function NutritionModal({ nutrition }) {
+export default function NutritionModal({ nutrition, productId }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -32,7 +32,7 @@ export default function NutritionModal({ nutrition }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Nutrition nutrition={nutrition} />
+          <Nutrition productId={productId} nutrition={nutrition} />
         </Box>
       </Modal>
     </div>

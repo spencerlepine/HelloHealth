@@ -7,22 +7,24 @@ import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import FarmAccountPage from './FarmView/FarmAccountPage.jsx';
 import FarmCard from './FarmView/FarmCard.jsx';
+import useMainContext from '../../context/MainContext.jsx';
 
 export default function FarmsPage() {
   const [farms, setFarms] = useState([]);
   const [renderedItems, setRenderedItems] = useState([]);
   const [allFarms, setAllFarms] = useState(true);
   const [page, setPage] = useState(1);
-  const [selected, setSelected] = useState(null);
+  // const [selected, setSelected] = useState(null);
+  const { selected, setSelected, showFarms } = useMainContext();
 
   const cardClick = (id) => {
     setAllFarms(false);
     setSelected(id);
   };
 
-  const showFarms = () => {
-    setSelected(null);
-  };
+  // const showFarms = () => {
+  //   setSelected(null);
+  // };
 
   const getFarms = (pageSelected) => {
     axios

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button,
   Grid,
@@ -8,40 +8,26 @@ import {
   TableContainer,
   Paper,
 } from '@mui/material';
+import axios from 'axios';
 import useStyles from './nutritionStyles';
 
-export default function Nutrition({ nutrition }) {
+export default function Nutrition({ nutrition, productId }) {
   const classes = useStyles();
   const [facts, setFacts] = useState(false);
-  const data = {
-    id: 1,
-    productId: 392,
-    productType: 'Produce',
-    nutritionFacts: {
-      serving_size: 5,
-      calories: 334,
-      caloriesFat: 166,
-      fat: 321,
-      fatPerc: 2,
-      satFat: 69,
-      satFatPerc: 17,
-      transFat: 92,
-      transFatPerc: 21,
-      protein: 291,
-      dietaryFiber: 172,
-      dietaryFiberPerc: 4,
-      carbohydrates: 161,
-      carbohydratesPerc: 10,
-      cholesterol: 36,
-      cholesterolPerc: 14,
-      sodium: 49,
-      sodiumPerc: 13,
-      sugars: 7,
-      sugarsPerc: 7,
-    },
+  const [nut, setNut] = useState({});
+
+  const getFact = () => {
+    axios
+      .get(`http://localhost:8001/farmers/facts/${productId}`)
+      .then(({ data }) => setNut(JSON.parse(data.fact_info)))
+      .then(() => setNut((prev) => prev[0]))
+      .catch((err) => console.log(err));
   };
 
-  const [nut, setNut] = useState(nutrition || data.nutritionFacts);
+  useEffect(() => {
+    getFact();
+  }, []);
+
   const renderFacts = () => {
     if (!facts) {
       return (
@@ -182,7 +168,6 @@ export default function Nutrition({ nutrition }) {
 
   return (
     <>
-      {/* <Typography variant="h4">Nutrition</Typography> */}
       <Box>
         <Grid container spacing={0}>
           <Grid

@@ -2,29 +2,49 @@ const Sequelize = require('sequelize');
 
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
-    'nutrition_facts',
+    'products_2',
     {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      product_id: {
+      product_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      product_description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      product_cost: {
+        type: DataTypes.NUMERIC,
+        allowNull: false,
+      },
+      product_inventory: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      fact_type: {
+      product_image: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      fact_info: {
+      product_rating: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      farm_id: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      reviews_count: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
       },
     },
     {
       sequelize,
-      tableName: 'nutrition_facts',
+      tableName: 'products_2',
       schema: 'public',
       timestamps: false,
       indexes: [

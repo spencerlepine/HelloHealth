@@ -9,9 +9,14 @@ export const MainProvider = ({ children }) => {
   const [userType, setUserType] = useState('customer');
   const [currentProduct, setCurrentProduct] = useState({});
   const [productsInCart, setProductsInCart] = useState([]);
+  const [selected, setSelected] = useState(null);
 
   const addProductToCart = (value) => {
     setProductsInCart([...productsInCart, value]);
+  };
+
+  const showFarms = () => {
+    setSelected(null);
   };
 
   return (
@@ -27,6 +32,9 @@ export const MainProvider = ({ children }) => {
         setUserType,
         currentProduct,
         setCurrentProduct,
+        selected,
+        setSelected,
+        showFarms,
       }}
     >
       {children}

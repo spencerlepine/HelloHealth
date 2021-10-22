@@ -13,7 +13,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import IconButton from '@mui/material/IconButton';
 import useStyles from '../Pages/FarmView/FarmAccountStyles';
 import NutritionModal from './NutritionModal.jsx';
-// import useMainContext from '../../context/MainContext.jsx';
+import useMainContext from '../../context/MainContext.jsx';
 import ProductEdit from '../Pages/FarmView/ProductEdit.jsx';
 import useAuth from '../../context/AuthContext.jsx';
 
@@ -22,14 +22,13 @@ const text = {
   paddingBottom: '10px',
 };
 
-function FarmProductCard({ product }) {
+function FarmAdminProductCard({ product }) {
   const [quantity, setQuantity] = useState(1);
   const [name, setName] = useState(product.product_name);
   const [description, setDescription] = useState(product.product_description);
   const [nutrition, setNutrition] = useState(product.nutritionFacts);
   const productClass = useStyles();
-  // const { userType, setUserType } = useMainContext();
-  const [userType, setUserType] = useState('customer');
+  const { userType, setUserType } = useMainContext();
   const { logoutUser, currentUser } = useAuth();
   const handleQuantityChange = (e) => {
     setQuantity(e.target.value);
@@ -107,4 +106,4 @@ function FarmProductCard({ product }) {
   );
 }
 
-export default FarmProductCard;
+export default FarmAdminProductCard;

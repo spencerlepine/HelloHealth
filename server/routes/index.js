@@ -10,7 +10,8 @@ const router = express.Router();
 router.use('/user', userRouter);
 router.use('/products', productsRouter);
 router.use('/product', productRouter);
-router.all('/*', apiSchema.returnAPISchema);
 router.use('/farmers', farmRouter);
+
+router.all('/*', apiSchema.returnAPISchema);
 
 module.exports = router;

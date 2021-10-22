@@ -79,6 +79,29 @@ const routes = {
       },
     },
   },
+  ACCOUNT_DETAILS: {
+    ENDPOINT: '/farmers/farms',
+    METHOD: ['GET', 'POST'],
+    // BODY: {
+    //   id: String,
+    //   customer_type: ['farmer', 'customer', 'nutritionist'],
+    //   user_id: String,
+    //   email: String,
+    //   'first name': String,
+    //   'last name': String,
+    //   Address: String,
+    //   City: String,
+    //   State: String,
+    //   'Zip Code': String,
+    //   'referral code': String,
+    //   referral_code_used: Boolean,
+    //   first_purchase_complete: Boolean,
+    //   credit_available: String,
+    // },
+    PARAMS: {
+      userId: [String, undefined],
+    },
+  },
   TRANSACTION: {
     ENDPOINT: '/transaction',
     PARAMS: {

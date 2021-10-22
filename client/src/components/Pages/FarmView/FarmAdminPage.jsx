@@ -15,8 +15,8 @@ import ReactPlayer from 'react-player';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import IconButton from '@mui/material/IconButton';
 import useStyles from './FarmAccountStyles';
-import FarmProductCard from '../../Product/FarmProductCard.jsx';
-// import useMainContext from '../../../context/MainContext.jsx';
+import FarmAdminProductCard from '../../Product/FarmAdminProductCard.jsx';
+import useMainContext from '../../../context/MainContext.jsx';
 import FarmEdit from './FarmEdit.jsx';
 import AddProduct from './AddProduct.jsx';
 import useAuth from '../../../context/AuthContext.jsx';
@@ -41,10 +41,9 @@ const text = {
   paddingBottom: '20px',
 };
 
-export default function FarmAccountPage({ setSelected, id }) {
+export default function FarmAdminPage({ setSelected, id }) {
   const [edit, setEdit] = useState(false);
-  // const { userType, setUserType } = useMainContext();
-  const [userType, setUserType] = useState('customer');
+  const { userType, setUserType } = useMainContext();
   const classes = useStyles();
   const [info, setInfo] = useState({ products: [] });
   const { banner, products, about, rating, name, video } = info;
@@ -87,11 +86,6 @@ export default function FarmAccountPage({ setSelected, id }) {
     <>
       <Box sx={{ x: 2, float: 'right' }}></Box>
       <Grid container>
-        <Grid item xs={4} style={container}>
-          <Button startIcon={<ArrowBackIcon />} onClick={() => setSelected()}>
-            Go Back
-          </Button>
-        </Grid>
         <Grid item xs={4} style={container}></Grid>
         {handleLogout()}
         <Grid item xs={12} style={container}>
@@ -144,7 +138,7 @@ export default function FarmAccountPage({ setSelected, id }) {
         Browse Products
       </Typography>
       {info.products.map((product, index) => (
-        <FarmProductCard product={product} key={index} />
+        <FarmAdminProductCard product={product} key={index} />
       ))}
       {userType === 'farmer' && currentUser && (
         <Box sx={{ m: 3, float: 'right' }}>
