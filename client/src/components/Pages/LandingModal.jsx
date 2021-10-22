@@ -7,15 +7,17 @@ import landingPage from './landingPage.jpg';
 
 const style = {
   position: 'absolute',
-  width: '88vw',
+  maxWidth: '1536px',
+  width: '80vw',
   height: '80vh',
-  top: '55%',
+  top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
   textAlign: 'center',
+  overflow: 'scroll',
 };
 
 export default function LandingModal({ showModal, setShowModal }) {
