@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import useStyles from './nutritionStyles';
+import config from '../../config/config';
 
 export default function Nutrition({ nutrition, productId }) {
   const classes = useStyles();
@@ -18,7 +19,7 @@ export default function Nutrition({ nutrition, productId }) {
 
   const getFact = () => {
     axios
-      .get(`http://localhost:8001/farmers/facts/${productId}`)
+      .get(`${config.SERVER_URL}/farmers/facts/${productId}`)
       .then(({ data }) => setNut(JSON.parse(data.fact_info || '')))
       .then(() => setNut((prev) => prev[0]))
       .catch((err) => console.log(err));

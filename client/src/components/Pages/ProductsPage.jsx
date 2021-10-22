@@ -71,12 +71,10 @@ export default function ProductsPage() {
       if (arrowNav === 'NavigateNextIcon') {
         const nextPage = page + 1;
         setPage(nextPage);
-        productStart =
-          nextPage > pageCount
-            ? (pageCount - 1) * numProds + 1
-            : (nextPage - 1) * numProds + 1;
-        productEnd =
-          nextPage > pageCount ? totalProducts : productStart + numProds - 1;
+        productStart = nextPage > pageCount
+          ? (pageCount - 1) * numProds + 1
+          : (nextPage - 1) * numProds + 1;
+        productEnd = nextPage > pageCount ? totalProducts : productStart + numProds - 1;
       }
       if (arrowNav === 'NavigateBeforeIcon') {
         const prevPage = page - 1;
@@ -87,7 +85,7 @@ export default function ProductsPage() {
     }
     axios
       .get(
-        `${config.SERVER_URL}/product/list?start=${productStart}&end=${productEnd}`
+        `${config.SERVER_URL}/product/list?start=${productStart}&end=${productEnd}`,
       )
       .then((results) => {
         console.log(results.data);
@@ -98,10 +96,9 @@ export default function ProductsPage() {
       });
   };
 
-  const renderProductList = (productList) =>
-    productList.map((product) => (
+  const renderProductList = (productList) => productList.map((product) => (
       <ProductCardView key={product.id} product={product} />
-    ));
+  ));
   return (
     <Container maxWidth="xl">
       <h1>{`Products Page > ${page}`}</h1>
@@ -111,8 +108,12 @@ export default function ProductsPage() {
       <Box my={5} sx={style}>
         <Pagination
           count={pageCount}
-          variant="outlined"
-          color="primary"
+          sx={{
+            '[aria-current]': {
+              backgroundColor: '#E76F51 !important',
+              color: 'white',
+            },
+          }}
           size={isSmallScreen ? 'small' : 'large'}
           showFirstButton
           showLastButton

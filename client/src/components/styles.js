@@ -2,6 +2,17 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
   navbar: {
-    backgroundColor: '#023047 !important',
+    backgroundColor: '#264653',
+    button: {
+      svg: {
+        fill: 'white !important',
+      },
+    },
+  },
+  farms: {
+    // backgroundColor: '#eee',
+    div: {
+      backgroundColor: '#264653',
+    },
   },
 }));

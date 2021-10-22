@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import styled from 'styled-components';
 import Stack from '@mui/material/Stack';
+import Container from '@mui/material/Container';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
@@ -141,91 +142,94 @@ const LoginPage = () => {
   };
 
   return (
-    <Paper elevation={1}>
-      {!userType ? (
-        <Grid container alignItems="center" justifyContent="space-between">
-          <Grid style={{ margin: '2em' }}>
-            <label>
-              <Grid container direction={'column'} spacing={2}>
-                <Grid spacing={3} container>
-                  <Typography
-                    variant="h5"
-                    style={{
-                      padding: '1em',
-                      textAlign: 'center',
-                      color: 'gray',
-                    }}
-                  >
-                    To log in or sign up, <br />
-                    please select account type below:{' '}
-                  </Typography>
-                </Grid>
+    <Container>
+      <Paper container elevation={4}>
+        {!userType ? (
+          <Grid container alignItems="center" justifyContent="center">
+            <Grid style={{ margin: '2em' }}>
+              <label>
+                <Grid container direction={'column'} spacing={2}>
+                  <Grid spacing={3} container>
+                    <Typography
+                      variant="h5"
+                      style={{
+                        padding: '1em',
+                        textAlign: 'center',
+                        color: 'gray',
+                      }}
+                    >
+                      To log in or sign up, <br />
+                      please select account type below:{' '}
+                    </Typography>
+                  </Grid>
 
-                <Select
-                  sx={{ mt: 2 }}
-                  labelId="demo-simple-select-label"
-                  label="Customer Type"
-                  value={typeSelection}
-                  onChange={handleTypeChange}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={'customer'}>Customer</MenuItem>
-                  <MenuItem value={'farmer'}>Farmer</MenuItem>
-                  <MenuItem value={'nutritionist'}>Nutritionist</MenuItem>
-                </Select>
-              </Grid>
-            </label>
-            <Button
-              sx={{ mt: 3, float: 'right' }}
-              onClick={handleTypeChoose}
-              variant="contained"
-            >
-              Continue
-            </Button>
-          </Grid>
-        </Grid>
-      ) : (
-        <>
-          <Grid style={{ margin: '2em' }}>
-            <Button
-              size="small"
-              onClick={() => setUserType('')}
-              variant="contained"
-            >
-              Back
-            </Button>
-          </Grid>
-          {!isLoginForm ? (
-            <AccountForm
-              fieldsArr={SignupFormFields}
-              title="Sign Up"
-              typeMessage="Already have an account?"
-              redirectName="Log In"
-              {...formProps}
-            ></AccountForm>
-          ) : (
-            <AccountForm
-              fieldsArr={LoginFormFields}
-              title="Log In"
-              typeMessage="No account?"
-              redirectName="Sign Up"
-              {...formProps}
-            >
+                  <Select
+                    sx={{ mt: 2 }}
+                    labelId="demo-simple-select-label"
+                    label="Customer Type"
+                    value={typeSelection}
+                    onChange={handleTypeChange}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={'customer'}>Customer</MenuItem>
+                    <MenuItem value={'farmer'}>Farmer</MenuItem>
+                    <MenuItem value={'nutritionist'}>Nutritionist</MenuItem>
+                  </Select>
+                </Grid>
+              </label>
               <Button
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleForgotPassword();
-                }}
+                sx={{ mt: 3, float: 'right' }}
+                onClick={handleTypeChoose}
+                variant="contained"
               >
-                Forgot your password?
+                Continue
               </Button>
-            </AccountForm>
-          )}
-        </>
-      )}
-    </Paper>
+            </Grid>
+          </Grid>
+        ) : (
+          <>
+            <Grid style={{ margin: '2em' }}>
+              <Button
+                size="small"
+                onClick={() => setUserType('')}
+                variant="contained"
+                sx={{ mt: 3 }}
+              >
+                Back
+              </Button>
+            </Grid>
+            {!isLoginForm ? (
+              <AccountForm
+                fieldsArr={SignupFormFields}
+                title="Sign Up"
+                typeMessage="Already have an account?"
+                redirectName="Log In"
+                {...formProps}
+              ></AccountForm>
+            ) : (
+              <AccountForm
+                fieldsArr={LoginFormFields}
+                title="Log In"
+                typeMessage="No account?"
+                redirectName="Sign Up"
+                {...formProps}
+              >
+                <Button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleForgotPassword();
+                  }}
+                >
+                  Forgot your password?
+                </Button>
+              </AccountForm>
+            )}
+          </>
+        )}
+      </Paper>
+    </Container>
   );
 };
 

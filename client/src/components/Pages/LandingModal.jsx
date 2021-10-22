@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import landingPage from './landingPage.jpg';
+import landingPage from './banner_edit.jpg';
 
 const style = {
   position: 'absolute',
@@ -29,15 +29,15 @@ export default function LandingModal({ showModal, setShowModal }) {
     <div>
       <Modal open={showModal} onClose={handleClose}>
         <Box sx={style}>
-          <Typography variant="h2">Welcome to HelloHealth</Typography>
           <img src={landingPage} width="100%" />
           <Typography variant="h5" sx={{ mt: 2 }}>
             Support Local, Support Health.
           </Typography>
           <Button
-            variant="outlined"
+            variant="contained"
+            name="enter"
             size="large"
-            sx={{ mt: 2 }}
+            sx={{ mt: 2, backgroundColor: '#264653', color: '#FFF' }}
             onClick={handleClose}
           >
             Enter

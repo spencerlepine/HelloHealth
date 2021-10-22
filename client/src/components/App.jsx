@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Switch, Route } from 'react-router-dom';
-
+import useStyles from './styles';
 import Navigation from './Navigation.jsx';
 import ProductsPage from './Pages/ProductsPage.jsx';
 import BoxPage from './Pages/BoxPage.jsx';
@@ -23,6 +23,8 @@ export default function App() {
   const { currentUser } = useAuth();
   const [showModal, setShowModal] = useState(true);
 
+  const classes = useStyles();
+  // test endpoint and server connection
   useEffect(() => {
     if (window.sessionStorage.getItem('cart') === null) {
       window.sessionStorage.setItem('cart', JSON.stringify({}));
@@ -56,11 +58,11 @@ export default function App() {
   );
 
   return (
-    <>
+    <div className={classes.global}>
       <nav>
         <Navigation />
       </nav>
-      <section className="content">
+      <section className="content" style={{ minHeight: '80vh' }}>
         <LandingModal showModal={showModal} setShowModal={setShowModal} />
         {renderPage()}
       </section>
@@ -72,6 +74,6 @@ export default function App() {
         ''
       )}
       <Footer />
-    </>
+    </div>
   );
 }

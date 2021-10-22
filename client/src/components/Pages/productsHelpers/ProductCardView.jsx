@@ -36,18 +36,23 @@ export default function ProductCardView({ product }) {
           image={productImage}
           alt={productName}
         />
-        <CardContent>
+        <CardContent sx={{ backgroundColor: '#eee' }}>
           <Typography gutterBottom variant="h5" component="div">
             <Link onClick={handleClick} to={`${PRODUCT}${id}`}>
               {productName}
             </Link>
           </Typography>
           <Typography variant="body2" color="text.secondary">
+            <span style={{ fontSize: '1.17em', fontWeight: 'bold' }}>
+              {productCost}
+            </span>
+            <br />
             <span>{productDescription}</span>
-            <span>{productCost}</span>
           </Typography>
         </CardContent>
-        <CardActions sx={{ justifyContent: 'flex-end' }}>
+        <CardActions
+          sx={{ justifyContent: 'center', pb: 3, backgroundColor: '#eee' }}
+        >
           <AddToCart id={id} quantity={1} />
         </CardActions>
       </Card>

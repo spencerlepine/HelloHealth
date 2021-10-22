@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Grid, Stack } from '@mui/material';
+import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import useMainContext from '../../context/MainContext.jsx';
 import {
   ACCOUNT,
@@ -12,6 +14,7 @@ import {
   CHECKOUT,
 } from '../../config/pageRoutes';
 import ShippingPage from './ShippingPage/ShippingPage.jsx';
+import config from '../../config/config';
 
 export default function CartPage() {
   const [click, setClick] = useState(true);
@@ -48,9 +51,9 @@ export default function CartPage() {
     if (data.length !== 0) {
       axios
         .get(
-          `http://localhost:8001/product/CartInfo?cartArray=${JSON.stringify(
-            data,
-          )}`,
+          `${config.SERVER_URL}/product/CartInfo?cartArray=${JSON.stringify(
+            data
+          )}`
         )
         .then((res) => {
           console.log('data pull from database');
@@ -94,9 +97,9 @@ export default function CartPage() {
     let totalPrice = 0;
     let itemCount = 0;
     for (let i = 0; i < dummyDatas.length; i += 1) {
-      totalPrice
-        += dummyDatas[i].productQuantity
-        * Number(dummyDatas[i].productPrice.substring(1));
+      totalPrice +=
+        dummyDatas[i].productQuantity *
+        Number(dummyDatas[i].productPrice.substring(1));
 
       itemCount += dummyDatas[i].productQuantity;
     }
@@ -107,6 +110,7 @@ export default function CartPage() {
         direction="row"
         justifyContent="center"
         alignItems="center"
+        style={{ backgroundColor: '#eee', margin: '0px' }}
       >
         <Grid item xs>
           <p>{`${itemCount} items`}</p>
@@ -119,7 +123,8 @@ export default function CartPage() {
     );
   };
 
-  const renderItems = () => dummyDatas.map((data, index) => (
+  const renderItems = () =>
+    dummyDatas.map((data, index) => (
       <Grid
         container
         spacing={3}
@@ -127,6 +132,12 @@ export default function CartPage() {
         justifyContent="center"
         alignItems="center"
         key={index}
+        style={{
+          borderBottom: '1px solid black',
+          padding: '20px',
+          marginTop: '0px',
+          backgroundColor: index % 2 === 0 ? 'transparent' : '#eee',
+        }}
       >
         <Grid item xs>
           <img
@@ -142,10 +153,9 @@ export default function CartPage() {
         </Grid>
         <Grid item xs>
           <Stack>
-            <p>{data.productPrice}</p>
-
+            <p align="center">{data.productPrice}</p>
             <Button
-              variant="outlined"
+              variant="contained"
               value={data.productId}
               onClick={(e) => removeItem(Number(e.target.value))}
             >
@@ -154,10 +164,25 @@ export default function CartPage() {
           </Stack>
         </Grid>
       </Grid>
-  ));
+    ));
+
+  const styles = {
+    a: {
+      textDecoration: 'none',
+    },
+    button: {
+      backgroundColor: '#264653',
+      p: 2,
+      color: '#FFF',
+      borderRadius: '4px',
+      '&:hover': {
+        backgroundColor: '#f4a261',
+      },
+    },
+  };
 
   return (
-    <>
+    <Container sx={styles}>
       <Stack
         spacing={2}
         direction="column"
@@ -170,6 +195,7 @@ export default function CartPage() {
           direction="row"
           justifyContent="center"
           alignItems="center"
+          style={{ borderBottom: '1px solid black', margin: 0 }}
         >
           <Grid item xs>
             <p>Cart page</p>
@@ -186,10 +212,20 @@ export default function CartPage() {
           direction="row"
           justifyContent="center"
           alignItems="center"
+          style={{
+            borderBottom: '1px solid black',
+            paddingBottom: '25px',
+            backgroundColor: '#eee',
+            margin: '0',
+          }}
         >
           <Grid item xs>
             <Link to={HOME}>
-              <Button variant="outlined" onClick={handlePageChange} name="home">
+              <Button
+                variant="contained"
+                onClick={handlePageChange}
+                name="home"
+              >
                 Browse Products
               </Button>
             </Link>
@@ -197,7 +233,7 @@ export default function CartPage() {
           <Grid item xs={6}></Grid>
           <Grid item xs>
             <Link to={BOX}>
-              <Button variant="outlined" onClick={handlePageChange} name="box">
+              <Button variant="contained" onClick={handlePageChange} name="box">
                 More Boxes
               </Button>
             </Link>
@@ -210,7 +246,7 @@ export default function CartPage() {
           </button>
         </Link>
       </Stack>
-    </>
+    </Container>
   );
 }
 

@@ -11,6 +11,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import MealList from '../Product/MealList.jsx';
 import Nutrition from '../Product/Nutrition.jsx';
 import useStyles from '../Product/nutritionStyles';
+import AddToCart from './AddToCart.jsx';
 
 export default function BoxPage() {
   const [boxList, setBoxList] = useState([
@@ -116,12 +117,8 @@ export default function BoxPage() {
         <MealList />
         <Grid container>
           <Grid item xs={12} align="center" paddingTop="1rem">
-            <Button
-              className={classes.addToCart}
-              startIcon={<AddShoppingCartIcon />}
-            >
-              Add to Cart
-            </Button>
+            {/* need to get the product id to add to cart */}
+            <AddToCart id={1} quantity={1} />
           </Grid>
         </Grid>
       </Box>

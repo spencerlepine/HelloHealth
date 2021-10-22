@@ -15,6 +15,7 @@ import useMainContext from '../../context/MainContext.jsx';
 import Nutrition from '../Product/Nutrition.jsx';
 import MealList from '../Product/MealList.jsx';
 import AddToCart from './AddToCart.jsx';
+import config from '../../config/config';
 
 export default function ProductViewPage() {
   const [showMessage, setShowMessage] = useState(false);
@@ -29,7 +30,7 @@ export default function ProductViewPage() {
   const productInventory = currentProduct.product_inventory;
   const reviewsCount = currentProduct.reviews_count;
   const [productRating, setProductRating] = useState(
-    JSON.parse(currentProduct.product_rating),
+    JSON.parse(currentProduct.product_rating)
   );
 
   const theme = useTheme();
@@ -51,7 +52,7 @@ export default function ProductViewPage() {
       custRating: rating,
     };
     axios
-      .post('http://localhost:8001/product/productRating', params)
+      .post(`${config.SERVER_URL}/product/productRating`, params)
       .then((results) => {
         console.log(results);
       })
@@ -60,11 +61,12 @@ export default function ProductViewPage() {
       });
   };
 
-  const renderDropdown = () => [...Array(productInventory + 1).keys()].map((i) => (
+  const renderDropdown = () =>
+    [...Array(productInventory + 1).keys()].map((i) => (
       <MenuItem key={i} value={i}>
         {i}
       </MenuItem>
-  ));
+    ));
   return (
     <Container size="md" sx={{ my: 3 }}>
       <Grid container spacing={2} sx={{ my: 3 }}>
@@ -74,13 +76,13 @@ export default function ProductViewPage() {
         <Grid container item md={6}>
           <StarRatings
             rating={productRating || 0}
-            starRatedColor="yellow"
+            starRatedColor="#E9C46A"
             numberOfStars={5}
-            starDimension="15px"
+            starDimension="20px"
             starSpacing="2px"
             name="rating"
             changeRating={handleClick}
-            starHoverColor="red"
+            starHoverColor="#E76F51"
           />
           <Box sx={{ display: showMessage ? 'block' : 'none', ml: 3 }}>
             <span>Thanks for your review.</span>

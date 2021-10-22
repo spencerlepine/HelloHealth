@@ -18,9 +18,7 @@ import useMainContext from '../context/MainContext.jsx';
 import useAuth from '../context/AuthContext.jsx';
 import logo from './HelloHealth.svg';
 
-import {
-  ACCOUNT, HOME, BOX, FARMS, CART,
-} from '../config/pageRoutes';
+import { ACCOUNT, HOME, BOX, FARMS, CART } from '../config/pageRoutes';
 
 function Navigation() {
   const classes = useStyles();
@@ -39,7 +37,13 @@ function Navigation() {
   const btnStyle = {
     a: { textDecoration: 'none' },
     float: 'right',
-    button: { ml: 1 },
+    button: {
+      ml: 1,
+      backgroundColor: '#2A9D8F',
+      '&:hover': {
+        backgroundColor: '#f4a261',
+      },
+    },
     display: isSmallScreen ? 'none' : 'block',
   };
 
@@ -52,8 +56,11 @@ function Navigation() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar className={classes.navbar} position="static">
-        <Toolbar sx={{ justifyContent: isSmallScreen ? 'space-between' : '' }}>
+      <AppBar position="static">
+        <Toolbar
+          className={classes.navbar}
+          sx={{ justifyContent: isSmallScreen ? 'space-between' : '' }}
+        >
           <IconButton
             size="large"
             edge="start"
@@ -64,7 +71,10 @@ function Navigation() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
-            sx={{ display: isSmallScreen ? 'block' : 'none' }}
+            sx={{
+              display: isSmallScreen ? 'block' : 'none',
+              backgroundColor: 'transparent !important',
+            }}
           >
             <MenuIcon color="white" />
           </IconButton>
@@ -86,6 +96,9 @@ function Navigation() {
             </MenuItem>
             <MenuItem onClick={handleClose}>
               <Link to={ACCOUNT}>Account</Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Link to={CART}>Cart</Link>
             </MenuItem>
           </Menu>
 
@@ -112,13 +125,13 @@ function Navigation() {
             </Link>
             {currentUser ? (
               <Link to={ACCOUNT}>
-                <Button name="farms" variant="contained">
+                <Button name="account" variant="contained">
                   Account
                 </Button>
               </Link>
             ) : (
               <Link to={ACCOUNT}>
-                <Button name="farms" variant="contained">
+                <Button name="login" variant="contained">
                   Log In
                 </Button>
               </Link>
@@ -126,7 +139,7 @@ function Navigation() {
             <Link to={CART}>
               <Button onClick={handlePageChange} name="cart">
                 <Badge badgeContent={productsInCart.length} color="success">
-                  <ShoppingCartIcon />
+                  <ShoppingCartIcon style={{ color: 'white' }} />
                 </Badge>
               </Button>
             </Link>

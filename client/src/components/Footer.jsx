@@ -22,7 +22,7 @@ export default function Footer() {
         mt: 'auto',
         py: [3],
         minWidth: '100%',
-        backgroundColor: '#023047',
+        backgroundColor: '#264653',
       }}
     >
       <Copyright sx={{ mt: 5 }} />

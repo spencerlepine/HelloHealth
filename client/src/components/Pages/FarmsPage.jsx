@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Pagination from '@mui/material/Pagination';
@@ -8,6 +9,7 @@ import axios from 'axios';
 import FarmAccountPage from './FarmView/FarmAccountPage.jsx';
 import FarmCard from './FarmView/FarmCard.jsx';
 import useMainContext from '../../context/MainContext.jsx';
+import config from '../../config/config';
 
 export default function FarmsPage() {
   const [farms, setFarms] = useState([]);
@@ -28,7 +30,7 @@ export default function FarmsPage() {
 
   const getFarms = (pageSelected) => {
     axios
-      .get('http://localhost:8001/farmers/farms')
+      .get(`${config.SERVER_URL}/farmers/farms`)
       .then(({ data }) => {
         setFarms(data);
         const items = pageSelected * 6;
@@ -64,7 +66,7 @@ export default function FarmsPage() {
   const renderCondition = () => {
     if (!selected) {
       return (
-        <>
+        <Container>
           <Grid
             container
             align="center"
@@ -98,10 +100,16 @@ export default function FarmsPage() {
               <Pagination
                 count={Math.floor(farms.length / 6) + 1}
                 onChange={handlePageChange}
+                sx={{
+                  '[aria-current]': {
+                    backgroundColor: '#E76F51 !important',
+                    color: 'white',
+                  },
+                }}
               />
             </Stack>
           </Grid>
-        </>
+        </Container>
       );
     }
     return <FarmAccountPage setSelected={showFarms} id={selected} />;

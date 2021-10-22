@@ -48,10 +48,11 @@ function FarmCard({ farm, cardClick }) {
     >
       <Card sx={{ maxWidth: 345 }}>
         <CardHeader
+          sx={{ backgroundColor: '#F4A261' }}
           avatar={
             <Avatar
               onClick={() => cardClick(farm.id)}
-              sx={{ bgcolor: blue[500] }}
+              sx={{ bgcolor: '#264653' }}
               aria-label="recipe"
             >
               {farm.name[0]}
@@ -66,15 +67,15 @@ function FarmCard({ farm, cardClick }) {
           alt="profileImage"
           onClick={() => cardClick(farm.id)}
         />
-        <CardContent>
+        <CardContent sx={{ backgroundColor: '#eee' }}>
           <StarRatings
             rating={farm.farm_rating}
-            starRatedColor={'#5065A8'}
+            starRatedColor={'#E9C46A'}
             numberOfStars={5}
             starDimension={'25px'}
           />
         </CardContent>
-        <CardActions>
+        <CardActions sx={{ backgroundColor: '#eee' }}>
           <IconButton aria-label="add to favorites">
             <FavoriteIcon />
           </IconButton>

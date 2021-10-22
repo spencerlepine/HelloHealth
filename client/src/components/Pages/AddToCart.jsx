@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@mui/material';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export default function AddToCart({ id, quantity }) {
   // need to create document.cookie.cart to store cart information
@@ -31,8 +32,12 @@ export default function AddToCart({ id, quantity }) {
   return (
     <Button
       size="small"
-      variant="outlined"
-      color="success"
+      variant="contained"
+      style={{
+        color: '#FFF',
+        backgroundColor: '#2A9D8F',
+      }}
+      startIcon={<AddShoppingCartIcon />}
       onClick={(e) => addItem()}
     >
       Add to Cart

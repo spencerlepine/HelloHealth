@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -20,6 +21,7 @@ import FarmProductCard from '../../Product/FarmProductCard.jsx';
 import FarmEdit from './FarmEdit.jsx';
 import AddProduct from './AddProduct.jsx';
 import useAuth from '../../../context/AuthContext.jsx';
+import config from '../../../config/config';
 
 const container = {
   position: 'relative',
@@ -53,7 +55,7 @@ export default function FarmAccountPage({ setSelected, id }) {
 
   const getFarmDetail = () => {
     axios
-      .get(`http://localhost:8001/farmers/one-farm/${id}`)
+      .get(`${config.SERVER_URL}/farmers/one-farm/${id}`)
       .then(({ data }) => setInfo(data))
       .catch((err) => console.log(err));
   };
@@ -84,7 +86,7 @@ export default function FarmAccountPage({ setSelected, id }) {
   }, []);
 
   return (
-    <>
+    <Container>
       <Box sx={{ x: 2, float: 'right' }}></Box>
       <Grid container>
         <Grid item xs={4} style={container}>
@@ -159,6 +161,6 @@ export default function FarmAccountPage({ setSelected, id }) {
         </Box>
       )}
       {userType === 'farmer' && currentUser ? <AddProduct /> : <></>}
-    </>
+    </Container>
   );
 }

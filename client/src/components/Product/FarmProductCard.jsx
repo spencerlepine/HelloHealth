@@ -16,6 +16,7 @@ import NutritionModal from './NutritionModal.jsx';
 // import useMainContext from '../../context/MainContext.jsx';
 import ProductEdit from '../Pages/FarmView/ProductEdit.jsx';
 import useAuth from '../../context/AuthContext.jsx';
+import AddToCart from '../Pages/AddToCart.jsx';
 
 const text = {
   paddingTop: '10px',
@@ -68,7 +69,9 @@ function FarmProductCard({ product }) {
             </MenuItem>
           </Select>
         </FormControl>
-        <Button startIcon={<AddShoppingCartIcon />}>Add to Cart</Button>
+        {/* <Button startIcon={<AddShoppingCartIcon />}>Add to Cart</Button> */}
+        {/* get id and quantity to add to cart here */}
+        <AddToCart id={1} quantity={1} />
       </div>
     );
   };
