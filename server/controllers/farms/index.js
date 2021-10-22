@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const axios = require('axios');
 const { QueryTypes } = require('sequelize');
 const config = require('../../config/config');
@@ -73,4 +74,57 @@ module.exports = {
       res.status(500).send(err.message);
     }
   },
+  addProduct: async (req, res) => {
+    try {
+      const {
+        id,
+        product_name,
+        product_description,
+        product_cost,
+        product_image,
+        product_inventory,
+        farm_id,
+      } = req.body;
+      const queryVal = `INSERT INTO products_2(id, product_name, product_description, product_cost, product_inventory, product_image, product_rating, farm_id) VALUES (${id}, '${product_name}', '${product_description}',  ${product_cost}, ${product_inventory}, '${product_image}', 0, '${farm_id}');`;
+      const data = await sequelize.query(queryVal, { model: ProductsModel });
+      res.status(200).send(data);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
+  updateProduct: async (req, res) => {
+    try {
+      const { updateCol, updateVal, id } = req.body;
+      const queryVal = `UPDATE products_2 SET ${updateCol} = '${updateVal}' WHERE id = ${id}`;
+      const data = await sequelize.query(queryVal, { model: ProductsModel });
+      res.status(200).send('Products Updated!');
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
+  updateFarm: async (req, res) => {
+    // eslint-disable-next-line no-empty
+    try {
+      // eslint-disable-next-line no-empty
+      const { updateCol, updateVal, id } = req.body;
+      const queryVal = `UPDATE farms SET ${updateCol} = '${updateVal}' WHERE user_id = '${id}'`;
+      const data = await sequelize.query(queryVal, { model: FarmsModel });
+      res.status(200).send('Farm Info Updated!');
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
+  deleteProduct: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const queryVal = `DELETE FROM products_2 WHERE id = ${id}`;
+      const data = await sequelize.query(queryVal, { model: ProductsModel });
+      res.status(200).send(data);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  },
 };
+// UPDATE products_2 SET product_inventory = 11 WHERE farm_id = 'AUkmqooYRvZDYezoMLgE9lqbMGx2'
+
+// INSERT INTO products_2(id, product_name, product_description, product_cost, product_inventory, product_image, product_rating, farm_id) VALUES (101, 'Apples', 'apple, (Malus domestica), fruit of the domesticated tree Malus domestica (family Rosaceae), one of the most widely cultivated tree fruits. The apple is a pome (fleshy) fruit, in which the ripened ovary and surrounding tissue both become fleshy and edible.',  1, 10, 'https://images.unsplash.com/photo-1558818498-28c1e002b655?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1887&q=80', 0, 'AUkmqooYRvZDYezoMLgE9lqbMGx2' );

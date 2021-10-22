@@ -51,7 +51,7 @@ function FarmCard({ farm, cardClick }) {
           sx={{ backgroundColor: '#F4A261' }}
           avatar={
             <Avatar
-              onClick={() => cardClick(farm.id)}
+              onClick={() => cardClick(farm.user_id)}
               sx={{ bgcolor: '#264653' }}
               aria-label="recipe"
             >
@@ -65,7 +65,7 @@ function FarmCard({ farm, cardClick }) {
           height="194"
           image={farm.profile_image}
           alt="profileImage"
-          onClick={() => cardClick(farm.id)}
+          onClick={() => cardClick(farm.user_id)}
         />
         <CardContent sx={{ backgroundColor: '#eee' }}>
           <StarRatings

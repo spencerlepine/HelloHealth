@@ -69,9 +69,7 @@ function FarmProductCard({ product }) {
             </MenuItem>
           </Select>
         </FormControl>
-        {/* <Button startIcon={<AddShoppingCartIcon />}>Add to Cart</Button> */}
-        {/* get id and quantity to add to cart here */}
-        <AddToCart id={1} quantity={1} />
+        <AddToCart id={product.id} quantity={Number(quantity)} />
       </div>
     );
   };
@@ -96,7 +94,7 @@ function FarmProductCard({ product }) {
         <Typography style={text}>
           <b>What makes this item fresh?</b>
         </Typography>
-        <Typography>{description}</Typography>
+        <Typography>{product.product_description}</Typography>
         <Grid alignSelf="flex-end">
           <Typography variant="h5">
             <b>${product.product_cost}</b>

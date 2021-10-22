@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -10,6 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Nutrition from '../../Product/Nutrition.jsx';
+import config from '../../../config/config';
 
 const style = {
   position: 'absolute',
@@ -23,15 +24,18 @@ const style = {
   p: 4,
 };
 
-export default function ProductEdit({ info, product }) {
+export default function ProductEdit({ product, getFarmDetail, farmId }) {
   const [open, setOpen] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [image, setImage] = useState(product.product_image);
   const [name, setName] = useState(product.product_name);
   const [description, setDescription] = useState(product.product_description);
+  // const test = () => window.location.reload(false);
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const onType = (e, set) => {
     set(e.target.value);
@@ -39,6 +43,20 @@ export default function ProductEdit({ info, product }) {
 
   const handleImagePreview = (e) => {
     setImage(URL.createObjectURL(e.target.files[0]));
+  };
+
+  const handleUpdate = (updateColumn, updateValue) => {
+    axios
+      .post(`${config.SERVER_URL}/farmers/updateProducts`, {
+        id: product.id,
+        updateVal: updateValue,
+        updateCol: updateColumn,
+      })
+      .then(() => {
+        getFarmDetail(farmId);
+        console.log('updated!');
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -53,11 +71,24 @@ export default function ProductEdit({ info, product }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <Typography variant="h4">Edit Product</Typography>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}
+          >
+            <Button variant="contained" onClick={handleClose}>
+              Close
+            </Button>
+          </div>
           <FormLabel>
             Name:
             <TextField
               id="banner-image"
               value={name}
+              name={'product_name'}
               multiline
               maxRows={1}
               fullWidth
@@ -71,7 +102,13 @@ export default function ProductEdit({ info, product }) {
               alignItems: 'flex-end',
             }}
           >
-            <Button>Update</Button>
+            <Button
+              onClick={(e) => {
+                handleUpdate('product_name', name);
+              }}
+            >
+              Update
+            </Button>
           </div>
           <FormLabel>
             Description:
@@ -82,6 +119,7 @@ export default function ProductEdit({ info, product }) {
               fullWidth
               placeholder={description}
               value={description}
+              name={'product_description'}
               onChange={(e) => onType(e, setDescription)}
             />
             <div
@@ -91,7 +129,13 @@ export default function ProductEdit({ info, product }) {
                 alignItems: 'flex-end',
               }}
             >
-              <Button>Update</Button>
+              <Button
+                onClick={(e) => {
+                  handleUpdate('product_description', description);
+                }}
+              >
+                Update
+              </Button>
             </div>
           </FormLabel>
           <FormLabel>
@@ -102,6 +146,7 @@ export default function ProductEdit({ info, product }) {
               maxRows={8}
               fullWidth
               value={image}
+              name={'product_image'}
               onChange={(e) => onType(e, setImage)}
             />
           </FormLabel>
@@ -126,7 +171,13 @@ export default function ProductEdit({ info, product }) {
               alignItems: 'flex-end',
             }}
           >
-            <Button>Update</Button>
+            <Button
+              onClick={(e) => {
+                handleUpdate('product_image', image);
+              }}
+            >
+              Update
+            </Button>
           </div>
         </Box>
       </Modal>

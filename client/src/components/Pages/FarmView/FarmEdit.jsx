@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
@@ -9,6 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Nutrition from '../../Product/Nutrition.jsx';
+import config from '../../../config/config';
 
 const style = {
   position: 'absolute',
@@ -22,7 +24,7 @@ const style = {
   p: 4,
 };
 
-export default function FarmEdit({ info }) {
+export default function FarmEdit({ info, getFarmDetail }) {
   const [open, setOpen] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [banner, setBanner] = useState(info.profile_image);
@@ -37,6 +39,20 @@ export default function FarmEdit({ info }) {
   };
   const handleImagePreview = (e) => {
     setImage(URL.createObjectURL(e.target.files[0]));
+  };
+
+  const handleUpdate = (updateColumn, updateValue) => {
+    axios
+      .post(`${config.SERVER_URL}/farmers/updateFarm`, {
+        id: info.user_id,
+        updateVal: updateValue,
+        updateCol: updateColumn,
+      })
+      .then(() => {
+        getFarmDetail(info.user_id);
+        console.log('updated!');
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -55,6 +71,18 @@ export default function FarmEdit({ info }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}
+          >
+            <Button variant="contained" onClick={handleClose}>
+              Close
+            </Button>
+          </div>
+          <Typography variant="h4">Edit Farm Info</Typography>
           <FormLabel>
             About:
             <TextField
@@ -73,7 +101,13 @@ export default function FarmEdit({ info }) {
                 alignItems: 'flex-end',
               }}
             >
-              <Button>Update</Button>
+              <Button
+                onClick={(e) => {
+                  handleUpdate('description', about);
+                }}
+              >
+                Update
+              </Button>
             </div>
           </FormLabel>
           <FormLabel>
@@ -95,7 +129,13 @@ export default function FarmEdit({ info }) {
               alignItems: 'flex-end',
             }}
           >
-            <Button>Update</Button>
+            <Button
+              onClick={() => {
+                handleUpdate('video_link', video);
+              }}
+            >
+              Update
+            </Button>
           </div>
           <FormLabel>
             Banner Image Link:
@@ -124,32 +164,15 @@ export default function FarmEdit({ info }) {
                 alignItems: 'flex-end',
               }}
             >
-              <Button>Update</Button>
+              <Button
+                onClick={() => {
+                  handleUpdate('profile_image', banner);
+                }}
+              >
+                Update
+              </Button>
             </div>
           </FormLabel>
-          {/* <FormLabel>
-            Banner Image:{' '}
-            <input
-              type="file"
-              onChange={handleImagePreview}
-              accept=".jpg,.png"
-            />
-            <div>
-              <img
-                style={{ objectFit: 'cover', width: '100px', height: '100px' }}
-                src={banner}
-              />
-            </div>
-            <div
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              alignItems: 'flex-end',
-            }}
-          >
-            <Button>Update</Button>
-          </div>
-          </FormLabel> */}
         </Box>
       </Modal>
     </div>

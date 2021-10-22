@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import axios from 'axios';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -10,6 +11,7 @@ import Select from '@mui/material/Select';
 import StarRatings from 'react-star-ratings';
 import ReactPlayer from 'react-player';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import useStyles from '../Pages/FarmView/FarmAccountStyles';
 import NutritionModal from './NutritionModal.jsx';
@@ -22,7 +24,7 @@ const text = {
   paddingBottom: '10px',
 };
 
-function FarmAdminProductCard({ product }) {
+function FarmAdminProductCard({ product, farmId, getFarmDetail }) {
   const [quantity, setQuantity] = useState(1);
   const [name, setName] = useState(product.product_name);
   const [description, setDescription] = useState(product.product_description);
@@ -34,12 +36,31 @@ function FarmAdminProductCard({ product }) {
     setQuantity(e.target.value);
   };
 
+  const handleDelete = () => {
+    axios
+      .delete(`http://localhost:8001/farmers/deleteProducts/${product.id}`)
+      .then(() => {
+        console.log('Item Deleted');
+        getFarmDetail(farmId);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const renderButton = () => {
     if (userType === 'farmer' && currentUser) {
       return (
         <div style={{ display: 'flex' }}>
           <NutritionModal productId={product.id} nutrition={nutrition} />
-          <ProductEdit product={product} />
+          <ProductEdit
+            getFarmDetail={getFarmDetail}
+            farmId={farmId}
+            product={product}
+          />
+          <Button onClick={handleDelete} startIcon={<DeleteIcon />}>
+            Delete
+          </Button>
         </div>
       );
     }
@@ -88,11 +109,11 @@ function FarmAdminProductCard({ product }) {
         direction="column"
         justifyContent="space-around"
       >
-        <Typography variant="h6">{name}</Typography>
+        <Typography variant="h6">{product.product_name}</Typography>
         <Typography style={text}>
           <b>What makes this item fresh?</b>
         </Typography>
-        <Typography>{description}</Typography>
+        <Typography>{product.product_description}</Typography>
         <Grid alignSelf="flex-end">
           <Typography variant="h5">
             <b>${product.product_cost}</b>

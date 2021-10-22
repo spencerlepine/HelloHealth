@@ -44,6 +44,7 @@ const text = {
 
 export default function FarmAdminPage({ setSelected, id }) {
   const [edit, setEdit] = useState(false);
+  const [clicked, setClicked] = useState(true);
   const { userType, setUserType } = useMainContext();
   const classes = useStyles();
   const [info, setInfo] = useState({ products: [] });
@@ -53,9 +54,9 @@ export default function FarmAdminPage({ setSelected, id }) {
 
   const { logoutUser, currentUser } = useAuth();
 
-  const getFarmDetail = () => {
+  const getFarmDetail = (productId) => {
     axios
-      .get(`${config.SERVER_URL}/farmers/one-farm/${id}`)
+      .get(`${config.SERVER_URL}/farmers/one-farm/${productId}`)
       .then(({ data }) => setInfo(data))
       .catch((err) => console.log(err));
   };
@@ -63,12 +64,9 @@ export default function FarmAdminPage({ setSelected, id }) {
   const handleEdit = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
-
-  // const handleLogoutClick = () => {
-  //   const history = useHistory();
-  //   logoutUser();
-  //   history.push('/');
-  // };
+  const update = () => {
+    setRefresh((prev) => !prev);
+  };
 
   // eslint-disable-next-line consistent-return
   const handleLogout = () => {
@@ -82,15 +80,24 @@ export default function FarmAdminPage({ setSelected, id }) {
   };
 
   useEffect(() => {
-    getFarmDetail();
-  }, []);
+    getFarmDetail(id);
+  }, [id]);
 
   return (
     <>
-      <Box sx={{ x: 2, float: 'right' }}></Box>
       <Grid container>
-        <Grid item xs={4} style={container}></Grid>
-        {handleLogout()}
+        {userType === 'farmer' && currentUser && (
+          <Box sx={{ m: 3, float: 'right' }}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                logoutUser();
+              }}
+            >
+              Log Out
+            </Button>
+          </Box>
+        )}
         <Grid item xs={12} style={container}>
           <img
             className={classes.banner}
@@ -127,7 +134,7 @@ export default function FarmAdminPage({ setSelected, id }) {
           <div style={text}>
             <Typography>{info.description}</Typography>
             {userType === 'farmer' && currentUser ? (
-              <FarmEdit info={info} />
+              <FarmEdit getFarmDetail={getFarmDetail} info={info} />
             ) : (
               <></>
             )}
@@ -141,21 +148,18 @@ export default function FarmAdminPage({ setSelected, id }) {
         Browse Products
       </Typography>
       {info.products.map((product, index) => (
-        <FarmAdminProductCard product={product} key={index} />
+        <FarmAdminProductCard
+          getFarmDetail={getFarmDetail}
+          farmId={id}
+          product={product}
+          key={index}
+        />
       ))}
-      {userType === 'farmer' && currentUser && (
-        <Box sx={{ m: 3, float: 'right' }}>
-          <Button
-            variant="contained"
-            onClick={() => {
-              logoutUser();
-            }}
-          >
-            Log Out
-          </Button>
-        </Box>
+      {userType === 'farmer' && currentUser ? (
+        <AddProduct getFarmDetail={getFarmDetail} id={id} />
+      ) : (
+        <></>
       )}
-      {userType === 'farmer' && currentUser ? <AddProduct /> : <></>}
     </>
   );
 }

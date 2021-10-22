@@ -20,6 +20,7 @@ export default function FarmsPage() {
   const { selected, setSelected, showFarms } = useMainContext();
 
   const cardClick = (id) => {
+    console.log(id);
     setAllFarms(false);
     setSelected(id);
   };

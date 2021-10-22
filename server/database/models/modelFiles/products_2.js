@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
     },
     product_rating: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     farm_id: {
       type: DataTypes.STRING,

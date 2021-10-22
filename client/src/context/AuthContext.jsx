@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
             userAPI.fetchUserAccountType(user.uid, (userTypeString) => {
               console.log(`API found ${userTypeString} for userType`);
 
-              setUserType(userTypeString);
+              // setUserType(userTypeString);
               setCurrentUser(user);
               setAccountDetails((prev) => ({
                 ...prev,
@@ -41,7 +41,6 @@ export const AuthProvider = ({ children }) => {
           userAPI.fetchAccountDetails(user.uid, (newDetails) => {
             setAccountDetails((prev) => {
               const newObj = {
-                customer_type: 'customer',
                 user_id: user.uid,
                 id: user.uid,
                 email: user.email,
@@ -56,6 +55,7 @@ export const AuthProvider = ({ children }) => {
                 first_purchase_complete: false,
                 credit_available: '$50',
                 ...newDetails,
+                customer_type: userType,
               };
 
               userAPI.updateAccountDetails(user.uid, newObj);

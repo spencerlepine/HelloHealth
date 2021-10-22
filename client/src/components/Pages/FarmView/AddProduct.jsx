@@ -23,7 +23,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-export default function AddProduct() {
+export default function AddProduct({ id, getFarmDetail }) {
   const [open, setOpen] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [image, setImage] = useState(
@@ -31,6 +31,10 @@ export default function AddProduct() {
   );
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [price, setPrice] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+
+  const randomId = () => Math.random() * (999 - 102) + 102;
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -39,6 +43,31 @@ export default function AddProduct() {
   };
   const onType = (e, set) => {
     set(e.target.value);
+  };
+
+  const AddItems = (e) => {
+    e.preventDefault();
+    axios
+      .post('http://localhost:8001/farmers/addProducts', {
+        product_name: name,
+        product_description: description,
+        product_cost: price,
+        product_image: image,
+        product_inventory: quantity,
+        farm_id: id,
+        id: randomId(),
+      })
+      .then(() => {
+        getFarmDetail(id);
+        setOpen(false);
+        setName('');
+        setDescription('');
+        setPrice(0);
+        setQuantity(0);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -53,6 +82,7 @@ export default function AddProduct() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <Typography variant="h4">Add Product</Typography>
           <FormLabel>
             Name:
             <TextField
@@ -99,16 +129,21 @@ export default function AddProduct() {
               multiline
               maxRows={8}
               fullWidth
-              value={description}
-              onChange={(e) => onType(e, setDescription)}
+              value={price}
+              onChange={(e) => onType(e, setPrice)}
             />
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                alignItems: 'flex-end',
-              }}
-            ></div>
+          </FormLabel>
+          <FormLabel>
+            Quantity:
+            <TextField
+              id="outlined-multiline-flexible"
+              label="Please enter quantity.."
+              multiline
+              maxRows={8}
+              fullWidth
+              value={quantity}
+              onChange={(e) => onType(e, setQuantity)}
+            />
           </FormLabel>
           <FormLabel>
             Product Image URL:
@@ -134,7 +169,9 @@ export default function AddProduct() {
               alignItems: 'flex-end',
             }}
           >
-            <Button startIcon={<AddIcon />}>Add Products</Button>
+            <Button onClick={AddItems} startIcon={<AddIcon />}>
+              Add Products
+            </Button>
           </div>
         </Box>
       </Modal>
