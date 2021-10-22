@@ -97,7 +97,7 @@ function FarmAdminProductCard({ product, farmId, getFarmDetail }) {
     <Grid container spacing={0} className={productClass.productItem}>
       <Grid item xs={4}>
         <img
-          style={{ objectFit: 'cover', width: '20vw', height: '20vh' }}
+          style={{ objectFit: 'cover', maxWidth: '20vw', height: '20vh' }}
           src={product.product_image}
         ></img>
       </Grid>

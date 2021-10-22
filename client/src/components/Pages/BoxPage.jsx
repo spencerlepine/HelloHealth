@@ -43,7 +43,7 @@ export default function BoxPage() {
     },
   ]);
   const [boxOptions, setBoxOptions] = useState([]);
-  const [selectedSizePlan, setSelectedSizePlan] = useState('');
+  const [selectedSizePlan, setSelectedSizePlan] = useState('Small');
   const [selectedProductId, setSelectedProductId] = useState('');
   const [boxListSize, setBoxSizeList] = useState(null);
 
@@ -68,7 +68,7 @@ export default function BoxPage() {
 
   const getBoxItems = (selectedSize) => {
     if (selectedSize === '') {
-      setBoxSizeList(null);
+      setBoxSizeList('Small');
       return;
     }
 
@@ -92,7 +92,7 @@ export default function BoxPage() {
 
   const handleSizeChange = (size) => {
     if (size === null) {
-      setSelectedSizePlan('');
+      setSelectedSizePlan('Small');
     } else if (size === 'Small') {
       setSelectedSizePlan(size);
       setSelectedProductId(9999);
@@ -105,122 +105,92 @@ export default function BoxPage() {
     }
   };
 
-  // function renderRow(props) {
-  //   const { index, style } = props;
-
-  /**
-    {
-      "id": 9999,
-      "product_name": "small-box",
-      "product_description": "Offering a box of the finest beef in California.",
-      "product_cost": "$59.99",
-      "product_inventory": 99,
-      "product_image": "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/114310/new-york-strip-and-filet-mignon-prime-steak-gift-box.98e97fd3bcbdb666e0e14e2ff7978b6f.jpg?ixlib=react-9.0.2&auto=format&ar=1%3A1&w=1946",
-      "product_rating": "5",
-      "farm_id": "5",
-      "reviews_count": 100
-//   },
-//    */
-  //   return (
-  //     <>
-  //       <ListItem style={style} key={index} component="div" disablePadding>
-  //         <ListItemButton divider={true}>
-  //           { boxListSize
-  //             ? <> <ListItemText
-  //           primary={`${boxListSize[index].product_name}`}
-  //           secondary={`${boxListSize[index].product_description}`}
-  //         />
-  //         <ListItemText
-  //           primary={`Quantity: ${boxListSize[index].product_quantity}`}
-  //           align="end"
-  //         /> </> : null}
-
-  //         </ListItemButton>
-  //       </ListItem>
-  //     </>
-  //   );
-  // }
-
-  return (
-    <>
-      <Box
-        sx={{
-          width: '100%',
-          height: '100%',
-          maxWidth: '80%',
-          bgcolor: 'background.paper',
-          border: '1px solid #D3D3D3',
-          margin: 'auto',
-          marginTop: '1em',
-          boxSizing: 'border-box',
-          boxShadow: 3,
-        }}
-      >
-        <h1 style={{ paddingLeft: '0.65em' }}>This Week's Box</h1>
-        <p style={{ paddingLeft: '1em' }}>
-          {boxOptions.length > 0 && boxOptions[0].product_description}
-        </p>
-        <List
+  if (boxListSize !== null) {
+    return (
+      <>
+        <Box
           sx={{
             width: '100%',
-            maxWidth: 5000,
+            height: '100%',
+            maxWidth: '80%',
             bgcolor: 'background.paper',
-            position: 'relative',
-            overflow: 'auto',
-            maxHeight: 300,
-            '& ul': { padding: 0 },
+            border: '1px solid #D3D3D3',
+            margin: 'auto',
+            marginTop: '1em',
+            boxSizing: 'border-box',
+            boxShadow: 3,
           }}
-          subheader={<li />}
         >
-          <li>
-            <ul>
-              {boxList.map((item, index) => (
-                <ListItem key={index} component="div" disablePadding>
-                  <ListItemButton divider={true}>
-                    <Grid container alignItems="center">
-                      {boxListSize ? (
-                        <>
-                          <Grid item xs={6}>
-                            <ListItemText
-                              primary={`${boxListSize[index].product_name}`}
-                              // secondary={`${boxListSize[index].product_description}`}
-                            />
-                          </Grid>
+          <h1 style={{ paddingLeft: '0.65em' }}>This Week's Box</h1>
+          <p style={{ paddingLeft: '1em' }}>
+            {boxOptions.length > 0 && boxOptions[0].product_description}
+          </p>
+          <List
+            sx={{
+              width: '100%',
+              maxWidth: 5000,
+              bgcolor: 'background.paper',
+              position: 'relative',
+              overflow: 'auto',
+              maxHeight: 300,
+              '& ul': { padding: 0 },
+            }}
+            subheader={<li />}
+          >
+            <li>
+              <ul>
+                {boxListSize.map((item, index) => (
+                  <ListItem key={index} component="div" disablePadding>
+                    <ListItemButton divider={true}>
+                      <Grid container alignItems="center">
+                        {boxListSize ? (
+                          <>
+                            <Grid item xs={6}>
+                              <ListItemText
+                                primary={`${boxListSize[index].product_name}`}
+                                // secondary={`${boxListSize[index].product_description}`}
+                              />
+                            </Grid>
 
-                          <Grid item xs={6}>
-                            <ListItemText
-                              primary={`Quantity: ${boxListSize[index].product_quantity}`}
-                              align="end"
-                            />
-                          </Grid>
-                        </>
-                      ) : null}
-                    </Grid>
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </ul>
-          </li>
-        </List>
-      </Box>
-      <Box
-        sx={{
-          width: '100%',
-          height: '100%',
-          maxWidth: '80%',
-          bgcolor: 'background.paper',
-          margin: 'auto',
-          boxSizing: 'border-box',
-        }}
-      >
-        <h1>Select a plan:</h1>
-        <MealList boxOptions={boxOptions} handleSizeChange={handleSizeChange} />
-        <Grid container>
-          <Grid item xs={12} align="center" paddingTop="1rem">
-            <AddToCart id={selectedProductId} quantity={1} />
+                            <Grid item xs={6}>
+                              <ListItemText
+                                primary={`Quantity: ${boxListSize[index].product_quantity}`}
+                                align="end"
+                              />
+                            </Grid>
+                          </>
+                        ) : null}
+                      </Grid>
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+              </ul>
+            </li>
+          </List>
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            height: '100%',
+            maxWidth: '80%',
+            bgcolor: 'background.paper',
+            margin: 'auto',
+            boxSizing: 'border-box',
+          }}
+        >
+          <h1>Select a plan:</h1>
+          <MealList
+            boxOptions={boxOptions}
+            handleSizeChange={handleSizeChange}
+          />
+          <Grid container>
+            <Grid item xs={12} align="center" paddingTop="1rem">
+              <AddToCart id={selectedProductId} quantity={1} />
+            </Grid>
           </Grid>
-        </Grid>
-      </Box>
-    </>
-  );
+        </Box>
+      </>
+    );
+  }
+  return null;
 }
