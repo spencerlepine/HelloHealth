@@ -58,7 +58,15 @@ function FarmCard({ farm, cardClick }) {
               {farm.name[0]}
             </Avatar>
           }
-          title={<Typography variant="h6">{farm.name}</Typography>}
+          title={
+            <Typography
+              variant="h6"
+              style={{ cursor: 'pointer' }}
+              onClick={() => cardClick(farm.user_id)}
+            >
+              {farm.name}
+            </Typography>
+          }
         />
         <CardMedia
           component="img"
@@ -66,6 +74,7 @@ function FarmCard({ farm, cardClick }) {
           image={farm.profile_image}
           alt="profileImage"
           onClick={() => cardClick(farm.user_id)}
+          style={{ cursor: 'pointer' }}
         />
         <CardContent sx={{ backgroundColor: '#eee' }}>
           <StarRatings

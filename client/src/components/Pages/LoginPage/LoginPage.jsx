@@ -150,8 +150,20 @@ const LoginPage = () => {
   };
 
   return (
-    <Container>
-      <Paper container elevation={4}>
+    <Container
+      sx={{
+        button: {
+          backgroundColor: '#264653',
+          '&:hover': {
+            backgroundColor: '#f4a261',
+          },
+          color: '#fff',
+          border: 'none',
+          padding: '10px',
+        },
+      }}
+    >
+      <Paper container elevation={4} style={{ backgroundColor: '#eee' }}>
         {!userType ? (
           <Grid container alignItems="center" justifyContent="center">
             <Grid style={{ margin: '2em' }}>
@@ -172,7 +184,7 @@ const LoginPage = () => {
                   </Grid>
 
                   <Select
-                    sx={{ mt: 2 }}
+                    sx={{ mt: 2, backgroundColor: '#fff', color: '#000' }}
                     labelId="demo-simple-select-label"
                     label="Customer Type"
                     value={typeSelection}

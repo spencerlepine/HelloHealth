@@ -29,7 +29,17 @@ export default function ProductCardView({ product }) {
 
   return (
     <Grid xl={2} lg={3} md={4} sm={6} xs={12} item>
-      <Card sx={{ a: { textDecoration: 'none', color: 'black' } }}>
+      <Card
+        sx={{
+          a: {
+            textDecoration: 'none',
+            color: '#264653',
+            '&:hover': {
+              color: '#F4A261',
+            },
+          },
+        }}
+      >
         <CardMedia
           component="img"
           height="140"

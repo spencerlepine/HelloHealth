@@ -55,7 +55,18 @@ export default function Chat() {
   }, [currentUser]);
 
   return (
-    <Box sx={{ 'div.sc-launcher': { zIndex: 100 } }}>
+    <Box
+      sx={{
+        'div.sc-launcher': {
+          zIndex: 100,
+          backgroundColor: '#E76F51',
+        },
+        'div.sc-header': { background: '#E76F51' },
+        '.sc-message--content.sent .sc-message--text': {
+          backgroundColor: '#264653 !important',
+        },
+      }}
+    >
       <Launcher
         agentProfile={{
           teamName: 'Chat with a Nutritionist!',
