@@ -6,7 +6,13 @@
 
 import Joi from 'joi';
 
-const enviromentObj = process.env;
+let enviromentObj;
+
+try {
+  enviromentObj = process.env;
+} catch {
+  enviromentObj = import.meta.env;
+}
 
 const envVarsSchema = Joi.object()
   .keys({
