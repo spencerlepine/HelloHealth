@@ -20,7 +20,6 @@ export default function FarmsPage() {
   const { selected, setSelected, showFarms } = useMainContext();
 
   const cardClick = (id) => {
-    console.log(id);
     setAllFarms(false);
     setSelected(id);
   };
@@ -50,7 +49,6 @@ export default function FarmsPage() {
       setPage(pageSelected);
     } else {
       const arrowNav = e.target.getAttribute('data-testid');
-      console.log(arrowNav);
       if (arrowNav === 'NavigateNextIcon') {
         setPage((prevPage) => prevPage + 1);
       }

@@ -12,7 +12,6 @@ afterAll(() => {
   sequelize.close();
   if (server.close) {
     server.close((err) => {
-      console.log('server closed');
       process.exit(err ? 1 : 0);
     });
   }

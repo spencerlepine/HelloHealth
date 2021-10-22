@@ -40,7 +40,6 @@ function FarmAdminProductCard({ product, farmId, getFarmDetail }) {
     axios
       .delete(`http://localhost:8001/farmers/deleteProducts/${product.id}`)
       .then(() => {
-        console.log('Item Deleted');
         getFarmDetail(farmId);
       })
       .catch((err) => {

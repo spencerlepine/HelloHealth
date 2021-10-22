@@ -45,7 +45,6 @@ module.exports = {
     }
   },
   // getProductRating: async (req, res) => {
-  //   console.log('get product req.query', req.query);
   //   // need to test below variable definition based on req.query
   //   const productId = req.query.id;
   //   try {
@@ -60,7 +59,8 @@ module.exports = {
   // },
   addProductRating: async (req, res) => {
     const productId = req.body.id;
-    const totalAllRatings = Number(req.body.product_rating) * Number(req.body.reviews_count);
+    const totalAllRatings =
+      Number(req.body.product_rating) * Number(req.body.reviews_count);
     const newReviewsCount = Number(req.body.reviews_count) + 1;
     let { custRating } = req.body;
     custRating = Number(custRating);

@@ -62,11 +62,6 @@ module.exports = {
       { where: { id: userId } },
     )
       .then((foundItem) => {
-        console.log(
-          '\n\nAPI saved accoutType:',
-          foundItem.customer_type,
-          ' - on GET\n\n',
-        );
         res.status(200).json(foundItem);
       })
       .catch((error) => {
@@ -95,11 +90,9 @@ module.exports = {
 
     updateOrCreate(UserModel, { id: userId }, newObj)
       .then((result) => {
-        console.log('\n\nAPI saved accoutType:', accountType, '\n\n');
         res.status(201).json(accountType);
       })
       .catch((err) => {
-        console.log(err);
         res.status(500).send(err);
       });
   },
@@ -113,7 +106,6 @@ module.exports = {
         res.status(201).json(req.body);
       })
       .catch((error) => {
-        console.log(error);
         res.status(500).send(error.message);
       });
   },
@@ -149,7 +141,8 @@ module.exports = {
       .findAll({ user_id: userId })
       .then((transactions) => {
         // HERE
-        const trans = transactions.length === 0 ? mockTransactions : transactions;
+        const trans =
+          transactions.length === 0 ? mockTransactions : transactions;
         res.status(200).json(trans);
       })
       .catch((error) => {
@@ -204,7 +197,6 @@ module.exports = {
   },
   getChat: async (req, res) => {
     const { id } = req.query;
-    // console.log('user_id: ', id);
     try {
       const queryString = `SELECT * FROM messages WHERE user_id='${id}'`;
       const result = await sequelize.query(queryString, {

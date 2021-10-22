@@ -28,8 +28,6 @@ export const AuthProvider = ({ children }) => {
         if (user) {
           if (!userType) {
             userAPI.fetchUserAccountType(user.uid, (userTypeString) => {
-              console.log(`API found ${userTypeString} for userType`);
-
               // setUserType(userTypeString);
               setCurrentUser(user);
               setAccountDetails((prev) => ({
@@ -86,8 +84,7 @@ export const AuthProvider = ({ children }) => {
     auth
       .signInWithPopup(googleProvider)
       .then((res) => {
-        console.log(res.user);
-        callback();
+        callback(res.user);
       })
       .catch((error) => {
         console.log(error.message);
@@ -98,8 +95,7 @@ export const AuthProvider = ({ children }) => {
     auth
       .signInWithPopup(facebookProvider)
       .then((res) => {
-        console.log(res.user);
-        callback();
+        callback(res.user);
       })
       .catch((error) => {
         console.log(error.message);

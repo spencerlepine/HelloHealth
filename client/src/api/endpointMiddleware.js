@@ -74,8 +74,8 @@ const endpointMiddleware = (endpointKeys, data, method) => {
   let endpointObj = routes;
   endpointKeys.forEach((endpointKey) => {
     if (
-      endpointObj[endpointKey] === undefined
-      || endpointObj[endpointKey].ENDPOINT === undefined
+      endpointObj[endpointKey] === undefined ||
+      endpointObj[endpointKey].ENDPOINT === undefined
     ) {
       handleError(`Route config missing: ${endpointUrl} + ${endpointKey}`);
     }
@@ -133,20 +133,14 @@ const endpointMiddleware = (endpointKeys, data, method) => {
     return axios
       .get(options.url, { params: requestBody.params })
       .then((res) => res)
-      .catch((err) => {
-        console.log(err);
-        // error(err);
-        return 'bad response';
-      })
+      .catch((err) => 'bad response')
       .then((response) => (response !== 'bad response' ? response : undefined));
   }
 
   return axios(options)
     .then((res) => res)
     .catch((err) => {
-      // Handle the error, warning pop-up?
-      console.log(err);
-      // error(err);
+      handleError(`${endpointUrl} failed: ${err}`);
       return 'bad response';
     })
     .then((response) => (response !== 'bad response' ? response : undefined));

@@ -90,7 +90,6 @@ export default function ProductsPage() {
         `${config.SERVER_URL}/product/list?start=${productStart}&end=${productEnd}`,
       )
       .then((results) => {
-        console.log(results.data);
         setCurrentProductsList(results.data);
       })
       .catch((err) => {

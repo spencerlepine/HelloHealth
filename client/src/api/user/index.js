@@ -19,8 +19,6 @@ export const uploadUserAccountType = (
   ).then((res) => {
     if (res) {
       callback(res.data);
-    } else {
-      console.log(res);
     }
   });
 };
@@ -58,7 +56,6 @@ export const updateAccountDetails = (
   accountObj,
   callback = () => {},
 ) => {
-  // console.log(accountObj);
   endpointMiddleware(
     ['USER', 'ACCOUNT_DETAILS'],
     {

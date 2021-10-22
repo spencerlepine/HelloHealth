@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import { Launcher } from 'react-chat-window';
 import useAuth from '../../context/AuthContext.jsx';
 import config from '../../config/config';
-// config.SERVER_URL
 
 export default function Chat() {
   const [messageList, setMessageList] = useState([]);
@@ -20,7 +19,7 @@ export default function Chat() {
     axios
       .post(`${config.SERVER_URL}/user/chat`, params)
       .then((results) => {
-        console.log(results);
+        // HERE .log(`Chat message successful: ${results}`);
       })
       .catch((err) => {
         console.error(err);

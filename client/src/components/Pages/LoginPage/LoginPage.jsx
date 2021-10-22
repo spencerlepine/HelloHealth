@@ -112,7 +112,6 @@ const LoginPage = () => {
     } else {
       signupUser(name, email, password, (user) => {
         history.push(HOME);
-        console.log(`SIGNING UP, saving ${typeSelection} for account`);
         userAPI.uploadUserAccountType(
           user.uid,
           typeSelection,

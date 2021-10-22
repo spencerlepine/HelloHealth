@@ -54,18 +54,19 @@ export default function ProductViewPage() {
     axios
       .post(`${config.SERVER_URL}/product/productRating`, params)
       .then((results) => {
-        console.log(results);
+        // HERE
       })
       .catch((err) => {
         console.error(err);
       });
   };
 
-  const renderDropdown = () => [...Array(productInventory + 1).keys()].map((i) => (
+  const renderDropdown = () =>
+    [...Array(productInventory + 1).keys()].map((i) => (
       <MenuItem key={i} value={i}>
         {i}
       </MenuItem>
-  ));
+    ));
   return (
     <Container size="md" sx={{ my: 3 }}>
       <Grid container spacing={2} sx={{ my: 3 }}>

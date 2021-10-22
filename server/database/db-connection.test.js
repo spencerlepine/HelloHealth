@@ -5,19 +5,17 @@ const config = require('../config/config');
 const { sequelize } = require('./index');
 
 describe('Database Connection', () => {
-  console.log(`Connection String: ${config.DATABASE_URL}`);
-
   it('sequelize should execute a query', (done) => {
     sequelize
       .query('SELECT NOW()')
       .then((res) => {})
       .catch((err) => err)
-      .then((middleware) => {
-        if (middleware) {
+      .then((errorOccurred) => {
+        if (errorOccurred) {
           console.log(`Connection String: ${config.DATABASE_URL}`);
         }
-        expect(middleware).not.toBeDefined();
-        return middleware;
+        expect(errorOccurred).not.toBeDefined();
+        return errorOccurred;
       })
       .then(done);
   });
@@ -39,7 +37,7 @@ describe('Database Connection', () => {
   //         })
   //         .catch(err => {
   //           client.release()
-  //           console.log(err.stack) // your callback here
+  //           expected(err).not.toBeDefined();
   //         })
   //         .then(done)
   //     })

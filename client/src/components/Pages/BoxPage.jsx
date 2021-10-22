@@ -59,7 +59,6 @@ export default function BoxPage() {
     axios(config)
       .then((response) => {
         setBoxOptions(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -78,7 +77,6 @@ export default function BoxPage() {
       .get('http://localhost:8001/boxes/getItemsList', { params })
       .then((response) => {
         setBoxSizeList(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);

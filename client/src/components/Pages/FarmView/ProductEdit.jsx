@@ -54,7 +54,6 @@ export default function ProductEdit({ product, getFarmDetail, farmId }) {
       })
       .then(() => {
         getFarmDetail(farmId);
-        console.log('updated!');
       })
       .catch((err) => console.log(err));
   };

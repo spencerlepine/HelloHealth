@@ -31,7 +31,7 @@ export default function CartPage() {
 
   const dataParsing = (data, cart) => {
     const temp = [];
-    console.log(cart);
+
     for (let i = 0; i < data.length; i += 1) {
       const item = {};
       item.productId = data[i].id;
@@ -42,7 +42,6 @@ export default function CartPage() {
       // item.productQuantity = 3;
       temp.push(item);
     }
-    console.log(temp);
     setDummyDatas(temp);
   };
 
@@ -56,7 +55,6 @@ export default function CartPage() {
           )}`,
         )
         .then((res) => {
-          console.log('data pull from database');
           dataParsing(res.data, cart);
         })
         .catch((err) => {
@@ -86,7 +84,6 @@ export default function CartPage() {
   }, [click]);
 
   const removeItem = (id) => {
-    console.log(id);
     const cart = JSON.parse(window.sessionStorage.getItem('cart'));
     delete cart[id];
     window.sessionStorage.setItem('cart', JSON.stringify(cart));
@@ -97,9 +94,9 @@ export default function CartPage() {
     let totalPrice = 0;
     let itemCount = 0;
     for (let i = 0; i < dummyDatas.length; i += 1) {
-      totalPrice
-        += dummyDatas[i].productQuantity
-        * Number(dummyDatas[i].productPrice.substring(1));
+      totalPrice +=
+        dummyDatas[i].productQuantity *
+        Number(dummyDatas[i].productPrice.substring(1));
 
       itemCount += dummyDatas[i].productQuantity;
     }
@@ -123,7 +120,8 @@ export default function CartPage() {
     );
   };
 
-  const renderItems = () => dummyDatas.map((data, index) => (
+  const renderItems = () =>
+    dummyDatas.map((data, index) => (
       <Grid
         container
         spacing={3}
@@ -163,7 +161,7 @@ export default function CartPage() {
           </Stack>
         </Grid>
       </Grid>
-  ));
+    ));
 
   const styles = {
     a: {
