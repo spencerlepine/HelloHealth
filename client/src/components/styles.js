@@ -16,6 +16,6 @@ export default makeStyles(() => ({
     },
   },
   global: {
-    backgroundcolor: '#EFEFE7',
+    backgroundColor: '#EFEFE7',
   },
 }));

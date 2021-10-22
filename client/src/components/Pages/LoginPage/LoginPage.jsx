@@ -212,7 +212,10 @@ const LoginPage = () => {
             <Grid style={{ margin: '2em' }}>
               <Button
                 size="small"
-                onClick={() => setUserType('')}
+                onClick={() => {
+                  setUserType('');
+                  localStorage.setItem('userType', '');
+                }}
                 variant="contained"
                 sx={{ mt: 3 }}
               >

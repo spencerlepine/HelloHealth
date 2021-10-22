@@ -136,6 +136,7 @@ export const AuthProvider = ({ children }) => {
   const logoutUser = (callback = () => {}) => {
     auth.signOut();
     setUserType('');
+    localStorage.setItem('userType', '');
     if (typeof callback === 'function') {
       callback();
     }

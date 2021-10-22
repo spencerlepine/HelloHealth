@@ -2,7 +2,7 @@
 
 # HelloHealth
 
-> HelloHealth is a web app that connects consumers to local farms. Browse products purchase the weekly meal-kit box.
+> HelloHealth is a web app that connects consumers to local farms. Browse products and purchase the weekly meal-kit box.
 
 ## Contributors
 
