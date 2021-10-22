@@ -57,7 +57,10 @@ module.exports = {
     }
     const { userId } = req.query;
 
-    UserModel.findOne({ id: userId })
+    UserModel.findOne(
+      // { id: userId }
+      { where: { id: userId } },
+    )
       .then((foundItem) => {
         console.log(
           '\n\nAPI saved accoutType:',
@@ -176,6 +179,20 @@ module.exports = {
       .catch((error) => {
         res.status(500).send(error.message);
       });
+  },
+  postTransaction: async (req, res) => {
+    const {
+      id, userId, cost, orderDate,
+    } = req.body;
+    try {
+      const queryString = `INSERT INTO transactions (id, customer_id, cost, order_date) VALUES ('${id}', '${userId}', '${cost}', '${orderDate}')`;
+      const result = await sequelize.query(queryString, {
+        type: QueryTypes.INSERT,
+      });
+      res.status(201).send('Success');
+    } catch (err) {
+      res.status(400).send(err);
+    }
   },
   getAllUsers: async (req, res) => {
     try {

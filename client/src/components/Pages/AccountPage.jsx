@@ -14,7 +14,7 @@ export default function AccountPage() {
     const type = userType;
 
     if (accountDetails) {
-      if (type === 'customer') {
+      if (type === 'customer' || type === 'nutritionist') {
         return <UserAccountPage />;
       }
       if (type === 'farmer') {

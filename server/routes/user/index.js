@@ -5,6 +5,7 @@ const {
   updateSubscription,
   getAllTransactions,
   getTransaction,
+  postTransaction,
   updateTransaction,
   getAllUsers,
   updateAccountDetails,
@@ -23,6 +24,7 @@ router.post('/account-details', updateAccountDetails);
 router.post('/subscription-status', updateSubscription);
 router.get('/transaction/all', getAllTransactions);
 router.get('/transaction', getTransaction);
+router.post('/transaction', postTransaction);
 router.put('/transaction', updateTransaction);
 router.get('/chat', getChat);
 router.post('/chat', postChat);

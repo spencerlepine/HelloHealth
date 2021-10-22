@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -11,18 +12,8 @@ import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
 import useAuth from '../../../context/AuthContext.jsx';
 
-const dummyAddress = {
-  first_name: 'Joe',
-  last_name: 'Smoe',
-  address: '123 Amazing Blvd',
-  city: 'Los Angeles',
-  state: 'CA',
-  zip_code: 123123,
-  email: 'joeSmoe999@gmail.com',
-  user_id: 9978978,
-};
-
 const ShippingPage = () => {
+  const { currentUser, accountDetails } = useAuth();
   const [open, setOpen] = useState(false);
   const [newAddressClicked, setNewAddressClicked] = useState(false);
   const [selectBoxDates, setSelectBoxDates] = useState([]);
@@ -31,21 +22,21 @@ const ShippingPage = () => {
   const [chosenBoxDeliveryDate, setChosenBoxDeliveryDate] = useState('');
   const [chosenProductDeliveryDate, setChosenProductDeliveryDate] = useState('');
   const [userId, setUserId] = useState('');
-  const [firstName, setFirstName] = useState(dummyAddress.first_name);
-  const [lastName, setLastName] = useState(dummyAddress.last_name);
-  const [address, setAddress] = useState(dummyAddress.address);
-  const [city, setCity] = useState(dummyAddress.city);
-  const [state, setState] = useState(dummyAddress.state);
-  const [zipcode, setZipcode] = useState(dummyAddress.zip_code);
-  const [email, setEmail] = useState(dummyAddress.email);
+  const [userInfo, setUserInfo] = useState({});
+  const [firstName, setFirstName] = useState(currentUser.displayName);
+  const [lastName, setLastName] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zipcode, setZipcode] = useState('');
+  const [email, setEmail] = useState('');
   const [deliveryInstructions, setDeliveryInstructions] = useState('N/A');
   const [noteForAllergies, setNoteForAllergies] = useState('');
   const [productsCost, setProductsCost] = useState(0);
   const [reccuringCost, setReccuringCost] = useState(0);
   const [shippingCost, setShippingCost] = useState(0);
   const [cartInfo, setCartInfo] = useState([]);
-
-  const { currentUser, accountDetails } = useAuth();
+  const [todaysDate, setTodaysDate] = useState('');
 
   const dataParsing = (data, cart) => {
     const temp = [];
@@ -91,8 +82,23 @@ const ShippingPage = () => {
     }
   };
 
+  const postTransaction = () => {
+    axios
+      .post('http://localhost:8001/user/transaction', {
+        id: Math.round(Math.random() * 888888),
+        userId,
+        cost: productsCost + reccuringCost + shippingCost,
+        orderDate: todaysDate,
+      })
+      .then((response) => {
+        console.log('Transaction Posted');
+      })
+      .catch((error) => console.error(error));
+  };
+
   const handleOpen = () => {
     setOpen(true);
+    postTransaction();
   };
 
   const renderSummary = () => {
@@ -179,6 +185,7 @@ const ShippingPage = () => {
       date.getFullYear(),
     ];
     const options = { weekday: 'long', month: 'long', day: 'numeric' };
+    setTodaysDate(date.toLocaleDateString(options));
     getExpressShipDate();
     getStandardShipDate();
   };
@@ -191,6 +198,33 @@ const ShippingPage = () => {
     } else {
       setShippingCost(0);
     }
+  };
+
+  const getUserInfo = () => {
+    console.log('currentUSER: ', currentUser);
+    console.log('USER ID: ', currentUser.uid);
+    const config = {
+      method: 'get',
+      url: `http://localhost:8001/user/account-details?userId=${currentUser.uid}`,
+      headers: {},
+    };
+
+    axios(config)
+      .then(({ data }) => {
+        console.log('AXIOS RES DATA: ', data);
+        setUserInfo(data);
+        setUserId(data.id);
+        setFirstName(data['first name']);
+        setLastName(data['last name']);
+        setAddress(data.Address);
+        setCity(data.City);
+        setState(data.State);
+        setZipcode(data['Zip Code']);
+        setEmail(data.email);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -210,6 +244,8 @@ const ShippingPage = () => {
 
   useEffect(() => {
     renderSummary();
+    getUserInfo();
+    console.log('current', currentUser);
   }, []);
 
   const NewShippingAddress = () => {
@@ -235,7 +271,7 @@ const ShippingPage = () => {
                 style={{ width: '90%' }}
                 onChange={(e) => setFirstName(e.target.value)}
                 type="text"
-                value={firstName}
+                value={firstName.split(' ')[0]}
               />
             </Grid>
             <Grid item xs={6}>
@@ -243,7 +279,7 @@ const ShippingPage = () => {
               <input
                 style={{ width: '75%' }}
                 type="text"
-                value={lastName}
+                value={lastName.split(' ')[1]}
                 onChange={(e) => setLastName(e.target.value)}
               />
             </Grid>
@@ -383,15 +419,15 @@ const ShippingPage = () => {
         <Grid item xs={12}>
           <h3 style={{ margin: '0' }}>Default Address</h3>
           <div>
-            {dummyAddress.first_name} {dummyAddress.last_name}
+            {firstName.split(' ')[0]} {lastName.split(' ')[1]}
           </div>
-          <div>Email: {dummyAddress.email}</div>
+          <div>Email: {email}</div>
           &nbsp;
           <div>
             Shipping Address: <br />
-            {dummyAddress.address} <br />
-            {dummyAddress.city}, {dummyAddress.state} &nbsp;
-            {dummyAddress.zip_code}
+            {address} <br />
+            {city}, {state} &nbsp;
+            {zipcode}
           </div>
         </Grid>
       </Grid>
