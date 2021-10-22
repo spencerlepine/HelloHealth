@@ -3,7 +3,15 @@ import { Button, Grid, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import useMainContext from '../../context/MainContext.jsx';
-import { ACCOUNT, HOME, BOX, FARMS, CART } from '../../config/pageRoutes';
+import {
+  ACCOUNT,
+  HOME,
+  BOX,
+  FARMS,
+  CART,
+  CHECKOUT,
+} from '../../config/pageRoutes';
+import ShippingPage from './ShippingPage/ShippingPage.jsx';
 
 export default function CartPage() {
   const [click, setClick] = useState(true);
@@ -197,6 +205,11 @@ export default function CartPage() {
           </Grid>
         </Grid>
         {renderItems()}
+        <Link to={CHECKOUT}>
+          <button name="checkout" onClick={handlePageChange}>
+            GO TO CHECKOUT
+          </button>
+        </Link>
       </Stack>
     </>
   );

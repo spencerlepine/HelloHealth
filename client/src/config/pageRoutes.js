@@ -7,3 +7,4 @@ export const CART = '/cart';
 export const ACCOUNT = '/account';
 export const TRANSACTION = '/transaction/:id';
 export const PRODUCT = '/product/';
+export const CHECKOUT = '/checkout';

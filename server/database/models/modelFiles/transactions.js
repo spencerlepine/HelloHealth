@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-
     order_date: {
       type: DataTypes.STRING,
       allowNull: false,

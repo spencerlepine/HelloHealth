@@ -10,6 +10,7 @@ import CartPage from './Pages/CartPage.jsx';
 import AccountPage from './Pages/AccountPage.jsx';
 import LoginPage from './Pages/LoginPage/LoginPage.jsx';
 import ProductViewPage from './Pages/ProductViewPage.jsx';
+import ShippingPage from './Pages/ShippingPage/ShippingPage.jsx';
 import Chat from './Chat/Chat.jsx';
 import useMainContext from '../context/MainContext.jsx';
 import useAuth from '../context/AuthContext.jsx';
@@ -54,6 +55,9 @@ export default function App() {
       </Route>
       <Route path={`${routeConstants.PRODUCT}`}>
         <ProductViewPage />
+      </Route>
+      <Route path={`${routeConstants.CHECKOUT}`}>
+        <ShippingPage />
       </Route>
     </Switch>
   );
