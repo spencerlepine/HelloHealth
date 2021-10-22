@@ -52,8 +52,8 @@ export default function CartPage() {
       axios
         .get(
           `${config.SERVER_URL}/product/CartInfo?cartArray=${JSON.stringify(
-            data
-          )}`
+            data,
+          )}`,
         )
         .then((res) => {
           console.log('data pull from database');
@@ -97,9 +97,9 @@ export default function CartPage() {
     let totalPrice = 0;
     let itemCount = 0;
     for (let i = 0; i < dummyDatas.length; i += 1) {
-      totalPrice +=
-        dummyDatas[i].productQuantity *
-        Number(dummyDatas[i].productPrice.substring(1));
+      totalPrice
+        += dummyDatas[i].productQuantity
+        * Number(dummyDatas[i].productPrice.substring(1));
 
       itemCount += dummyDatas[i].productQuantity;
     }
@@ -123,8 +123,7 @@ export default function CartPage() {
     );
   };
 
-  const renderItems = () =>
-    dummyDatas.map((data, index) => (
+  const renderItems = () => dummyDatas.map((data, index) => (
       <Grid
         container
         spacing={3}
@@ -164,7 +163,7 @@ export default function CartPage() {
           </Stack>
         </Grid>
       </Grid>
-    ));
+  ));
 
   const styles = {
     a: {

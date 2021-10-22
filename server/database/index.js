@@ -36,21 +36,21 @@ db.farms = require('./models/modelFiles/farms')(sequelize, Sequelize);
 db.messages = require('./models/modelFiles/messages')(sequelize, Sequelize);
 db.nutrition_facts = require('./models/modelFiles/nutrition_facts')(
   sequelize,
-  Sequelize
+  Sequelize,
 );
 db.product_category = require('./models/modelFiles/product_category')(
   sequelize,
-  Sequelize
+  Sequelize,
 );
 db.product_quantity = require('./models/modelFiles/product_quantity')(
   sequelize,
-  Sequelize
+  Sequelize,
 );
 db.products = require('./models/modelFiles/products')(sequelize, Sequelize);
 db.products_2 = require('./models/modelFiles/products_2')(sequelize, Sequelize);
 db.transactions = require('./models/modelFiles/transactions')(
   sequelize,
-  Sequelize
+  Sequelize,
 );
 
 // const modelNames = Object.keys(models);

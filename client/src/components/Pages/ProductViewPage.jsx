@@ -30,7 +30,7 @@ export default function ProductViewPage() {
   const productInventory = currentProduct.product_inventory;
   const reviewsCount = currentProduct.reviews_count;
   const [productRating, setProductRating] = useState(
-    JSON.parse(currentProduct.product_rating)
+    JSON.parse(currentProduct.product_rating),
   );
 
   const theme = useTheme();
@@ -61,12 +61,11 @@ export default function ProductViewPage() {
       });
   };
 
-  const renderDropdown = () =>
-    [...Array(productInventory + 1).keys()].map((i) => (
+  const renderDropdown = () => [...Array(productInventory + 1).keys()].map((i) => (
       <MenuItem key={i} value={i}>
         {i}
       </MenuItem>
-    ));
+  ));
   return (
     <Container size="md" sx={{ my: 3 }}>
       <Grid container spacing={2} sx={{ my: 3 }}>

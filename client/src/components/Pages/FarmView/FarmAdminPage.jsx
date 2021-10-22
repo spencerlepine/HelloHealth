@@ -47,7 +47,9 @@ export default function FarmAdminPage({ setSelected, id }) {
   const { userType, setUserType } = useMainContext();
   const classes = useStyles();
   const [info, setInfo] = useState({ products: [] });
-  const { banner, products, about, rating, name, video } = info;
+  const {
+    banner, products, about, rating, name, video,
+  } = info;
 
   const { logoutUser, currentUser } = useAuth();
 

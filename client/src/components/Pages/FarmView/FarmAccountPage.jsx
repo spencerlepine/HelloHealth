@@ -49,7 +49,9 @@ export default function FarmAccountPage({ setSelected, id }) {
   const [userType, setUserType] = useState('customer');
   const classes = useStyles();
   const [info, setInfo] = useState({ products: [] });
-  const { banner, products, about, rating, name, video } = info;
+  const {
+    banner, products, about, rating, name, video,
+  } = info;
 
   const { logoutUser, currentUser } = useAuth();
 

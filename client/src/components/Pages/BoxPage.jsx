@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -15,39 +16,130 @@ import AddToCart from './AddToCart.jsx';
 
 export default function BoxPage() {
   const [boxList, setBoxList] = useState([
-    { name: 'carrots', quantity: 5, description: 'lorum in ' },
-    { name: 'peppers', quantity: 5, description: 'lorum ipsom somethin ' },
-    { name: 'tomatoes', quantity: 5, description: 'lorum ipsom somethin ' },
-    { name: 'onions', quantity: 1, description: 'lorum ipsom somethin ' },
-    { name: 'steak', quantity: 5, description: 'lorum ipsom somethin ' },
-    { name: 'carrots', quantity: 5, description: 'lorum ipsom somethin ' },
-    { name: 'peppers', quantity: 5, description: 'lorum ipsom somethin ' },
-    { name: 'tomatoes', quantity: 5, description: 'lorum ipsom somethin ' },
-    { name: 'onions', quantity: 1, description: 'lorum ipsom somethin ' },
-    { name: 'steak', quantity: 5, description: 'lorum ipsom somethin ' },
+    {
+      name: 'carrots',
+      quantity: 5,
+      description: 'Beautiful california carrots',
+    },
+    {
+      name: 'peppers',
+      quantity: 5,
+      description: 'Grown in the heart of Silicon Valley',
+    },
+    {
+      name: 'tomatoes',
+      quantity: 5,
+      description: 'Vine ripen tomatoes fresh from the garden',
+    },
+    {
+      name: 'onions',
+      quantity: 1,
+      description: 'The sweetest onions in America.',
+    },
+    {
+      name: 'steak',
+      quantity: 5,
+      description: 'Happy Cows equals delicious meat!',
+    },
   ]);
+  const [boxOptions, setBoxOptions] = useState([]);
+  const [selectedSizePlan, setSelectedSizePlan] = useState('');
+  const [selectedProductId, setSelectedProductId] = useState('');
+  const [boxListSize, setBoxSizeList] = useState(null);
+
   const classes = useStyles();
 
-  function renderRow(props) {
-    const { index, style } = props;
+  const getBoxes = () => {
+    const config = {
+      method: 'get',
+      url: 'http://localhost:8001/boxes/getBoxes',
+      headers: {},
+    };
 
-    return (
-      <>
-        <ListItem style={style} key={index} component="div" disablePadding>
-          <ListItemButton divider={true}>
-            <ListItemText
-              primary={`${boxList[index].name}`}
-              secondary={`${boxList[index].description}`}
-            />
-            <ListItemText
-              primary={`Quantity: ${boxList[index].quantity}`}
-              align="end"
-            />
-          </ListItemButton>
-        </ListItem>
-      </>
-    );
-  }
+    axios(config)
+      .then((response) => {
+        setBoxOptions(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getBoxItems = (selectedSize) => {
+    if (selectedSize === '') {
+      setBoxSizeList(null);
+      return;
+    }
+
+    const params = { size: selectedSize };
+
+    axios
+      .get('http://localhost:8001/boxes/getItemsList', { params })
+      .then((response) => {
+        setBoxSizeList(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getBoxes();
+    getBoxItems(selectedSizePlan);
+  }, [selectedSizePlan]);
+
+  const handleSizeChange = (size) => {
+    if (size === null) {
+      setSelectedSizePlan('');
+    } else if (size === 'Small') {
+      setSelectedSizePlan(size);
+      setSelectedProductId(9999);
+    } else if (size === 'Medium') {
+      setSelectedSizePlan(size);
+      setSelectedProductId(10000);
+    } else if (size === 'Large') {
+      setSelectedSizePlan(size);
+      setSelectedProductId(10001);
+    }
+  };
+
+  // function renderRow(props) {
+  //   const { index, style } = props;
+
+  /**
+    {
+      "id": 9999,
+      "product_name": "small-box",
+      "product_description": "Offering a box of the finest beef in California.",
+      "product_cost": "$59.99",
+      "product_inventory": 99,
+      "product_image": "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/114310/new-york-strip-and-filet-mignon-prime-steak-gift-box.98e97fd3bcbdb666e0e14e2ff7978b6f.jpg?ixlib=react-9.0.2&auto=format&ar=1%3A1&w=1946",
+      "product_rating": "5",
+      "farm_id": "5",
+      "reviews_count": 100
+//   },
+//    */
+  //   return (
+  //     <>
+  //       <ListItem style={style} key={index} component="div" disablePadding>
+  //         <ListItemButton divider={true}>
+  //           { boxListSize
+  //             ? <> <ListItemText
+  //           primary={`${boxListSize[index].product_name}`}
+  //           secondary={`${boxListSize[index].product_description}`}
+  //         />
+  //         <ListItemText
+  //           primary={`Quantity: ${boxListSize[index].product_quantity}`}
+  //           align="end"
+  //         /> </> : null}
+
+  //         </ListItemButton>
+  //       </ListItem>
+  //     </>
+  //   );
+  // }
 
   return (
     <>
@@ -64,12 +156,9 @@ export default function BoxPage() {
           boxShadow: 3,
         }}
       >
-        <h1 style={{ paddingLeft: '0.65em' }}>Box Name:</h1>
+        <h1 style={{ paddingLeft: '0.65em' }}>This Week's Box</h1>
         <p style={{ paddingLeft: '1em' }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+          {boxOptions.length > 0 && boxOptions[0].product_description}
         </p>
         <List
           sx={{
@@ -88,14 +177,25 @@ export default function BoxPage() {
               {boxList.map((item, index) => (
                 <ListItem key={index} component="div" disablePadding>
                   <ListItemButton divider={true}>
-                    <ListItemText
-                      primary={`${boxList[index].name}`}
-                      secondary={`${boxList[index].description}`}
-                    />
-                    <ListItemText
-                      primary={`Quantity: ${boxList[index].quantity}`}
-                      align="end"
-                    />
+                    <Grid container alignItems="center">
+                      {boxListSize ? (
+                        <>
+                          <Grid item xs={6}>
+                            <ListItemText
+                              primary={`${boxListSize[index].product_name}`}
+                              // secondary={`${boxListSize[index].product_description}`}
+                            />
+                          </Grid>
+
+                          <Grid item xs={6}>
+                            <ListItemText
+                              primary={`Quantity: ${boxListSize[index].product_quantity}`}
+                              align="end"
+                            />
+                          </Grid>
+                        </>
+                      ) : null}
+                    </Grid>
                   </ListItemButton>
                 </ListItem>
               ))}
@@ -114,11 +214,10 @@ export default function BoxPage() {
         }}
       >
         <h1>Select a plan:</h1>
-        <MealList />
+        <MealList boxOptions={boxOptions} handleSizeChange={handleSizeChange} />
         <Grid container>
           <Grid item xs={12} align="center" paddingTop="1rem">
-            {/* need to get the product id to add to cart */}
-            <AddToCart id={1} quantity={1} />
+            <AddToCart id={selectedProductId} quantity={1} />
           </Grid>
         </Grid>
       </Box>

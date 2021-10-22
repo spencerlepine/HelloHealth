@@ -18,7 +18,9 @@ import useMainContext from '../context/MainContext.jsx';
 import useAuth from '../context/AuthContext.jsx';
 import logo from './HelloHealth.svg';
 
-import { ACCOUNT, HOME, BOX, FARMS, CART } from '../config/pageRoutes';
+import {
+  ACCOUNT, HOME, BOX, FARMS, CART,
+} from '../config/pageRoutes';
 
 function Navigation() {
   const classes = useStyles();

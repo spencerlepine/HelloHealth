@@ -146,8 +146,7 @@ module.exports = {
       .findAll({ user_id: userId })
       .then((transactions) => {
         // HERE
-        const trans =
-          transactions.length === 0 ? mockTransactions : transactions;
+        const trans = transactions.length === 0 ? mockTransactions : transactions;
         res.status(200).json(trans);
       })
       .catch((error) => {
