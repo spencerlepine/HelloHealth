@@ -16,19 +16,16 @@ const strToInt = (s) => {
   return JSON.stringify(s);
 };
 
-function updateOrCreate(model, where, newItem) {
-  // First try to find the record
-  return model.findOne({ where }).then((foundItem) => {
-    if (!foundItem) {
-      // Item not found, create a new one
-      return model.create(newItem).then((item) => ({ item, created: true }));
-    }
-    // Found an item, update it
-    return model
-      .update(newItem, { where })
-      .then((item) => ({ item, created: false }));
-  });
-}
+const updateOrCreate = (model, where, newItem) => model.findOne({ where }).then((foundItem) => {
+  if (!foundItem) {
+    // Item not found, create a new one
+    return model.create(newItem).then((item) => ({ item, created: true }));
+  }
+  // Found an item, update it
+  return model
+    .update(newItem, { where })
+    .then((item) => resolve({ item, created: false }));
+});
 
 module.exports = {
   getUserAccountType: (req, res) => {
@@ -141,8 +138,7 @@ module.exports = {
       .findAll({ user_id: userId })
       .then((transactions) => {
         // HERE
-        const trans =
-          transactions.length === 0 ? mockTransactions : transactions;
+        const trans = transactions.length === 0 ? mockTransactions : transactions;
         res.status(200).json(trans);
       })
       .catch((error) => {
@@ -165,7 +161,7 @@ module.exports = {
     const { transactionId } = req.query;
 
     database.transactions
-      .update(newItem, { id: transactionId })
+      .update(req.body, { id: transactionId })
       .then((item) => {
         res.status(201).json(item);
       })

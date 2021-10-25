@@ -1,3 +1,5 @@
+/* istanbul ignore next */
+
 const routes = {
   PRODUCTS: {
     ENDPOINT: '/products',

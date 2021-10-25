@@ -5,9 +5,8 @@ const { sequelize } = require('../../database');
 
 module.exports = {
   getProductInfo: async (req, res) => {
-    const cartArray = JSON.parse(req.query.cartArray);
-    let queryString =
-      'SELECT id, product_name, product_cost, product_image FROM products where';
+    const cartArray = JSON.parse(req.query.cartArray || '""');
+    let queryString = 'SELECT id, product_name, product_cost, product_image FROM products where';
     for (let i = 0; i < cartArray.length; i += 1) {
       queryString += ` id=${cartArray[i]} or`;
     }
@@ -59,8 +58,7 @@ module.exports = {
   // },
   addProductRating: async (req, res) => {
     const productId = req.body.id;
-    const totalAllRatings =
-      Number(req.body.product_rating) * Number(req.body.reviews_count);
+    const totalAllRatings = Number(req.body.product_rating) * Number(req.body.reviews_count);
     const newReviewsCount = Number(req.body.reviews_count) + 1;
     let { custRating } = req.body;
     custRating = Number(custRating);

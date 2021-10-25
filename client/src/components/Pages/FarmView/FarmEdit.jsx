@@ -42,17 +42,19 @@ export default function FarmEdit({ info, getFarmDetail }) {
   };
 
   const handleUpdate = (updateColumn, updateValue) => {
-    axios
-      .post(`${config.SERVER_URL}/farmers/updateFarm`, {
-        id: info.user_id,
-        updateVal: updateValue,
-        updateCol: updateColumn,
-      })
-      .then(() => {
-        getFarmDetail(info.user_id);
-        console.log('updated!');
-      })
-      .catch((err) => console.log(err));
+    if (config.NODE_ENV !== 'test') {
+      axios
+        .post(`${config.SERVER_URL}/farmers/updateFarm`, {
+          id: info.user_id,
+          updateVal: updateValue,
+          updateCol: updateColumn,
+        })
+        .then(() => {
+          getFarmDetail(info.user_id);
+          console.log('updated!');
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   useEffect(() => {
@@ -178,3 +180,7 @@ export default function FarmEdit({ info, getFarmDetail }) {
     </div>
   );
 }
+
+FarmEdit.defaultProps = {
+  info: {},
+};

@@ -4,10 +4,10 @@
   "description": "# HelloHealth",
   "main": "index.js",
   "scripts": {
-    "test": "jest --detectOpenHandles --runInBand --forceExit",
-    "test:watch": "jest --onlyChanged --watch",
+    "test": "NODE_ENV=test jest --detectOpenHandles --runInBand --forceExit",
+    "test:watch": "NODE_ENV=test jest --onlyChanged --watch",
     "test:db:connection": "jest --detectOpenHandles --runInBand --forceExit **/**/db-connection.test.js",
-    "test:branch": "jest --coverage --changedSince=main --watch --coverageThreshold='{\"global\":{\"statements\":\"60\",\"branches\":\"60\",\"functions\":\"60\",\"lines\":\"60\"}}'",
+    "test:branch": "NODE_ENV=test jest --coverage --changedSince=main --watch --coverageThreshold='{\"global\":{\"statements\":\"60\",\"branches\":\"60\",\"functions\":\"60\",\"lines\":\"60\"}}'",
     "format": "npm run pretty -- --write",
     "lint:check": "eslint --ignore-path .gitignore --ext .js --ext .jsx .",
     "pretty": "prettier --ignore-path .gitignore \"**/*.+(js|json|md)\"",

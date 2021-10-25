@@ -183,3 +183,7 @@ export default function ProductEdit({ product, getFarmDetail, farmId }) {
     </div>
   );
 }
+
+ProductEdit.defaultProps = {
+  product: {},
+};

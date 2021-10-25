@@ -55,7 +55,7 @@ function FarmCard({ farm, cardClick }) {
               sx={{ bgcolor: '#264653' }}
               aria-label="recipe"
             >
-              {farm.name[0]}
+              {(farm.name || [])[0]}
             </Avatar>
           }
           title={
@@ -114,3 +114,7 @@ function FarmCard({ farm, cardClick }) {
 }
 
 export default FarmCard;
+
+FarmCard.defaultProps = {
+  farm: {},
+};

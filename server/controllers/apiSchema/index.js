@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 const axios = require('axios');
 const endpointSchema = require('../../config/endpointSchema');
 
@@ -51,7 +52,7 @@ const endpointObjToString = (endpoints, endpointObj, tabArr, tab) => {
         outputStr += `.${tabIndent}${tab}${key}: ${objToString(
           obj,
           `${tabIndent}     .`,
-          tab
+          tab,
         )} \n`;
       }
     } else {
@@ -59,7 +60,7 @@ const endpointObjToString = (endpoints, endpointObj, tabArr, tab) => {
         [...endpoints, endpointObj[key].ENDPOINT],
         endpointObj[key],
         [...tabArr, tab],
-        tab
+        tab,
       );
     }
   });
@@ -76,7 +77,7 @@ module.exports = {
         [endpointSchema[key].ENDPOINT],
         endpointSchema[key],
         [],
-        '   .'
+        '   .',
       );
     });
 

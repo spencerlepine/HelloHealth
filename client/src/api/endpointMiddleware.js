@@ -1,9 +1,13 @@
+/* istanbul ignore next */
 import axios from 'axios';
 
 import routes from './routes';
 import config from '../config/config';
 
-const handleError = (errStr) => {
+const handleError = (errStr, errObj) => {
+  if (errObj) {
+    console.log(errObj);
+  }
   throw new Error(errStr);
 };
 
@@ -140,7 +144,7 @@ const endpointMiddleware = (endpointKeys, data, method) => {
   return axios(options)
     .then((res) => res)
     .catch((err) => {
-      handleError(`${endpointUrl} failed: ${err}`);
+      handleError(`${endpointUrl} failed: ${err}`, err);
       return 'bad response';
     })
     .then((response) => (response !== 'bad response' ? response : undefined));
